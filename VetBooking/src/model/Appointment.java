@@ -73,7 +73,27 @@ public class Appointment {
     
     
     public enum AppointmentType{
-        STANDARD, CHECKUP, PRESCRIPTION, EMERGENCY, VACCINATION, SURGERY
+        STANDARD("standard"), 
+        CHECKUP("checkup"), 
+        PRESCRIPTION("prescription"), 
+        EMERGENCY("emergency"), 
+        VACCINATION("vaccination"), 
+        SURGERY("surgery");
+        
+        private final String stringValue;
+
+        private AppointmentType(String stringValue) {
+            this.stringValue = stringValue;
+        }
+
+        @Override
+        public String toString() {
+            return stringValue;
+          
+        }
+        
+        
+        
     }
     
     public enum AppointmentFee{

@@ -5,7 +5,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +19,8 @@ public class AnimalType {
     public AnimalType() {
     }
 
-    public AnimalType(String typeName, int maxAge, ArrayList<SpecialistCategory> specialistCategories) {
+    public AnimalType(String typeName, int maxAge, 
+                      ArrayList<SpecialistCategory> specialistCategories) {
         this.typeName = typeName;
         this.maxAge = maxAge;
         this.specialistCategories = specialistCategories;
@@ -54,6 +54,22 @@ public class AnimalType {
 
 
 public enum SpecialistCategory{
-    LARGE, EXOTIC, VENOMOUS, AUQATIC
+    LARGE("large"), 
+    EXOTIC("exotic"), 
+    VENOMOUS("venomous"), 
+    AUQATIC("aquatic");
+    
+    private final String stringValue;
+    
+    SpecialistCategory(String stringValue){
+        this.stringValue = stringValue;
+    }
+
+        @Override
+        public String toString() {
+            return stringValue;
+        }
+    
+        
 }
 }

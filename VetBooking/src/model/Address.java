@@ -4,7 +4,6 @@
  */
 package model;
 
-import model.Location.LocationType;
 
 /**
  *
@@ -58,6 +57,11 @@ public class Address {
     public void setLocationType(LocationType locationType) {
         this.locationType = locationType;
     }
+
+    public enum LocationType{
+    ZOO, FARM, VET_OFFICE, DOMESTIC
+    }
+   
     
     
     

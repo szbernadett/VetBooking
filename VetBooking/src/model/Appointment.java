@@ -14,17 +14,17 @@ public class Appointment {
     
     private Date date;
     private Animal animal;
-    private Location location;
+    private Address address;
     private Vet vet;
     private AppointmentType appointmentType;
 
     public Appointment() {
     }
 
-    public Appointment(Date date, Animal animal, Location location, Vet vet, AppointmentType appointmentType) {
+    public Appointment(Date date, Animal animal, Address address, Vet vet, AppointmentType appointmentType) {
         this.date = date;
         this.animal = animal;
-        this.location = location;
+        this.address = address;
         this.vet = vet;
         this.appointmentType = appointmentType;
     }
@@ -45,14 +45,14 @@ public class Appointment {
         this.animal = animal;
     }
 
-    public Location getLocation() {
-        return location;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setAddress(Address address) {
+        this.address = address;
     }
-
+    
     public Vet getVet() {
         return vet;
     }

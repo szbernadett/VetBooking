@@ -13,7 +13,7 @@ import java.util.Date;
 public abstract class Animal {
     
     protected String identifier;
-    protected Person careTaker;
+    protected Caretaker caretaker;
     protected Address address;
     protected Date dateOfBirth;
     protected AnimalType animalType;
@@ -22,31 +22,25 @@ public abstract class Animal {
     public Animal() {
     }
 
-    public Animal(String identifier, Person careTaker, Address address, Date dateOfBirth, AnimalType animalType) {
-        
+    public Animal(String identifier, Caretaker caretaker, Address address, Date dateOfBirth, AnimalType animalType) {
         this.identifier = identifier;
-        this.careTaker = careTaker;
+        this.caretaker = caretaker;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
         this.animalType = animalType;
     }
 
+    
+
     public Person getCareTaker() {
-        return careTaker;
+        return caretaker;
     }
 
-    public void setCareTaker(Person careTaker) {
-        this.careTaker = careTaker;
+    public void setCareTaker(Caretaker careTaker) {
+        this.caretaker = careTaker;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
+   
     public Date getDateOfBirth() {
         return dateOfBirth;
     }

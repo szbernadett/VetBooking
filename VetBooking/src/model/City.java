@@ -15,7 +15,7 @@ public class City {
     public City() {
     }
 
-    public City(String name, Postcode postcode) {
+    public City(String name) {
         this.name = name;
     }
 

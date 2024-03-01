@@ -11,12 +11,14 @@ package model;
 public class Postcode {
     
     private String postcode;
+    private City city;
 
     public Postcode() {
     }
 
-    public Postcode(String postCode) {
+    public Postcode(String postCode, City city) {
         this.postcode = postCode;
+        this.city = city;
     }
 
     public String getPostCode() {
@@ -26,6 +28,16 @@ public class Postcode {
     public void setPostCode(String postCode) {
         this.postcode = postCode;
     }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+    
+    
 
     @Override
     public String toString() {

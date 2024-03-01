@@ -10,14 +10,13 @@ import java.util.Date;
  *
  * @author igbin
  */
-public class Pet extends Animal {
+public class FarmAnimal extends Animal {
 
-    public Pet() {
+    public FarmAnimal() {
     }
 
-    public Pet(String identifier, Caretaker caretaker, Address address, Date dateOfBirth, AnimalType animalType) {
+    public FarmAnimal(String identifier, Caretaker caretaker, Address address, Date dateOfBirth, AnimalType animalType) {
         super(identifier, caretaker, address, dateOfBirth, animalType);
     }
-            
     
 }

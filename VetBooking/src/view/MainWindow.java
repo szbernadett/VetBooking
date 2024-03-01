@@ -41,6 +41,7 @@ public class MainWindow extends Stage {
     protected Menu animalsMenu;
     protected MenuItem viewAndSearchMenuItem;
     protected MenuItem registerAnimalMenuItem;
+    protected MenuItem addNewTypeMenuItem;
 
     public MainWindow() {
     
@@ -63,8 +64,12 @@ public class MainWindow extends Stage {
         registerAnimalMenuItem = new MenuItem("Register New Animal");
         registerAnimalMenuItem.setOnAction(e -> new RegisterAnimalWindow(FXCollections.observableArrayList(),
         FXCollections.observableArrayList(),  FXCollections.observableArrayList()));
-        
-        animalsMenu.getItems().addAll(registerAnimalMenuItem, viewAndSearchMenuItem);
+        addNewTypeMenuItem = new MenuItem("Add New Animal Type");
+        addNewTypeMenuItem.setOnAction( e -> new AddNewAnimalTypeWindow());
+       
+        animalsMenu.getItems().addAll(registerAnimalMenuItem, 
+                                      viewAndSearchMenuItem, 
+                                      addNewTypeMenuItem);
         menuBar.getMenus().add(animalsMenu);
         tableScroll.setContent(appointmentTable);
         buttonPaneRight.getChildren().addAll(editBtn, deleteBtn, exitBtn);

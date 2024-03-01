@@ -47,6 +47,8 @@ public class AddBookingWindow extends Stage{
     protected RadioButton vaccinationRBtn;
     protected RadioButton checkupRBtn;
     protected RadioButton surgeryRBtn;
+    protected Label locationLabel;
+    protected Label locationValueLabel;
     protected Label vetLabel;
     protected ComboBox vetCBox;
     protected Label hiddenLabel;
@@ -86,7 +88,8 @@ public class AddBookingWindow extends Stage{
         apptTypeRBPane.getChildren().addAll(standardRBtn, emergencyRBtn, 
                                              prescriptionRBtn, vaccinationRBtn, 
                                              checkupRBtn, surgeryRBtn);
-        
+        locationLabel = new Label("Location:");
+        locationValueLabel = new Label("");
         vetLabel = new Label("Vet:");
         vetCBox = new ComboBox(vets);
         hiddenLabel = new Label("If no available doctors, please book on: 0161 1234 5678");
@@ -97,13 +100,15 @@ public class AddBookingWindow extends Stage{
         
         mainPane.add(animalLabel, 0, 0);
         mainPane.add(animalValueTextField, 1, 0);
-        mainPane.add(listScrollPane, 1, 1);
+        mainPane.add(listScrollPane, 1, 1, 1, 4);
         mainPane.add(appointmentTypeLabel, 2, 0);
         mainPane.add(apptTypeRBPane, 3, 0);
-        mainPane.add(vetLabel, 0, 2);
-        mainPane.add(vetCBox, 1, 2);
-        mainPane.add(dateLabel, 2, 1);
-        mainPane.add(apptDatePicker, 3, 1);
+        mainPane.add(locationLabel, 2, 1);
+        mainPane.add(locationValueLabel, 3, 1);
+        mainPane.add(vetLabel, 2, 2);
+        mainPane.add(vetCBox, 3, 2);
+        mainPane.add(dateLabel, 2, 3);
+        mainPane.add(apptDatePicker, 3, 3);
         
         buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));

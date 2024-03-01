@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -31,7 +32,7 @@ public class AddNewAnimalTypeWindow extends Stage{
     protected Label typeNameLabel;
     protected TextField typeNameValueTField;
     protected Label specialistCategoryLabel;
-    protected VBox checkboxGroupBox;
+    protected FlowPane checkboxGroup;
     protected CheckBox largeCheckBox;
     protected CheckBox venomousCheckBox;
     protected CheckBox exoticCheckBox;
@@ -50,12 +51,12 @@ public class AddNewAnimalTypeWindow extends Stage{
         typeNameLabel = new Label("Name of type:");
         typeNameValueTField = new TextField();
         specialistCategoryLabel = new Label("Specialist categories:");
-        checkboxGroupBox = new VBox();
+        checkboxGroup = new FlowPane();
         largeCheckBox = new CheckBox(SpecialistCategory.LARGE.toString());
         venomousCheckBox = new CheckBox(SpecialistCategory.VENOMOUS.toString());
         exoticCheckBox = new CheckBox(SpecialistCategory.EXOTIC.toString());
         aquaticCheckBox = new CheckBox(SpecialistCategory.AUQATIC.toString());
-        checkboxGroupBox.getChildren().addAll(largeCheckBox, venomousCheckBox, 
+        checkboxGroup.getChildren().addAll(largeCheckBox, venomousCheckBox, 
                                               exoticCheckBox, aquaticCheckBox);
         maxAgeLabel = new Label("Maximum expeted age (years):");
         maxAgeCBox = new ComboBox(FXCollections.observableArrayList());
@@ -63,7 +64,7 @@ public class AddNewAnimalTypeWindow extends Stage{
         mainPane.add(typeNameLabel, 0, 0);
         mainPane.add(typeNameValueTField, 1, 0);
         mainPane.add(specialistCategoryLabel, 0, 1);
-        mainPane.add(checkboxGroupBox, 1, 1);
+        mainPane.add(checkboxGroup, 1, 1);
         mainPane.add(maxAgeLabel, 0, 2);
         mainPane.add(maxAgeCBox, 1, 2);
         

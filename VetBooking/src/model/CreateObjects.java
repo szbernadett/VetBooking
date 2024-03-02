@@ -4,7 +4,11 @@
  */
 package model;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import model.Address.LocationType;
+import model.AnimalType.SpecialistCategory;
 
 /**
  *
@@ -35,7 +39,26 @@ public class CreateObjects {
     Address dom4 = new Address("11 Oakwood terrace", "", manc4, LocationType.DOMESTIC);
     Address dom5 = new Address("66 Elm street", "", manc5, LocationType.DOMESTIC);
     
-    
+    Administrator admin1 = new Administrator("Bernadett", "Szito", "bernadett.szito@gmail.com", "07448448612");
+    Vet vet1 = new Vet("Emily", "Sinclair", "sinclaire@mail.co.uk", "07700900123", 
+                       new HashSet<>(Arrays.asList(SpecialistCategory.EXOTIC, 
+                                                    SpecialistCategory.VENOMOUS)));
+    Vet vet2 = new Vet("James", "Fletcher", "fletcherj@mail.co.uk", "07912345678",
+                        new HashSet<>(Arrays.asList(SpecialistCategory.LARGE)));
+    Vet vet3 = new Vet("Sarah", "Patel", "spatel@mail.co.uk", "07845678901",
+                        new HashSet<>(Arrays.asList(SpecialistCategory.LARGE, 
+                                                    SpecialistCategory.AQUATIC)));
+    Vet vet4 = new Vet("Rachel", "Thompson", "rachelt@mail.com", "07555112233",
+                        new HashSet<>(Arrays.asList(SpecialistCategory.EXOTIC, 
+                                SpecialistCategory.AQUATIC)));
+    Vet vet5 = new Vet("Oliver", "Reynolds", "oreynolds@mail.com", "07665877695",
+                        new HashSet<>(Arrays.asList(SpecialistCategory.AQUATIC,
+                                SpecialistCategory.EXOTIC, SpecialistCategory.LARGE,
+                                SpecialistCategory.VENOMOUS)));
+    Vet vet6 = new Vet("Andrea", "Reynolds", "areynolds@mail.com", "07665877694",
+                        new HashSet<>(Arrays.asList(SpecialistCategory.AQUATIC,
+                                SpecialistCategory.EXOTIC, SpecialistCategory.LARGE,
+                                SpecialistCategory.VENOMOUS)));
     
     
     

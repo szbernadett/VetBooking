@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -15,23 +16,25 @@ public abstract class Animal {
     protected String identifier;
     protected Caretaker caretaker;
     protected Address address;
-    protected Date dateOfBirth;
+    protected LocalDate dateOfBirth;
     protected AnimalType animalType;
+    protected Gender gender;
     
 
     public Animal() {
     }
 
-    public Animal(String identifier, Caretaker caretaker, Address address, Date dateOfBirth, AnimalType animalType) {
+    public Animal(String identifier, Caretaker caretaker, Address address, LocalDate dateOfBirth, AnimalType animalType, Gender gender) {
         this.identifier = identifier;
         this.caretaker = caretaker;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
         this.animalType = animalType;
+        this.gender = gender;
     }
 
     
-
+    
     public Person getCareTaker() {
         return caretaker;
     }
@@ -41,11 +44,11 @@ public abstract class Animal {
     }
 
    
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -57,8 +60,32 @@ public abstract class Animal {
         this.animalType = animalType;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     
-    
-    
+     public enum Gender{
+        MALE("male"),
+        FEMALE("female"),
+        NA("n/a");
+        
+        private final String stringValue;
+        
+        private Gender(String stringValue){
+            this.stringValue = stringValue;
+        }
+
+        @Override
+        public String toString() {
+            return stringValue;
+        }
+        
+        
+    }
     
 }

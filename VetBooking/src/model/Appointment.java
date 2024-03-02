@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 public class Appointment {
     
-    private Date date;
+    private LocalDate date;
     private Animal animal;
     private Address address;
     private Vet vet;
@@ -21,7 +22,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Date date, Animal animal, Address address, Vet vet, AppointmentType appointmentType) {
+    public Appointment(LocalDate date, Animal animal, Address address, Vet vet, AppointmentType appointmentType) {
         this.date = date;
         this.animal = animal;
         this.address = address;
@@ -29,11 +30,11 @@ public class Appointment {
         this.appointmentType = appointmentType;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

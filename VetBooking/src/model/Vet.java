@@ -18,10 +18,15 @@ public class Vet extends Person{
     public Vet() {
     }
 
-    public Vet(Set<SpecialistCategory> specialistCategories, String firstName, String lastName, String email, String phoneNumber) {
+    public Vet(String firstName, String lastName, String email, String phoneNumber,
+               Set<SpecialistCategory> specialistCategories) {
+      
         super(firstName, lastName, email, phoneNumber);
+        title=Title.DR;
         this.specialistCategories = specialistCategories;
     }
+
+    
 
     public Set<SpecialistCategory> getSpecialistCategories() {
         return specialistCategories;

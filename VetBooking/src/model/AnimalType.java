@@ -5,6 +5,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -14,13 +15,13 @@ public class AnimalType {
     
     private String typeName; 
     private int maxAge;
-    private ArrayList<SpecialistCategory> specialistCategories;
+    private HashSet<SpecialistCategory> specialistCategories;
 
     public AnimalType() {
     }
 
     public AnimalType(String typeName, int maxAge, 
-                      ArrayList<SpecialistCategory> specialistCategories) {
+                      HashSet<SpecialistCategory> specialistCategories) {
         this.typeName = typeName;
         this.maxAge = maxAge;
         this.specialistCategories = specialistCategories;
@@ -42,11 +43,11 @@ public class AnimalType {
         this.maxAge = maxAge;
     }
 
-    public ArrayList<SpecialistCategory> getSpecialistCategories() {
+    public HashSet<SpecialistCategory> getSpecialistCategories() {
         return specialistCategories;
     }
 
-    public void setSpecialistCategories(ArrayList<SpecialistCategory> specialistCategories) {
+    public void setSpecialistCategories(HashSet<SpecialistCategory> specialistCategories) {
         this.specialistCategories = specialistCategories;
     }
     
@@ -57,7 +58,7 @@ public enum SpecialistCategory{
     LARGE("large"), 
     EXOTIC("exotic"), 
     VENOMOUS("venomous"), 
-    AUQATIC("aquatic");
+    AQUATIC("aquatic");
     
     private final String stringValue;
     

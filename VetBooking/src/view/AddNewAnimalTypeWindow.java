@@ -55,7 +55,7 @@ public class AddNewAnimalTypeWindow extends Stage{
         largeCheckBox = new CheckBox(SpecialistCategory.LARGE.toString());
         venomousCheckBox = new CheckBox(SpecialistCategory.VENOMOUS.toString());
         exoticCheckBox = new CheckBox(SpecialistCategory.EXOTIC.toString());
-        aquaticCheckBox = new CheckBox(SpecialistCategory.AUQATIC.toString());
+        aquaticCheckBox = new CheckBox(SpecialistCategory.AQUATIC.toString());
         checkboxGroup.getChildren().addAll(largeCheckBox, venomousCheckBox, 
                                               exoticCheckBox, aquaticCheckBox);
         maxAgeLabel = new Label("Maximum expeted age (years):");

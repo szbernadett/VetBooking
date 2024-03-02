@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import model.Appointment.AppointmentFee;
 
@@ -15,7 +16,7 @@ public class AppointmentNote {
     
     private Appointment appointment;
     private String notes;
-    private Date lastEdited;
+    private LocalDate lastEdited;
     private Person lastEditedBy;
     private AppointmentFee AppointmentFee;
     private boolean feePaid;
@@ -24,7 +25,7 @@ public class AppointmentNote {
     }
 
     public AppointmentNote(Appointment appointment, String notes, 
-                           Date lastModified, Person lastEdited, 
+                           LocalDate lastModified, Person lastEdited, 
                            AppointmentFee AppointmentFee, boolean feePaid) {
         this.appointment = appointment;
         this.notes = notes;
@@ -50,11 +51,11 @@ public class AppointmentNote {
         this.notes = notes;
     }
 
-    public Date getLastEdited() {
+    public LocalDate getLastEdited() {
         return lastEdited;
     }
 
-    public void setLastEdited(Date lastEdited) {
+    public void setLastEdited(LocalDate lastEdited) {
         this.lastEdited = lastEdited;
     }
 
@@ -87,7 +88,7 @@ public class AppointmentNote {
     public void editNotes(String notes, Person person){
         setNotes(notes);
         setLastEditedBy(person);
-        setLastEdited(new Date());
+        setLastEdited(LocalDate.now());
     }
            
     

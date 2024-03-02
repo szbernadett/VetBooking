@@ -10,6 +10,7 @@ package model;
  */
 public abstract class Person {
     
+    protected Title title;
     protected String firstName;
     protected String lastName;
     protected String email;
@@ -23,6 +24,23 @@ public abstract class Person {
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        title=Title.NONE;
+    }
+
+    public Person(Title title, String firstName, String lastName, String email, String phoneNumber) {
+        this.title = title;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public void setTitle(Title title) {
+        this.title = title;
     }
 
     public String getFirstName() {
@@ -58,4 +76,26 @@ public abstract class Person {
     }
 
     
+    public enum Title{
+        MR("Mr"),
+        MS("Ms"),
+        MRS("Mrs"),
+        MISS("Miss"),
+        DR("Dr."),
+        NONE("");
+        
+        private final String stringValue;
+        
+        private Title(String stringValue){
+            this.stringValue = stringValue;
+        }
+
+        @Override
+        public String toString() {
+            return stringValue;
+        }
+        
+        
+    }
+
 }

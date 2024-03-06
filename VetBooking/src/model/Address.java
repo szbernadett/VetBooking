@@ -4,12 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
+
 
 /**
  *
  * @author igbin
  */
-public class Address {
+public class Address implements Serializable {
     
     private String addressLine1;
     private String addressLine2;

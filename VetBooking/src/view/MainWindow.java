@@ -4,10 +4,9 @@
  */
 package view;
 
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -17,7 +16,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -61,6 +59,7 @@ public class MainWindow extends Stage {
         menuBar = new MenuBar();
         animalsMenu = new Menu("Animals");
         viewAndSearchMenuItem = new MenuItem("View and Search ");
+        viewAndSearchMenuItem.setOnAction(e -> new ViewAndSearchAnimalsWindow(new ArrayList<>()));
         registerAnimalMenuItem = new MenuItem("Register New Animal");
         registerAnimalMenuItem.setOnAction(e -> new RegisterAnimalWindow(FXCollections.observableArrayList(),
         FXCollections.observableArrayList(),  FXCollections.observableArrayList()));

@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -11,7 +12,7 @@ import java.util.HashSet;
  *
  * @author igbin
  */
-public class AnimalType {
+public class AnimalType implements Serializable {
     
     private String typeName; 
     private int maxAge;

@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author igbin
  */
-public abstract class Person {
+public abstract class Person implements Serializable {
     
     protected Title title;
     protected String firstName;

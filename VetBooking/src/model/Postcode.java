@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author igbin
  */
-public class Postcode {
+public class Postcode implements Serializable {
     
     private String postcode;
     private City city;

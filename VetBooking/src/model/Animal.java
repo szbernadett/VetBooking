@@ -4,14 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  *
  * @author igbin
  */
-public abstract class Animal {
+public abstract class Animal implements Serializable {
     
     protected String identifier;
     protected Caretaker caretaker;

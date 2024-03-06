@@ -20,6 +20,4 @@ public class ZooAnimal extends Animal {
         super(identifier, caretaker, address, dateOfBirth, animalType, gender);
     }
 
-    
-    
 }

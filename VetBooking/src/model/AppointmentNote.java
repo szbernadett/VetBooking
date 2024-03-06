@@ -4,15 +4,15 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import model.Appointment.AppointmentFee;
 
 /**
  *
  * @author igbin
  */
-public class AppointmentNote {
+public class AppointmentNote implements Serializable {
     
     private Appointment appointment;
     private String notes;

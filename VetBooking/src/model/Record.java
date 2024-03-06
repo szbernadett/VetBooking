@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  *
  * @author igbin
  */
-public class Record {
+public class Record implements Serializable {
     
     private Date dateRegistered;
     private Animal animal;

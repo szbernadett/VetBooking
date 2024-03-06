@@ -4,10 +4,13 @@
  */
 package model;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 import model.Address.LocationType;
+import model.Animal.Gender;
 import model.AnimalType.SpecialistCategory;
 
 /**
@@ -15,6 +18,8 @@ import model.AnimalType.SpecialistCategory;
  * @author igbin
  */
 public class CreateObjects {
+    
+    public static void main(String[] args){
     
     City manchester = new City("Manchester");
     City oldham = new City("Oldham");
@@ -61,5 +66,92 @@ public class CreateObjects {
                                 SpecialistCategory.VENOMOUS)));
     
     
+    Caretaker care1 = new Caretaker("Amrit", "Kour", "amritk@mail.com", "07983654321");
+    Caretaker care2 = new Caretaker("Amira", "Basa", "pinkprincess@mail.com", "07880654321");
+    Caretaker care3 = new Caretaker("Destiny", "Osadiaye", "destiny@mail.com", "07999554321");
+    Caretaker care4 = new Caretaker("Joseph", "Igbinoba", "ninobrown@mail.com", "07112265667");
+    Caretaker care5 = new Caretaker("Arthur", "Singh", "kingarthur@mail.com", "07665565222");
+    Caretaker care6 = new Caretaker("Samira", "Basa", "samirab@mail.com", "07112332114");
+    Caretaker care7 = new Caretaker("Alan", "Basa", "alanb@mail.com", "07553552188");
     
+    AnimalType cat = new AnimalType("cat", 12, new HashSet<>());
+    AnimalType tarantula = new AnimalType("tarantula", 5, new HashSet<>(
+                                            Arrays.asList(SpecialistCategory.EXOTIC, 
+                                                          SpecialistCategory.VENOMOUS)));
+    AnimalType lion  = new AnimalType("lion", 25, new HashSet(Arrays.asList(
+                                                              SpecialistCategory.LARGE)));
+    AnimalType seal = new AnimalType("seal", 20, new HashSet(Arrays.asList(
+                                                             SpecialistCategory.LARGE,
+                                                             SpecialistCategory.AQUATIC)));
+    AnimalType duck = new AnimalType("duck", 5, new HashSet<>());
+    AnimalType sheep = new AnimalType("sheep", 10, new HashSet<>(Arrays.asList(
+                                                                 SpecialistCategory.LARGE)));
+    AnimalType goldfish = new AnimalType("goldfish", 1, new HashSet<>(Arrays.asList(
+                                                                       SpecialistCategory.AQUATIC)));
+    AnimalType python = new AnimalType("python", 5, new HashSet<>(Arrays.asList(
+                                                                 SpecialistCategory.EXOTIC)));
+    AnimalType elephant = new AnimalType("elephant", 30, new HashSet<>(Arrays.asList(
+    SpecialistCategory.EXOTIC, SpecialistCategory.LARGE)));
+    
+    AnimalType chimpanzee = new AnimalType("chimpanzee", 20, new HashSet<>(Arrays.asList(
+                                                                           SpecialistCategory.EXOTIC)));
+    AnimalType horse = new AnimalType("horse", 15, new HashSet<>(Arrays.asList(SpecialistCategory.LARGE)));
+    
+    Pet pet1 = new Pet("Zuzu", care2, dom1, LocalDate.of(2023,1,1), cat, Gender.MALE);
+    Pet pet2 = new Pet("Jerry", care6, dom2, LocalDate.of(2023,1,1), tarantula, Gender.NA);
+    Pet pet3 = new Pet("Goldie", care7, dom3, LocalDate.of(2024,1,1), goldfish, Gender.NA);
+    FarmAnimal fan1 = new FarmAnimal("112233", care4, farm1, LocalDate.of(2022,1,1), duck, Gender.FEMALE);
+    FarmAnimal fan2 = new FarmAnimal("Dolly", care5, farm2, LocalDate.of(2020,5,8), horse, Gender.FEMALE);
+    FarmAnimal fan3 = new FarmAnimal("34567", care5, farm2, LocalDate.of(2023,1,1), sheep, Gender.MALE);
+    ZooAnimal zan1 = new ZooAnimal("Bubbles", care1, manczoo, LocalDate.of(2015,10,22), elephant, Gender.MALE);
+    ZooAnimal zan2 = new ZooAnimal("Simba", care3, manczoo, LocalDate.of(2021,4,21), lion, Gender.MALE);
+    ZooAnimal zan3 = new ZooAnimal("Monty", care1, manczoo, LocalDate.of(2023,1,1), python, Gender.NA);
+    ZooAnimal zan4 = new ZooAnimal("Coco", care3, manczoo, LocalDate.of(2024,2,15), chimpanzee, Gender.MALE);
+    ZooAnimal zan5 = new ZooAnimal("Sammy", care3, manczoo, LocalDate.of(2019,11,2), seal, Gender.FEMALE);
+    
+    
+    ArrayList<Animal> store = new ArrayList<>();
+    store.add(pet1);
+    store.add(pet2);
+    store.add(pet3);
+    store.add(fan1);
+    store.add(fan2);
+    store.add(fan3);
+    store.add(zan1);
+    store.add(zan2);
+    store.add(zan3);
+    store.add(zan4);
+    store.add(zan5);
+    
+    ArrayList<Vet> vets = new ArrayList<>();
+    vets.add(vet1);
+    vets.add(vet2);
+    vets.add(vet3);
+    vets.add(vet4);
+    vets.add(vet5);
+    vets.add(vet6);
+    
+    ArrayList<Caretaker> caretakers = new ArrayList<>();
+    caretakers.add(care1);
+    caretakers.add(care2);
+    caretakers.add(care3);
+    caretakers.add(care4);
+    caretakers.add(care5);
+    caretakers.add(care6);
+    caretakers.add(care7);
+    
+    ArrayList<Address> addresses = new ArrayList<>();
+    addresses.add(farm1);
+    addresses.add(farm2);
+    addresses.add(manczoo);
+    addresses.add(dom1);
+    addresses.add(dom2);
+    addresses.add(dom3);
+    addresses.add(dom4);
+    addresses.add(dom5);
+    
+    
+    
+    
+    }
 }

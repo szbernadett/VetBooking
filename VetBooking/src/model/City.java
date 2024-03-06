@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author igbin
  */
-public class City {
+public class City implements Serializable {
     
     private String name;
 

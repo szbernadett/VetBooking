@@ -4,14 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  *
  * @author igbin
  */
-public class Appointment {
+public class Appointment implements Serializable {
     
     private LocalDate date;
     private Animal animal;

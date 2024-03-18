@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import java.util.Date;
  */
 public class Record implements Serializable {
     
-    private Date dateRegistered;
+    private LocalDate dateRegistered;
     private Animal animal;
     private String medicalHistory;
     private ArrayList<AppointmentNote> appointmentNotes;
@@ -22,7 +23,7 @@ public class Record implements Serializable {
     public Record() {
     }
 
-    public Record(Date dateRegistered, Animal animal, String medicalHistory, 
+    public Record(LocalDate dateRegistered, Animal animal, String medicalHistory, 
                   ArrayList<AppointmentNote> appointmentNotes) {
         this.dateRegistered = dateRegistered;
         this.animal = animal;
@@ -30,11 +31,11 @@ public class Record implements Serializable {
         this.appointmentNotes = appointmentNotes;
     }
 
-    public Date getDateRegistered() {
+    public LocalDate getDateRegistered() {
         return dateRegistered;
     }
 
-    public void setDateRegistered(Date dateRegistered) {
+    public void setDateRegistered(LocalDate dateRegistered) {
         this.dateRegistered = dateRegistered;
     }
 

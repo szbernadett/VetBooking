@@ -5,10 +5,10 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import model.Address.LocationType;
 import model.Animal.Gender;
 import model.AnimalType.SpecialistCategory;
@@ -109,8 +109,20 @@ public class CreateObjects {
     ZooAnimal zan4 = new ZooAnimal("Coco", care3, manczoo, LocalDate.of(2024,2,15), chimpanzee, Gender.MALE);
     ZooAnimal zan5 = new ZooAnimal("Sammy", care3, manczoo, LocalDate.of(2019,11,2), seal, Gender.FEMALE);
     
+    Record rec1 = new Record(LocalDate.of(2024,3,15), pet1, "", new ArrayList<>());
+    Record rec2 = new Record(LocalDate.of(2024,3,15), pet2, "", new ArrayList<>());
+    Record rec3 = new Record(LocalDate.of(2024,3,18), pet3, "", new ArrayList<>());
+    Record rec4 = new Record(LocalDate.of(2024,3,18), fan1, "", new ArrayList<>());
+    Record rec5 = new Record(LocalDate.of(2024,3,19), fan2, "", new ArrayList<>());
+    Record rec6 = new Record(LocalDate.of(2024,3,19), fan3, "", new ArrayList<>());
+    Record rec7 = new Record(LocalDate.of(2024,3,20), zan1, "", new ArrayList<>());
+    Record rec8 = new Record(LocalDate.of(2024,3,20), zan2, "", new ArrayList<>());
+    Record rec9 = new Record(LocalDate.of(2024,3,21), zan3, "", new ArrayList<>());
+    Record rec10 = new Record(LocalDate.of(2024,3,21), zan4, "", new ArrayList<>());
+    Record rec11 = new Record(LocalDate.of(2024,3,21), zan5, "", new ArrayList<>());
+
     
-    ArrayList<Animal> store = new ArrayList<>();
+    List<Animal> store = new ArrayList<>();
     store.add(pet1);
     store.add(pet2);
     store.add(pet3);
@@ -123,7 +135,36 @@ public class CreateObjects {
     store.add(zan4);
     store.add(zan5);
     
-    ArrayList<Vet> vets = new ArrayList<>();
+    List<AnimalType> animalTypes = new ArrayList<>();
+    animalTypes.add(duck);
+    animalTypes.add(lion);
+    animalTypes.add(python);
+    animalTypes.add(cat);
+    animalTypes.add(seal);
+    animalTypes.add(sheep);    
+    animalTypes.add(goldfish);
+    animalTypes.add(elephant);
+    animalTypes.add(chimpanzee);
+    animalTypes.add(horse);
+    animalTypes.add(tarantula);
+    
+    List<Record> records = new ArrayList<>();
+    records.add(rec1);
+    records.add(rec2);
+    records.add(rec3);
+    records.add(rec4);
+    records.add(rec5);
+    records.add(rec6);
+    records.add(rec7);
+    records.add(rec8);
+    records.add(rec9);
+    records.add(rec10);
+    records.add(rec11);
+
+    List<Administrator> administrators = new ArrayList<>();
+    administrators.add(admin1);
+    
+    List<Vet> vets = new ArrayList<>();
     vets.add(vet1);
     vets.add(vet2);
     vets.add(vet3);
@@ -131,7 +172,7 @@ public class CreateObjects {
     vets.add(vet5);
     vets.add(vet6);
     
-    ArrayList<Caretaker> caretakers = new ArrayList<>();
+    List<Caretaker> caretakers = new ArrayList<>();
     caretakers.add(care1);
     caretakers.add(care2);
     caretakers.add(care3);
@@ -140,7 +181,7 @@ public class CreateObjects {
     caretakers.add(care6);
     caretakers.add(care7);
     
-    ArrayList<Address> addresses = new ArrayList<>();
+    List<Address> addresses = new ArrayList<>();
     addresses.add(farm1);
     addresses.add(farm2);
     addresses.add(manczoo);
@@ -149,6 +190,8 @@ public class CreateObjects {
     addresses.add(dom3);
     addresses.add(dom4);
     addresses.add(dom5);
+    
+    List<Appointment> appointments = new ArrayList<>();
     
     
     

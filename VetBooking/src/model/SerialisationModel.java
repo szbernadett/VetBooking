@@ -31,34 +31,28 @@ public class SerialisationModel implements IModel {
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(objects);
             oos.flush();
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
+        } 
     }
 
     @Override
     public List<Animal> getAllAnimals() throws ClassNotFoundException, IOException {
-        List<Animal> animals = new ArrayList<>();
+        List<Animal> animals;
         String fileName = FileName.classToFileName(Animal.class);
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             animals = (ArrayList<Animal>) ois.readObject();
-        } catch (ClassNotFoundException | IOException ex) {
-            System.out.println(ex);
-        }
+        } 
 
         return animals;
     }
 
     @Override
     public List<Record> getAllRecords() throws ClassNotFoundException, IOException {
-        List<Record> records = new ArrayList<>();
+        List<Record> records;
         String fileName = FileName.classToFileName(Record.class);
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             records = (ArrayList<Record>) ois.readObject();
-        } catch (ClassNotFoundException | IOException ex) {
-            System.out.println(ex);
         }
 
         return records;
@@ -66,14 +60,12 @@ public class SerialisationModel implements IModel {
 
     @Override
     public List<Caretaker> getAllCaretakers() throws ClassNotFoundException, IOException {
-        List<Caretaker> caretakers = new ArrayList<>();
+        List<Caretaker> caretakers;
         String fileName = FileName.classToFileName(Caretaker.class);
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             caretakers = (ArrayList<Caretaker>) ois.readObject();
-        } catch (ClassNotFoundException | IOException ex) {
-            System.out.println(ex);
-        }
+        } 
 
         return caretakers;
     }
@@ -94,13 +86,11 @@ public class SerialisationModel implements IModel {
 
     @Override
     public List<Administrator> getAllAdministrators() throws ClassNotFoundException, IOException {
-        List<Administrator> administrators = new ArrayList<>();
+        List<Administrator> administrators;
         String fileName = FileName.classToFileName(Administrator.class);
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             administrators = (ArrayList<Administrator>) ois.readObject();
-        } catch (ClassNotFoundException | IOException ex) {
-            System.out.println(ex);
         }
 
         return administrators;
@@ -108,13 +98,11 @@ public class SerialisationModel implements IModel {
 
     @Override
     public List<Address> getAllAddresses() throws ClassNotFoundException, IOException {
-        List<Address> addresses = new ArrayList<>();
+        List<Address> addresses;
         String fileName = FileName.classToFileName(Address.class);
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             addresses = (ArrayList<Address>) ois.readObject();
-        } catch (ClassNotFoundException | IOException ex) {
-            System.out.println(ex);
         }
 
         return addresses;
@@ -122,13 +110,11 @@ public class SerialisationModel implements IModel {
 
     @Override
     public List<AnimalType> getAllAnimalTypes() throws ClassNotFoundException, IOException {
-        List<AnimalType> animalTypes = new ArrayList<>();
+        List<AnimalType> animalTypes;
         String fileName = FileName.classToFileName(AnimalType.class);
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             animalTypes = (ArrayList<AnimalType>) ois.readObject();
-        } catch (ClassNotFoundException | IOException ex) {
-            System.out.println(ex);
         }
 
         return animalTypes;
@@ -136,14 +122,12 @@ public class SerialisationModel implements IModel {
 
     @Override
     public List<Appointment> getAllAppointments() throws ClassNotFoundException, IOException {
-        List<Appointment> appointments = new ArrayList<>();
+        List<Appointment> appointments;
         String fileName = FileName.classToFileName(Appointment.class);
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             appointments = (ArrayList<Appointment>) ois.readObject();
-        } catch (ClassNotFoundException | IOException ex) {
-            System.out.println(ex);
-        }
+        } 
 
         return appointments;
     }

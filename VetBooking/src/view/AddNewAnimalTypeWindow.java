@@ -25,27 +25,27 @@ import model.AnimalType.SpecialistCategory;
  */
 public class AddNewAnimalTypeWindow extends Stage{
     
-    protected BorderPane root;
-    protected Scene scene;
-    protected GridPane mainPane;
-    protected Label typeNameLabel;
-    protected TextField typeNameValueTField;
-    protected Label specialistCategoryLabel;
-    protected FlowPane checkboxGroup;
-    protected CheckBox largeCheckBox;
-    protected CheckBox venomousCheckBox;
-    protected CheckBox exoticCheckBox;
-    protected CheckBox aquaticCheckBox;
-    protected Label maxAgeLabel;
-    protected ComboBox maxAgeCBox;
-    protected ButtonBar buttonBar;
-    protected Button clearAllBtn;
-    protected Button cancelBtn;
-    protected Button saveBtn;
+    private BorderPane root;
+    private Scene mainScene;
+    private GridPane mainPane;
+    private Label typeNameLabel;
+    private TextField typeNameValueTField;
+    private Label specialistCategoryLabel;
+    private FlowPane checkboxGroup;
+    private CheckBox largeCheckBox;
+    private CheckBox venomousCheckBox;
+    private CheckBox exoticCheckBox;
+    private CheckBox aquaticCheckBox;
+    private Label maxAgeLabel;
+    private ComboBox maxAgeCBox;
+    private ButtonBar buttonBar;
+    private Button clearAllBtn;
+    private Button cancelBtn;
+    private Button saveBtn;
 
     public AddNewAnimalTypeWindow() {
         root = new BorderPane();
-        scene = new Scene(root);
+        mainScene = new Scene(root);
         mainPane = new GridPane();
         typeNameLabel = new Label("Name of type:");
         typeNameValueTField = new TextField();
@@ -78,14 +78,147 @@ public class AddNewAnimalTypeWindow extends Stage{
         root.setBottom(buttonBar);
         
         setTitle("Add New Animal Type");
-        setScene(scene);
+        setScene(mainScene);
         
         show();
         
-        
-        
-        
-        
+ 
+    }
+
+    public BorderPane getRoot() {
+        return root;
+    }
+
+    public void setRoot(BorderPane root) {
+        this.root = root;
+    }
+
+    public Scene getMainScene() {
+        return mainScene;
+    }
+
+    public void setMainScene(Scene mainScene) {
+        this.mainScene = mainScene;
+    }
+
+    public GridPane getMainPane() {
+        return mainPane;
+    }
+
+    public void setMainPane(GridPane mainPane) {
+        this.mainPane = mainPane;
+    }
+
+    public Label getTypeNameLabel() {
+        return typeNameLabel;
+    }
+
+    public void setTypeNameLabel(Label typeNameLabel) {
+        this.typeNameLabel = typeNameLabel;
+    }
+
+    public TextField getTypeNameValueTField() {
+        return typeNameValueTField;
+    }
+
+    public void setTypeNameValueTField(TextField typeNameValueTField) {
+        this.typeNameValueTField = typeNameValueTField;
+    }
+
+    public Label getSpecialistCategoryLabel() {
+        return specialistCategoryLabel;
+    }
+
+    public void setSpecialistCategoryLabel(Label specialistCategoryLabel) {
+        this.specialistCategoryLabel = specialistCategoryLabel;
+    }
+
+    public FlowPane getCheckboxGroup() {
+        return checkboxGroup;
+    }
+
+    public void setCheckboxGroup(FlowPane checkboxGroup) {
+        this.checkboxGroup = checkboxGroup;
+    }
+
+    public CheckBox getLargeCheckBox() {
+        return largeCheckBox;
+    }
+
+    public void setLargeCheckBox(CheckBox largeCheckBox) {
+        this.largeCheckBox = largeCheckBox;
+    }
+
+    public CheckBox getVenomousCheckBox() {
+        return venomousCheckBox;
+    }
+
+    public void setVenomousCheckBox(CheckBox venomousCheckBox) {
+        this.venomousCheckBox = venomousCheckBox;
+    }
+
+    public CheckBox getExoticCheckBox() {
+        return exoticCheckBox;
+    }
+
+    public void setExoticCheckBox(CheckBox exoticCheckBox) {
+        this.exoticCheckBox = exoticCheckBox;
+    }
+
+    public CheckBox getAquaticCheckBox() {
+        return aquaticCheckBox;
+    }
+
+    public void setAquaticCheckBox(CheckBox aquaticCheckBox) {
+        this.aquaticCheckBox = aquaticCheckBox;
+    }
+
+    public Label getMaxAgeLabel() {
+        return maxAgeLabel;
+    }
+
+    public void setMaxAgeLabel(Label maxAgeLabel) {
+        this.maxAgeLabel = maxAgeLabel;
+    }
+
+    public ComboBox getMaxAgeCBox() {
+        return maxAgeCBox;
+    }
+
+    public void setMaxAgeCBox(ComboBox maxAgeCBox) {
+        this.maxAgeCBox = maxAgeCBox;
+    }
+
+    public ButtonBar getButtonBar() {
+        return buttonBar;
+    }
+
+    public void setButtonBar(ButtonBar buttonBar) {
+        this.buttonBar = buttonBar;
+    }
+
+    public Button getClearAllBtn() {
+        return clearAllBtn;
+    }
+
+    public void setClearAllBtn(Button clearAllBtn) {
+        this.clearAllBtn = clearAllBtn;
+    }
+
+    public Button getCancelBtn() {
+        return cancelBtn;
+    }
+
+    public void setCancelBtn(Button cancelBtn) {
+        this.cancelBtn = cancelBtn;
+    }
+
+    public Button getSaveBtn() {
+        return saveBtn;
+    }
+
+    public void setSaveBtn(Button saveBtn) {
+        this.saveBtn = saveBtn;
     }
     
     

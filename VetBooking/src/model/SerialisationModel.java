@@ -4,10 +4,13 @@
  */
 package model;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +25,9 @@ public class SerialisationModel implements IModel {
     public void save(ObjectOutputStream out, List<Serializable> objects) throws IOException {
         Object o = objects.get(0);
         Class clazz = o.getClass();
-        String fileName = FileName.classToFileName().get(clazz).toString(); // or .getStringValue()
+        String fileName = FileName.classToFileName(clazz); // or .getStringValue()
         FileOutputStream fos = new FileOutputStream(fileName);
-        
+
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(objects);
             oos.flush();
@@ -35,42 +38,114 @@ public class SerialisationModel implements IModel {
 
     @Override
     public List<Animal> getAllAnimals() throws ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Animal> animals = new ArrayList<>();
+        String fileName = FileName.classToFileName(Animal.class);
+        FileInputStream fis = new FileInputStream(fileName);
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            animals = (ArrayList<Animal>) ois.readObject();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println(ex);
+        }
+
+        return animals;
     }
 
     @Override
     public List<Record> getAllRecords() throws ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Record> records = new ArrayList<>();
+        String fileName = FileName.classToFileName(Record.class);
+        FileInputStream fis = new FileInputStream(fileName);
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            records = (ArrayList<Record>) ois.readObject();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println(ex);
+        }
+
+        return records;
     }
 
     @Override
     public List<Caretaker> getAllCaretakers() throws ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Caretaker> caretakers = new ArrayList<>();
+        String fileName = FileName.classToFileName(Caretaker.class);
+        FileInputStream fis = new FileInputStream(fileName);
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            caretakers = (ArrayList<Caretaker>) ois.readObject();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println(ex);
+        }
+
+        return caretakers;
     }
 
     @Override
     public List<Vet> getAllVets() throws ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Vet> vets = new ArrayList<>();
+        String fileName = FileName.classToFileName(Vet.class);
+        FileInputStream fis = new FileInputStream(fileName);
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            vets = (ArrayList<Vet>) ois.readObject();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println(ex);
+        }
+
+        return vets;
     }
 
     @Override
     public List<Administrator> getAllAdministrators() throws ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Administrator> administrators = new ArrayList<>();
+        String fileName = FileName.classToFileName(Administrator.class);
+        FileInputStream fis = new FileInputStream(fileName);
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            administrators = (ArrayList<Administrator>) ois.readObject();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println(ex);
+        }
+
+        return administrators;
     }
 
     @Override
     public List<Address> getAllAddresses() throws ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Address> addresses = new ArrayList<>();
+        String fileName = FileName.classToFileName(Address.class);
+        FileInputStream fis = new FileInputStream(fileName);
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            addresses = (ArrayList<Address>) ois.readObject();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println(ex);
+        }
+
+        return addresses;
     }
 
     @Override
     public List<AnimalType> getAllAnimalTypes() throws ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<AnimalType> animalTypes = new ArrayList<>();
+        String fileName = FileName.classToFileName(AnimalType.class);
+        FileInputStream fis = new FileInputStream(fileName);
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            animalTypes = (ArrayList<AnimalType>) ois.readObject();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println(ex);
+        }
+
+        return animalTypes;
     }
 
     @Override
     public List<Appointment> getAllAppointments() throws ClassNotFoundException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Appointment> appointments = new ArrayList<>();
+        String fileName = FileName.classToFileName(Appointment.class);
+        FileInputStream fis = new FileInputStream(fileName);
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            appointments = (ArrayList<Appointment>) ois.readObject();
+        } catch (ClassNotFoundException | IOException ex) {
+            System.out.println(ex);
+        }
+
+        return appointments;
     }
 
     enum FileName {
@@ -84,7 +159,7 @@ public class SerialisationModel implements IModel {
         RECORD("records.ser");
 
         private final String stringValue;
-        private static Map<Class, FileName> classToFileName;
+        private static Map<Class, FileName> classToFileNameMap;
 
         private FileName(String stringValue) {
             this.stringValue = stringValue;
@@ -93,7 +168,7 @@ public class SerialisationModel implements IModel {
         }
 
         private void createMap() {
-            classToFileName = new HashMap<>(Map.ofEntries(
+            classToFileNameMap = new HashMap<>(Map.ofEntries(
                     Map.entry(Animal.class, ANIMAL),
                     Map.entry(AnimalType.class, ANIMAL_TYPE),
                     Map.entry(Vet.class, VET),
@@ -105,8 +180,10 @@ public class SerialisationModel implements IModel {
             ));
         }
 
-        public static Map<Class, FileName> classToFileName() {
-            return classToFileName;
+        public static String classToFileName(Class clazz) {
+            String fileName = classToFileNameMap.get(clazz).getStringValue();
+
+            return fileName;
         }
 
         public String getStringValue() {

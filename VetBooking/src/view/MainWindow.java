@@ -25,27 +25,27 @@ import javafx.stage.Stage;
  */
 public class MainWindow extends Stage {
     
-    protected BorderPane root;
-    protected VBox buttonPaneRight;
-    protected Scene scene;
-    protected ScrollPane tableScroll;
-    protected TableView appointmentTable;
-    protected Button editBtn;
-    protected Button deleteBtn;
-    protected ButtonBar buttonBar;
-    protected Button bookBtn;
-    protected Button exitBtn;
-    protected MenuBar menuBar;
-    protected Menu animalsMenu;
-    protected MenuItem viewAndSearchMenuItem;
-    protected MenuItem registerAnimalMenuItem;
-    protected MenuItem addNewTypeMenuItem;
+    private BorderPane root;
+    private VBox buttonPaneRight;
+    private Scene mainScene;
+    private ScrollPane tableScroll;
+    private TableView appointmentTable;
+    private Button editBtn;
+    private Button deleteBtn;
+    private ButtonBar buttonBar;
+    private Button bookBtn;
+    private Button exitBtn;
+    private MenuBar menuBar;
+    private Menu animalsMenu;
+    private MenuItem viewAndSearchMenuItem;
+    private MenuItem registerAnimalMenuItem;
+    private MenuItem addNewTypeMenuItem;
 
     public MainWindow() {
     
         root = new BorderPane();
         buttonPaneRight = new VBox();
-        scene = new Scene(root);
+        mainScene = new Scene(root);
         tableScroll = new ScrollPane();
         appointmentTable = new TableView();
         editBtn = new Button("Edit");
@@ -82,7 +82,127 @@ public class MainWindow extends Stage {
         root.setBottom(buttonBar);
         
         setTitle("Main Window");
-        setScene(scene);
+        setScene(mainScene);
+    }
+
+    public BorderPane getRoot() {
+        return root;
+    }
+
+    public void setRoot(BorderPane root) {
+        this.root = root;
+    }
+
+    public VBox getButtonPaneRight() {
+        return buttonPaneRight;
+    }
+
+    public void setButtonPaneRight(VBox buttonPaneRight) {
+        this.buttonPaneRight = buttonPaneRight;
+    }
+
+    public Scene getMainScene() {
+        return mainScene;
+    }
+
+    public void setMainScene(Scene mainScene) {
+        this.mainScene = mainScene;
+    }
+
+    public ScrollPane getTableScroll() {
+        return tableScroll;
+    }
+
+    public void setTableScroll(ScrollPane tableScroll) {
+        this.tableScroll = tableScroll;
+    }
+
+    public TableView getAppointmentTable() {
+        return appointmentTable;
+    }
+
+    public void setAppointmentTable(TableView appointmentTable) {
+        this.appointmentTable = appointmentTable;
+    }
+
+    public Button getEditBtn() {
+        return editBtn;
+    }
+
+    public void setEditBtn(Button editBtn) {
+        this.editBtn = editBtn;
+    }
+
+    public Button getDeleteBtn() {
+        return deleteBtn;
+    }
+
+    public void setDeleteBtn(Button deleteBtn) {
+        this.deleteBtn = deleteBtn;
+    }
+
+    public ButtonBar getButtonBar() {
+        return buttonBar;
+    }
+
+    public void setButtonBar(ButtonBar buttonBar) {
+        this.buttonBar = buttonBar;
+    }
+
+    public Button getBookBtn() {
+        return bookBtn;
+    }
+
+    public void setBookBtn(Button bookBtn) {
+        this.bookBtn = bookBtn;
+    }
+
+    public Button getExitBtn() {
+        return exitBtn;
+    }
+
+    public void setExitBtn(Button exitBtn) {
+        this.exitBtn = exitBtn;
+    }
+
+    public MenuBar getMenuBar() {
+        return menuBar;
+    }
+
+    public void setMenuBar(MenuBar menuBar) {
+        this.menuBar = menuBar;
+    }
+
+    public Menu getAnimalsMenu() {
+        return animalsMenu;
+    }
+
+    public void setAnimalsMenu(Menu animalsMenu) {
+        this.animalsMenu = animalsMenu;
+    }
+
+    public MenuItem getViewAndSearchMenuItem() {
+        return viewAndSearchMenuItem;
+    }
+
+    public void setViewAndSearchMenuItem(MenuItem viewAndSearchMenuItem) {
+        this.viewAndSearchMenuItem = viewAndSearchMenuItem;
+    }
+
+    public MenuItem getRegisterAnimalMenuItem() {
+        return registerAnimalMenuItem;
+    }
+
+    public void setRegisterAnimalMenuItem(MenuItem registerAnimalMenuItem) {
+        this.registerAnimalMenuItem = registerAnimalMenuItem;
+    }
+
+    public MenuItem getAddNewTypeMenuItem() {
+        return addNewTypeMenuItem;
+    }
+
+    public void setAddNewTypeMenuItem(MenuItem addNewTypeMenuItem) {
+        this.addNewTypeMenuItem = addNewTypeMenuItem;
     }
     
     

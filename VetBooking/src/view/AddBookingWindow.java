@@ -31,37 +31,37 @@ import model.Vet;
  */
 public class AddBookingWindow extends Stage{
     
-    protected BorderPane root;
-    protected Scene scene;
-    protected GridPane mainPane;
-    protected Label animalLabel;
-    protected TextField animalValueTextField;
-    protected ScrollPane listScrollPane;
-    protected ListView filteredAnimalsListView;
-    protected Label appointmentTypeLabel;
-    protected FlowPane apptTypeRBPane;
-    protected ToggleGroup apptTypeToggleGroup;
-    protected RadioButton standardRBtn;
-    protected RadioButton emergencyRBtn;
-    protected RadioButton prescriptionRBtn;
-    protected RadioButton vaccinationRBtn;
-    protected RadioButton checkupRBtn;
-    protected RadioButton surgeryRBtn;
-    protected Label locationLabel;
-    protected Label locationValueLabel;
-    protected Label vetLabel;
-    protected ComboBox vetCBox;
-    protected Label hiddenLabel;
-    protected Label dateLabel;
-    protected DatePicker apptDatePicker;
-    protected ButtonBar buttonBar;
-    protected Button clearAllBtn;
-    protected Button cancelBtn;
-    protected Button saveBtn; 
+    private BorderPane root;
+    private Scene mainScene;
+    private GridPane mainPane;
+    private Label animalLabel;
+    private TextField animalValueTextField;
+    private ScrollPane listScrollPane;
+    private ListView filteredAnimalsListView;
+    private Label appointmentTypeLabel;
+    private FlowPane apptTypeRBPane;
+    private ToggleGroup apptTypeToggleGroup;
+    private RadioButton standardRBtn;
+    private RadioButton emergencyRBtn;
+    private RadioButton prescriptionRBtn;
+    private RadioButton vaccinationRBtn;
+    private RadioButton checkupRBtn;
+    private RadioButton surgeryRBtn;
+    private Label locationLabel;
+    private Label locationValueLabel;
+    private Label vetLabel;
+    private ComboBox vetCBox;
+    private Label hiddenLabel;
+    private Label dateLabel;
+    private DatePicker apptDatePicker;
+    private ButtonBar buttonBar;
+    private Button clearAllBtn;
+    private Button cancelBtn;
+    private Button saveBtn; 
 
     public AddBookingWindow(ObservableList<Animal> animals, ObservableList<Vet> vets) {
         root = new BorderPane();
-        scene = new Scene(root);
+        mainScene = new Scene(root);
         mainPane = new GridPane();
         animalLabel = new Label("Animal:");
         animalValueTextField = new TextField();
@@ -121,10 +121,226 @@ public class AddBookingWindow extends Stage{
         root.setBottom(buttonBar);
         
         setTitle("Book Appointment");
-        setScene(scene);
+        setScene(mainScene);
         
         show();
         
+    }
+
+    public BorderPane getRoot() {
+        return root;
+    }
+
+    public void setRoot(BorderPane root) {
+        this.root = root;
+    }
+    
+    public Scene getMainScene() {
+        return mainScene;
+    }
+
+    public void setMainScene(Scene scene) {
+        this.mainScene = scene;
+    }
+
+    public GridPane getMainPane() {
+        return mainPane;
+    }
+
+    public void setMainPane(GridPane mainPane) {
+        this.mainPane = mainPane;
+    }
+
+    public Label getAnimalLabel() {
+        return animalLabel;
+    }
+
+    public void setAnimalLabel(Label animalLabel) {
+        this.animalLabel = animalLabel;
+    }
+
+    public TextField getAnimalValueTextField() {
+        return animalValueTextField;
+    }
+
+    public void setAnimalValueTextField(TextField animalValueTextField) {
+        this.animalValueTextField = animalValueTextField;
+    }
+
+    public ScrollPane getListScrollPane() {
+        return listScrollPane;
+    }
+
+    public void setListScrollPane(ScrollPane listScrollPane) {
+        this.listScrollPane = listScrollPane;
+    }
+
+    public ListView getFilteredAnimalsListView() {
+        return filteredAnimalsListView;
+    }
+
+    public void setFilteredAnimalsListView(ListView filteredAnimalsListView) {
+        this.filteredAnimalsListView = filteredAnimalsListView;
+    }
+
+    public Label getAppointmentTypeLabel() {
+        return appointmentTypeLabel;
+    }
+
+    public void setAppointmentTypeLabel(Label appointmentTypeLabel) {
+        this.appointmentTypeLabel = appointmentTypeLabel;
+    }
+
+    public FlowPane getApptTypeRBPane() {
+        return apptTypeRBPane;
+    }
+
+    public void setApptTypeRBPane(FlowPane apptTypeRBPane) {
+        this.apptTypeRBPane = apptTypeRBPane;
+    }
+
+    public ToggleGroup getApptTypeToggleGroup() {
+        return apptTypeToggleGroup;
+    }
+
+    public void setApptTypeToggleGroup(ToggleGroup apptTypeToggleGroup) {
+        this.apptTypeToggleGroup = apptTypeToggleGroup;
+    }
+
+    public RadioButton getStandardRBtn() {
+        return standardRBtn;
+    }
+
+    public void setStandardRBtn(RadioButton standardRBtn) {
+        this.standardRBtn = standardRBtn;
+    }
+
+    public RadioButton getEmergencyRBtn() {
+        return emergencyRBtn;
+    }
+
+    public void setEmergencyRBtn(RadioButton emergencyRBtn) {
+        this.emergencyRBtn = emergencyRBtn;
+    }
+
+    public RadioButton getPrescriptionRBtn() {
+        return prescriptionRBtn;
+    }
+
+    public void setPrescriptionRBtn(RadioButton prescriptionRBtn) {
+        this.prescriptionRBtn = prescriptionRBtn;
+    }
+
+    public RadioButton getVaccinationRBtn() {
+        return vaccinationRBtn;
+    }
+
+    public void setVaccinationRBtn(RadioButton vaccinationRBtn) {
+        this.vaccinationRBtn = vaccinationRBtn;
+    }
+
+    public RadioButton getCheckupRBtn() {
+        return checkupRBtn;
+    }
+
+    public void setCheckupRBtn(RadioButton checkupRBtn) {
+        this.checkupRBtn = checkupRBtn;
+    }
+
+    public RadioButton getSurgeryRBtn() {
+        return surgeryRBtn;
+    }
+
+    public void setSurgeryRBtn(RadioButton surgeryRBtn) {
+        this.surgeryRBtn = surgeryRBtn;
+    }
+
+    public Label getLocationLabel() {
+        return locationLabel;
+    }
+
+    public void setLocationLabel(Label locationLabel) {
+        this.locationLabel = locationLabel;
+    }
+
+    public Label getLocationValueLabel() {
+        return locationValueLabel;
+    }
+
+    public void setLocationValueLabel(Label locationValueLabel) {
+        this.locationValueLabel = locationValueLabel;
+    }
+
+    public Label getVetLabel() {
+        return vetLabel;
+    }
+
+    public void setVetLabel(Label vetLabel) {
+        this.vetLabel = vetLabel;
+    }
+
+    public ComboBox getVetCBox() {
+        return vetCBox;
+    }
+
+    public void setVetCBox(ComboBox vetCBox) {
+        this.vetCBox = vetCBox;
+    }
+
+    public Label getHiddenLabel() {
+        return hiddenLabel;
+    }
+
+    public void setHiddenLabel(Label hiddenLabel) {
+        this.hiddenLabel = hiddenLabel;
+    }
+
+    public Label getDateLabel() {
+        return dateLabel;
+    }
+
+    public void setDateLabel(Label dateLabel) {
+        this.dateLabel = dateLabel;
+    }
+
+    public DatePicker getApptDatePicker() {
+        return apptDatePicker;
+    }
+
+    public void setApptDatePicker(DatePicker apptDatePicker) {
+        this.apptDatePicker = apptDatePicker;
+    }
+
+    public ButtonBar getButtonBar() {
+        return buttonBar;
+    }
+
+    public void setButtonBar(ButtonBar buttonBar) {
+        this.buttonBar = buttonBar;
+    }
+
+    public Button getClearAllBtn() {
+        return clearAllBtn;
+    }
+
+    public void setClearAllBtn(Button clearAllBtn) {
+        this.clearAllBtn = clearAllBtn;
+    }
+
+    public Button getCancelBtn() {
+        return cancelBtn;
+    }
+
+    public void setCancelBtn(Button cancelBtn) {
+        this.cancelBtn = cancelBtn;
+    }
+
+    public Button getSaveBtn() {
+        return saveBtn;
+    }
+
+    public void setSaveBtn(Button saveBtn) {
+        this.saveBtn = saveBtn;
     }
     
     

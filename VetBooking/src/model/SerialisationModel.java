@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,18 +21,94 @@ import java.util.Map;
 public class SerialisationModel implements IModel {
 
     @Override
-    public void save(ObjectOutputStream out, List<Serializable> objects) throws IOException {
-        Object o = objects.get(0);
-        Class clazz = o.getClass();
-        String fileName = FileName.classToFileName(clazz); // or .getStringValue()
+    public void saveAnimals(List<Animal> animals) throws IOException {
+        String fileName = FileName.classToFileName(Animal.class); 
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(objects);
+            oos.writeObject(animals);
             oos.flush();
         } 
     }
 
+    
+    @Override
+    public void saveAnimalTypes(List<AnimalType> animalTypes) throws IOException {
+        String fileName = FileName.classToFileName(AnimalType.class); 
+        FileOutputStream fos = new FileOutputStream(fileName);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(animalTypes);
+            oos.flush();
+        } 
+    }
+
+    @Override
+    public void saveVets(List<Vet> vets) throws IOException {
+        String fileName = FileName.classToFileName(Vet.class); 
+        FileOutputStream fos = new FileOutputStream(fileName);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(vets);
+            oos.flush();
+        }
+    }
+
+    @Override
+    public void saveAdministrators(List<Administrator> administrators) throws IOException {
+        String fileName = FileName.classToFileName(Administrator.class); 
+        FileOutputStream fos = new FileOutputStream(fileName);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(administrators);
+            oos.flush();
+        }
+    }
+
+    @Override
+    public void saveCaretakers(List<Caretaker> caretakers) throws IOException {
+        String fileName = FileName.classToFileName(Caretaker.class); 
+        FileOutputStream fos = new FileOutputStream(fileName);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(caretakers);
+            oos.flush();
+        }
+    }
+
+    @Override
+    public void saveRecords(List<Record> records) throws IOException {
+        String fileName = FileName.classToFileName(Record.class); 
+        FileOutputStream fos = new FileOutputStream(fileName);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(records);
+            oos.flush();
+        }
+    }
+
+    @Override
+    public void saveAppointments(List<Appointment> appointments) throws IOException {
+        String fileName = FileName.classToFileName(Appointment.class); 
+        FileOutputStream fos = new FileOutputStream(fileName);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(appointments);
+            oos.flush();
+        }
+    }
+
+    @Override
+    public void saveAddresses(List<Address> addresses) throws IOException {
+        String fileName = FileName.classToFileName(Address.class); 
+        FileOutputStream fos = new FileOutputStream(fileName);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(addresses);
+            oos.flush();
+        }
+    }
+    
     @Override
     public List<Animal> getAllAnimals() throws ClassNotFoundException, IOException {
         List<Animal> animals;
@@ -132,6 +207,7 @@ public class SerialisationModel implements IModel {
         return appointments;
     }
 
+}
     enum FileName {
         ANIMAL("animals.ser"),
         ANIMAL_TYPE("animal_types.ser"),
@@ -143,27 +219,24 @@ public class SerialisationModel implements IModel {
         RECORD("records.ser");
 
         private final String stringValue;
-        private static Map<Class, FileName> classToFileNameMap;
+        private static final Map<Class, FileName> classToFileNameMap = new HashMap<>();
+        
+        static {
+                classToFileNameMap.put(Animal.class, ANIMAL);
+                classToFileNameMap.put(AnimalType.class, ANIMAL_TYPE);
+                classToFileNameMap.put(Vet.class, VET);
+                classToFileNameMap.put(Administrator.class, ADMINISTRATOR);
+                classToFileNameMap.put(Caretaker.class, CARETAKER);
+                classToFileNameMap.put(Appointment.class, APPOINTMENT);
+                classToFileNameMap.put(Address.class, ADDRESS);
+                classToFileNameMap.put(Record.class, RECORD);     
+        }
 
         private FileName(String stringValue) {
             this.stringValue = stringValue;
-            createMap();
 
         }
-
-        private void createMap() {
-            classToFileNameMap = new HashMap<>(Map.ofEntries(
-                    Map.entry(Animal.class, ANIMAL),
-                    Map.entry(AnimalType.class, ANIMAL_TYPE),
-                    Map.entry(Vet.class, VET),
-                    Map.entry(Administrator.class, ADMINISTRATOR),
-                    Map.entry(Caretaker.class, CARETAKER),
-                    Map.entry(Appointment.class, APPOINTMENT),
-                    Map.entry(Address.class, ADDRESS),
-                    Map.entry(Record.class, RECORD)
-            ));
-        }
-
+        
         public static String classToFileName(Class clazz) {
             String fileName = classToFileNameMap.get(clazz).getStringValue();
 
@@ -180,4 +253,4 @@ public class SerialisationModel implements IModel {
         }
 
     }
-}
+

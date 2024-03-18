@@ -4,11 +4,7 @@
  */
 package model;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,8 +13,15 @@ import java.util.List;
  */
 public interface IModel {
     
-    void save(ObjectOutputStream out, List<Serializable> objects) throws IOException;
- 
+    void saveAnimals(List<Animal> animals) throws IOException;
+    void saveAnimalTypes(List<AnimalType> animalTypes) throws IOException;
+    void saveVets(List<Vet> vets) throws IOException;
+    void saveAdministrators(List<Administrator> administrators) throws IOException;
+    void saveCaretakers(List<Caretaker> caretakers) throws IOException;
+    void saveRecords(List<Record> records) throws IOException;
+    void saveAppointments(List<Appointment> appointments) throws IOException;
+    void saveAddresses(List<Address> addresses) throws IOException;
+
     List<Animal> getAllAnimals() throws ClassNotFoundException, IOException;
     List<Record> getAllRecords() throws ClassNotFoundException, IOException;
     List<Caretaker> getAllCaretakers() throws ClassNotFoundException, IOException;

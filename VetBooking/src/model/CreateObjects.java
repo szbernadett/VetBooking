@@ -4,11 +4,15 @@
  */
 package model;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Address.LocationType;
 import model.Animal.Gender;
 import model.AnimalType.SpecialistCategory;
@@ -122,18 +126,18 @@ public class CreateObjects {
     Record rec11 = new Record(LocalDate.of(2024,3,21), zan5, "", new ArrayList<>());
 
     
-    List<Animal> store = new ArrayList<>();
-    store.add(pet1);
-    store.add(pet2);
-    store.add(pet3);
-    store.add(fan1);
-    store.add(fan2);
-    store.add(fan3);
-    store.add(zan1);
-    store.add(zan2);
-    store.add(zan3);
-    store.add(zan4);
-    store.add(zan5);
+    List<Animal> animals = new ArrayList<>();
+    animals.add(pet1);
+    animals.add(pet2);
+    animals.add(pet3);
+    animals.add(fan1);
+    animals.add(fan2);
+    animals.add(fan3);
+    animals.add(zan1);
+    animals.add(zan2);
+    animals.add(zan3);
+    animals.add(zan4);
+    animals.add(zan5);
     
     List<AnimalType> animalTypes = new ArrayList<>();
     animalTypes.add(duck);
@@ -193,8 +197,56 @@ public class CreateObjects {
     
     List<Appointment> appointments = new ArrayList<>();
     
+    IModel dao = new SerialisationModel();
     
+    try {
+        dao.saveAnimals(animals);
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }
     
+    try {
+        dao.saveAnimalTypes(animalTypes);
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }
+       
+    try {
+        dao.saveAdministrators(administrators);
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }
+    
+    try {
+        dao.saveVets(vets);
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }
+          
+    try {
+        dao.saveCaretakers(caretakers);
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }
+    
+    try {
+        dao.saveAddresses(addresses);
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }
+     
+    try {
+        dao.saveRecords(records);
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }
+     
+    try {
+        dao.saveAppointments(appointments);
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }
+      
     
     }
 }

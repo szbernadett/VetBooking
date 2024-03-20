@@ -24,7 +24,8 @@ public abstract class Animal implements Serializable {
     public Animal() {
     }
 
-    public Animal(String identifier, Caretaker caretaker, Address address, LocalDate dateOfBirth, AnimalType animalType, Gender gender) {
+    public Animal(String identifier, Caretaker caretaker, Address address, 
+                  LocalDate dateOfBirth, AnimalType animalType, Gender gender) {
         this.identifier = identifier;
         this.caretaker = caretaker;
         this.address = address;
@@ -33,7 +34,13 @@ public abstract class Animal implements Serializable {
         this.gender = gender;
     }
 
-    
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
     
     public Person getCareTaker() {
         return caretaker;

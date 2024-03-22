@@ -19,35 +19,35 @@ import javafx.stage.Stage;
  */
 public class ViewAndSearchAnimalsWindow extends Stage {
     
-    protected BorderPane root;
-    protected Scene scene;
-    protected GridPane searchPane;
-    protected Label searchLabel;
-    protected TextField searchTextField;
-    protected Button searchButton;
-    protected Label searchInstructionLabel;
-    protected Label recordNavigationLabel;
-    protected GridPane mainPane;
-    protected Label nameLabel;
-    protected Label nameValueLabel;
-    protected Label animalTypeLabel;
-    protected Label animalTypeValueLabel;
-    protected Label dateOfBirthLabel;
-    protected Label dateOfBirthValueLabel;
-    protected Label caretakerLabel;
-    protected Label caretakerValueLabel;
-    protected Label addressLabel;
-    protected Label addressValueLabel;
-    protected Label locationTypeLabel;
-    protected Label locationTypeValueLabel;
-    protected Label dateRegisteredLabel;
-    protected Label dateRegisteredValueLabel;
-    protected Label medicalHistoryLabel;
-    protected Label medicalHistoryValueLabel;
-    protected GridPane buttonPane;
-    protected Button previousButton;
-    protected Button nextButton;
-    protected Button exitButton;
+    private BorderPane root;
+    private Scene mainScene;
+    private GridPane searchPane;
+    private Label searchLabel;
+    private TextField searchTextField;
+    private Button searchButton;
+    private Label searchInstructionLabel;
+    private Label recordNavigationLabel;
+    private GridPane mainPane;
+    private Label nameLabel;
+    private Label nameValueLabel;
+    private Label animalTypeLabel;
+    private Label animalTypeValueLabel;
+    private Label dateOfBirthLabel;
+    private Label dateOfBirthValueLabel;
+    private Label caretakerLabel;
+    private Label caretakerValueLabel;
+    private Label addressLabel;
+    private Label addressValueLabel;
+    private Label locationTypeLabel;
+    private Label locationTypeValueLabel;
+    private Label dateRegisteredLabel;
+    private Label dateRegisteredValueLabel;
+    private Label medicalHistoryLabel;
+    private Label medicalHistoryValueLabel;
+    private GridPane buttonPane;
+    private Button previousButton;
+    private Button nextButton;
+    private Button exitButton;
 
     public ViewAndSearchAnimalsWindow(ArrayList<Record> records) {
         int recordAmount = records.size();
@@ -63,7 +63,7 @@ public class ViewAndSearchAnimalsWindow extends Stage {
         }
         
         root = new BorderPane();
-        scene = new Scene(root);
+        mainScene = new Scene(root);
         searchPane = new GridPane();
         searchLabel = new Label("Search:");
         searchTextField = new TextField();
@@ -134,12 +134,248 @@ public class ViewAndSearchAnimalsWindow extends Stage {
         root.setBottom(buttonPane);
         
         setTitle("View and Search Animal Records");
-        setScene(scene);
+        setScene(mainScene);
         
         show();
-               
-        
+                    
     }
+
+    public Scene getMainScene() {
+        return mainScene;
+    }
+
+    public void setMainScene(Scene mainScene) {
+        this.mainScene = mainScene;
+    }
+
+    
+    
+    public BorderPane getRoot() {
+        return root;
+    }
+
+    public void setRoot(BorderPane root) {
+        this.root = root;
+    }
+
+   
+
+    public GridPane getSearchPane() {
+        return searchPane;
+    }
+
+    public void setSearchPane(GridPane searchPane) {
+        this.searchPane = searchPane;
+    }
+
+    public Label getSearchLabel() {
+        return searchLabel;
+    }
+
+    public void setSearchLabel(Label searchLabel) {
+        this.searchLabel = searchLabel;
+    }
+
+    public TextField getSearchTextField() {
+        return searchTextField;
+    }
+
+    public void setSearchTextField(TextField searchTextField) {
+        this.searchTextField = searchTextField;
+    }
+
+    public Button getSearchButton() {
+        return searchButton;
+    }
+
+    public void setSearchButton(Button searchButton) {
+        this.searchButton = searchButton;
+    }
+
+    public Label getSearchInstructionLabel() {
+        return searchInstructionLabel;
+    }
+
+    public void setSearchInstructionLabel(Label searchInstructionLabel) {
+        this.searchInstructionLabel = searchInstructionLabel;
+    }
+
+    public Label getRecordNavigationLabel() {
+        return recordNavigationLabel;
+    }
+
+    public void setRecordNavigationLabel(Label recordNavigationLabel) {
+        this.recordNavigationLabel = recordNavigationLabel;
+    }
+
+    public GridPane getMainPane() {
+        return mainPane;
+    }
+
+    public void setMainPane(GridPane mainPane) {
+        this.mainPane = mainPane;
+    }
+
+    public Label getNameLabel() {
+        return nameLabel;
+    }
+
+    public void setNameLabel(Label nameLabel) {
+        this.nameLabel = nameLabel;
+    }
+
+    public Label getNameValueLabel() {
+        return nameValueLabel;
+    }
+
+    public void setNameValueLabel(Label nameValueLabel) {
+        this.nameValueLabel = nameValueLabel;
+    }
+
+    public Label getAnimalTypeLabel() {
+        return animalTypeLabel;
+    }
+
+    public void setAnimalTypeLabel(Label animalTypeLabel) {
+        this.animalTypeLabel = animalTypeLabel;
+    }
+
+    public Label getAnimalTypeValueLabel() {
+        return animalTypeValueLabel;
+    }
+
+    public void setAnimalTypeValueLabel(Label animalTypeValueLabel) {
+        this.animalTypeValueLabel = animalTypeValueLabel;
+    }
+
+    public Label getDateOfBirthLabel() {
+        return dateOfBirthLabel;
+    }
+
+    public void setDateOfBirthLabel(Label dateOfBirthLabel) {
+        this.dateOfBirthLabel = dateOfBirthLabel;
+    }
+
+    public Label getDateOfBirthValueLabel() {
+        return dateOfBirthValueLabel;
+    }
+
+    public void setDateOfBirthValueLabel(Label dateOfBirthValueLabel) {
+        this.dateOfBirthValueLabel = dateOfBirthValueLabel;
+    }
+
+    public Label getCaretakerLabel() {
+        return caretakerLabel;
+    }
+
+    public void setCaretakerLabel(Label caretakerLabel) {
+        this.caretakerLabel = caretakerLabel;
+    }
+
+    public Label getCaretakerValueLabel() {
+        return caretakerValueLabel;
+    }
+
+    public void setCaretakerValueLabel(Label caretakerValueLabel) {
+        this.caretakerValueLabel = caretakerValueLabel;
+    }
+
+    public Label getAddressLabel() {
+        return addressLabel;
+    }
+
+    public void setAddressLabel(Label addressLabel) {
+        this.addressLabel = addressLabel;
+    }
+
+    public Label getAddressValueLabel() {
+        return addressValueLabel;
+    }
+
+    public void setAddressValueLabel(Label addressValueLabel) {
+        this.addressValueLabel = addressValueLabel;
+    }
+
+    public Label getLocationTypeLabel() {
+        return locationTypeLabel;
+    }
+
+    public void setLocationTypeLabel(Label locationTypeLabel) {
+        this.locationTypeLabel = locationTypeLabel;
+    }
+
+    public Label getLocationTypeValueLabel() {
+        return locationTypeValueLabel;
+    }
+
+    public void setLocationTypeValueLabel(Label locationTypeValueLabel) {
+        this.locationTypeValueLabel = locationTypeValueLabel;
+    }
+
+    public Label getDateRegisteredLabel() {
+        return dateRegisteredLabel;
+    }
+
+    public void setDateRegisteredLabel(Label dateRegisteredLabel) {
+        this.dateRegisteredLabel = dateRegisteredLabel;
+    }
+
+    public Label getDateRegisteredValueLabel() {
+        return dateRegisteredValueLabel;
+    }
+
+    public void setDateRegisteredValueLabel(Label dateRegisteredValueLabel) {
+        this.dateRegisteredValueLabel = dateRegisteredValueLabel;
+    }
+
+    public Label getMedicalHistoryLabel() {
+        return medicalHistoryLabel;
+    }
+
+    public void setMedicalHistoryLabel(Label medicalHistoryLabel) {
+        this.medicalHistoryLabel = medicalHistoryLabel;
+    }
+
+    public Label getMedicalHistoryValueLabel() {
+        return medicalHistoryValueLabel;
+    }
+
+    public void setMedicalHistoryValueLabel(Label medicalHistoryValueLabel) {
+        this.medicalHistoryValueLabel = medicalHistoryValueLabel;
+    }
+
+    public GridPane getButtonPane() {
+        return buttonPane;
+    }
+
+    public void setButtonPane(GridPane buttonPane) {
+        this.buttonPane = buttonPane;
+    }
+
+    public Button getPreviousButton() {
+        return previousButton;
+    }
+
+    public void setPreviousButton(Button previousButton) {
+        this.previousButton = previousButton;
+    }
+
+    public Button getNextButton() {
+        return nextButton;
+    }
+
+    public void setNextButton(Button nextButton) {
+        this.nextButton = nextButton;
+    }
+
+    public Button getExitButton() {
+        return exitButton;
+    }
+
+    public void setExitButton(Button exitButton) {
+        this.exitButton = exitButton;
+    }
+    
     
     
    

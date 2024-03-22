@@ -41,16 +41,23 @@ public abstract class Animal implements Serializable {
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
-    
-    public Person getCareTaker() {
+
+    public Caretaker getCaretaker() {
         return caretaker;
     }
 
-    public void setCareTaker(Caretaker careTaker) {
-        this.caretaker = careTaker;
+    public void setCaretaker(Caretaker caretaker) {
+        this.caretaker = caretaker;
     }
 
-   
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
@@ -75,6 +82,7 @@ public abstract class Animal implements Serializable {
         this.gender = gender;
     }
 
+   
     
      public enum Gender{
         MALE("male"),

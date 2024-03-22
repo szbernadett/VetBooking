@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,32 +22,163 @@ import java.util.Map;
  */
 public class SerialisationModel implements IModel {
 
+    private List<Animal> animals;
+    private List<AnimalType> animalTypes;
+    private List<Vet> vets;
+    private List<Administrator> administrators;
+    private List<Caretaker> caretakers;
+    private List<Record> records;
+    private List<Appointment> appointments;
+    private List<Address> addresses;
+
+    public SerialisationModel() {
+    }
+
+    public List<Animal> getAnimals() {
+        if (animals == null) {
+            try {
+                animals = getAllAnimals();
+            } catch (ClassNotFoundException | IOException ex) {
+                System.out.println(ex);
+            }
+        }
+        return animals;
+    }
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
+    }
+
+    public List<AnimalType> getAnimalTypes() {
+        if (animalTypes == null) {
+            try {
+                animalTypes = getAllAnimalTypes();
+            } catch (ClassNotFoundException | IOException ex) {
+                System.out.println(ex);
+            }
+        }
+        return animalTypes;
+    }
+
+    public void setAnimalTypes(List<AnimalType> animalTypes) {
+        this.animalTypes = animalTypes;
+    }
+
+    public List<Vet> getVets() {
+        if (vets == null) {
+            try {
+                vets = getAllVets();
+            } catch (ClassNotFoundException | IOException ex) {
+                System.out.println(ex);
+            }
+        }
+        return vets;
+    }
+
+    public void setVets(List<Vet> vets) {
+        this.vets = vets;
+    }
+
+    public List<Administrator> getAdministrators() {
+        if (administrators == null) {
+            try {
+                administrators = getAllAdministrators();
+            } catch (ClassNotFoundException | IOException ex) {
+                System.out.println(ex);
+            }
+        }
+        return administrators;
+    }
+
+    public void setAdministrators(List<Administrator> administrators) {
+        this.administrators = administrators;
+    }
+
+    public List<Caretaker> getCaretakers() {
+        if (caretakers == null) {
+            try {
+                caretakers = getAllCaretakers();
+            } catch (ClassNotFoundException | IOException ex) {
+                System.out.println(ex);
+            }
+        }
+        return caretakers;
+    }
+
+    public void setCaretakers(List<Caretaker> caretakers) {
+        this.caretakers = caretakers;
+    }
+
+    public List<Record> getRecords() {
+        if (records == null) {
+            try {
+                records = getAllRecords();
+            } catch (ClassNotFoundException | IOException ex) {
+                System.out.println(ex);
+            }
+        }
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
+    }
+
+    public List<Appointment> getAppointments() {
+        if (appointments == null) {
+            try {
+                appointments = getAllAppointments();
+            } catch (ClassNotFoundException | IOException ex) {
+                System.out.println(ex);
+            }
+        }
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public List<Address> getAddresses() {
+        if (addresses == null) {
+            try {
+                addresses = getAllAddresses();
+            } catch (ClassNotFoundException | IOException ex) {
+                System.out.println(ex);
+            }
+        }
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
     @Override
     public void saveAnimals(List<Animal> animals) throws IOException {
-        String fileName = FileName.classToFileName(Animal.class); 
+        String fileName = FileName.classToFileName(Animal.class);
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(animals);
             oos.flush();
-        } 
+        }
     }
 
-    
     @Override
     public void saveAnimalTypes(List<AnimalType> animalTypes) throws IOException {
-        String fileName = FileName.classToFileName(AnimalType.class); 
+        String fileName = FileName.classToFileName(AnimalType.class);
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(animalTypes);
             oos.flush();
-        } 
+        }
     }
 
     @Override
     public void saveVets(List<Vet> vets) throws IOException {
-        String fileName = FileName.classToFileName(Vet.class); 
+        String fileName = FileName.classToFileName(Vet.class);
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -56,7 +189,7 @@ public class SerialisationModel implements IModel {
 
     @Override
     public void saveAdministrators(List<Administrator> administrators) throws IOException {
-        String fileName = FileName.classToFileName(Administrator.class); 
+        String fileName = FileName.classToFileName(Administrator.class);
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -67,7 +200,7 @@ public class SerialisationModel implements IModel {
 
     @Override
     public void saveCaretakers(List<Caretaker> caretakers) throws IOException {
-        String fileName = FileName.classToFileName(Caretaker.class); 
+        String fileName = FileName.classToFileName(Caretaker.class);
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -78,7 +211,7 @@ public class SerialisationModel implements IModel {
 
     @Override
     public void saveRecords(List<Record> records) throws IOException {
-        String fileName = FileName.classToFileName(Record.class); 
+        String fileName = FileName.classToFileName(Record.class);
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -89,7 +222,7 @@ public class SerialisationModel implements IModel {
 
     @Override
     public void saveAppointments(List<Appointment> appointments) throws IOException {
-        String fileName = FileName.classToFileName(Appointment.class); 
+        String fileName = FileName.classToFileName(Appointment.class);
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -100,7 +233,7 @@ public class SerialisationModel implements IModel {
 
     @Override
     public void saveAddresses(List<Address> addresses) throws IOException {
-        String fileName = FileName.classToFileName(Address.class); 
+        String fileName = FileName.classToFileName(Address.class);
         FileOutputStream fos = new FileOutputStream(fileName);
 
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -108,7 +241,7 @@ public class SerialisationModel implements IModel {
             oos.flush();
         }
     }
-    
+
     @Override
     public List<Animal> getAllAnimals() throws ClassNotFoundException, IOException {
         List<Animal> animals;
@@ -116,7 +249,7 @@ public class SerialisationModel implements IModel {
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             animals = (ArrayList<Animal>) ois.readObject();
-        } 
+        }
 
         return animals;
     }
@@ -140,7 +273,7 @@ public class SerialisationModel implements IModel {
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             caretakers = (ArrayList<Caretaker>) ois.readObject();
-        } 
+        }
 
         return caretakers;
     }
@@ -202,55 +335,55 @@ public class SerialisationModel implements IModel {
         FileInputStream fis = new FileInputStream(fileName);
         try (ObjectInputStream ois = new ObjectInputStream(fis)) {
             appointments = (ArrayList<Appointment>) ois.readObject();
-        } 
+        }
 
         return appointments;
     }
 
 }
-    enum FileName {
-        ANIMAL("animals.ser"),
-        ANIMAL_TYPE("animal_types.ser"),
-        VET("vets.ser"),
-        ADMINISTRATOR("admins.ser"),
-        CARETAKER("caretakers.ser"),
-        APPOINTMENT("appointments.ser"),
-        ADDRESS("addresses.ser"),
-        RECORD("records.ser");
 
-        private final String stringValue;
-        private static final Map<Class, FileName> classToFileNameMap = new HashMap<>();
-        
-        static {
-                classToFileNameMap.put(Animal.class, ANIMAL);
-                classToFileNameMap.put(AnimalType.class, ANIMAL_TYPE);
-                classToFileNameMap.put(Vet.class, VET);
-                classToFileNameMap.put(Administrator.class, ADMINISTRATOR);
-                classToFileNameMap.put(Caretaker.class, CARETAKER);
-                classToFileNameMap.put(Appointment.class, APPOINTMENT);
-                classToFileNameMap.put(Address.class, ADDRESS);
-                classToFileNameMap.put(Record.class, RECORD);     
-        }
+enum FileName {
+    ANIMAL("animals.ser"),
+    ANIMAL_TYPE("animal_types.ser"),
+    VET("vets.ser"),
+    ADMINISTRATOR("admins.ser"),
+    CARETAKER("caretakers.ser"),
+    APPOINTMENT("appointments.ser"),
+    ADDRESS("addresses.ser"),
+    RECORD("records.ser");
 
-        private FileName(String stringValue) {
-            this.stringValue = stringValue;
+    private final String stringValue;
+    private static final Map<Class, FileName> classToFileNameMap = new HashMap<>();
 
-        }
-        
-        public static String classToFileName(Class clazz) {
-            String fileName = classToFileNameMap.get(clazz).getStringValue();
+    static {
+        classToFileNameMap.put(Animal.class, ANIMAL);
+        classToFileNameMap.put(AnimalType.class, ANIMAL_TYPE);
+        classToFileNameMap.put(Vet.class, VET);
+        classToFileNameMap.put(Administrator.class, ADMINISTRATOR);
+        classToFileNameMap.put(Caretaker.class, CARETAKER);
+        classToFileNameMap.put(Appointment.class, APPOINTMENT);
+        classToFileNameMap.put(Address.class, ADDRESS);
+        classToFileNameMap.put(Record.class, RECORD);
+    }
 
-            return fileName;
-        }
-
-        public String getStringValue() {
-            return stringValue;
-        }
-
-        @Override
-        public String toString() {
-            return stringValue;
-        }
+    private FileName(String stringValue) {
+        this.stringValue = stringValue;
 
     }
 
+    public static String classToFileName(Class clazz) {
+        String fileName = classToFileNameMap.get(clazz).getStringValue();
+
+        return fileName;
+    }
+
+    public String getStringValue() {
+        return stringValue;
+    }
+
+    @Override
+    public String toString() {
+        return stringValue;
+    }
+
+}

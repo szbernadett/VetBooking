@@ -62,8 +62,8 @@ public class RecordHandler implements ListAndSearch {
     private List<String> extractRecordKeys(Record record) {
         List<String> recordKeys = new ArrayList<>();
         recordKeys.add(record.getAnimal().getIdentifier());
-        recordKeys.add(record.getAnimal().getCareTaker().getFirstName());
-        recordKeys.add(record.getAnimal().getCareTaker().getLastName());
+        recordKeys.add(record.getAnimal().getCaretaker().getFirstName());
+        recordKeys.add(record.getAnimal().getCaretaker().getLastName());
         recordKeys.add(record.getAnimal().getAnimalType().getTypeName());
 
         return recordKeys;
@@ -107,7 +107,7 @@ public class RecordHandler implements ListAndSearch {
     }
 
     @Override
-    public Record getNext(Record currentRecord) {
+    public Record getNextRecord(Record currentRecord) {
         Record nextRecord = null;
 
         if (currentRecord != null) {
@@ -129,7 +129,7 @@ public class RecordHandler implements ListAndSearch {
     }
 
     @Override
-    public Record getPrevious(Record currentRecord) {
+    public Record getPreviousRecord(Record currentRecord) {
         Record previousRecord = null;
 
         if (currentRecord != null) {

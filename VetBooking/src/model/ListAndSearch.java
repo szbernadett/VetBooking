@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 
 /**
  *
@@ -11,7 +13,7 @@ package model;
  */
 public interface ListAndSearch {
     
-    Record getNextRecord(Record currentRecord);
-    Record getPreviousRecord(Record currentRecord);
+    Record getNextRecord(Record currentRecord, List<Record> currentList);
+    Record getPreviousRecord(Record currentRecord, List<Record> currentList);
     void search(String keyword);
 }

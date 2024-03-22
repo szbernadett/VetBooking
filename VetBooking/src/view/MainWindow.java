@@ -24,10 +24,10 @@ import javafx.stage.Stage;
  * @author igbin
  */
 public class MainWindow extends Stage {
-    
+
     private BorderPane root;
     private VBox buttonPaneRight;
-    private Scene mainScene;
+    private Scene scene;
     private ScrollPane tableScroll;
     private TableView appointmentTable;
     private Button editBtn;
@@ -42,10 +42,10 @@ public class MainWindow extends Stage {
     private MenuItem addNewTypeMenuItem;
 
     public MainWindow() {
-    
+
         root = new BorderPane();
         buttonPaneRight = new VBox();
-        mainScene = new Scene(root);
+        scene = new Scene(root);
         tableScroll = new ScrollPane();
         appointmentTable = new TableView();
         editBtn = new Button("Edit");
@@ -53,8 +53,8 @@ public class MainWindow extends Stage {
         bookBtn = new Button("Book");
         bookBtn.setOnAction(e -> {
             AddBookingWindow addBookingWindow = new AddBookingWindow(FXCollections.observableArrayList(),
-                    FXCollections.observableArrayList()); 
-                    });
+                    FXCollections.observableArrayList());
+        });
         exitBtn = new Button("Exit");
         menuBar = new MenuBar();
         animalsMenu = new Menu("Animals");
@@ -62,27 +62,27 @@ public class MainWindow extends Stage {
         viewAndSearchMenuItem.setOnAction(e -> new ViewAndSearchAnimalsWindow(new ArrayList<>()));
         registerAnimalMenuItem = new MenuItem("Register New Animal");
         registerAnimalMenuItem.setOnAction(e -> new RegisterAnimalWindow(FXCollections.observableArrayList(),
-        FXCollections.observableArrayList(),  FXCollections.observableArrayList()));
+                FXCollections.observableArrayList(), FXCollections.observableArrayList()));
         addNewTypeMenuItem = new MenuItem("Add New Animal Type");
-        addNewTypeMenuItem.setOnAction( e -> new AddNewAnimalTypeWindow());
-       
-        animalsMenu.getItems().addAll(registerAnimalMenuItem, 
-                                      viewAndSearchMenuItem, 
-                                      addNewTypeMenuItem);
+        addNewTypeMenuItem.setOnAction(e -> new AddNewAnimalTypeWindow());
+
+        animalsMenu.getItems().addAll(registerAnimalMenuItem,
+                viewAndSearchMenuItem,
+                addNewTypeMenuItem);
         menuBar.getMenus().add(animalsMenu);
         tableScroll.setContent(appointmentTable);
         buttonPaneRight.getChildren().addAll(editBtn, deleteBtn, exitBtn);
         buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));
         buttonBar.getButtons().addAll(bookBtn);
-        
+
         root.setTop(menuBar);
         root.setRight(buttonPaneRight);
         root.setCenter(tableScroll);
         root.setBottom(buttonBar);
-        
+
         setTitle("Main Window");
-        setScene(mainScene);
+        setScene(scene);
     }
 
     public BorderPane getRoot() {
@@ -99,14 +99,6 @@ public class MainWindow extends Stage {
 
     public void setButtonPaneRight(VBox buttonPaneRight) {
         this.buttonPaneRight = buttonPaneRight;
-    }
-
-    public Scene getMainScene() {
-        return mainScene;
-    }
-
-    public void setMainScene(Scene mainScene) {
-        this.mainScene = mainScene;
     }
 
     public ScrollPane getTableScroll() {
@@ -204,11 +196,5 @@ public class MainWindow extends Stage {
     public void setAddNewTypeMenuItem(MenuItem addNewTypeMenuItem) {
         this.addNewTypeMenuItem = addNewTypeMenuItem;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

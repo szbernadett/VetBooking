@@ -17,30 +17,30 @@ import java.util.Set;
  */
 public class RecordHandler implements ListAndSearch {
 
-    private List<Record> records;
-    private Map<String, ArrayList<Record>> searchMap;
-    private Map<String, ArrayList<Record>> searchResults;
+    private List<Record> allRecords;
+    private Map<String, List<Record>> searchMap;
+    private Map<String, List<Record>> searchResultsMap;
 
-    public RecordHandler(List<Record> records) {
-        this.records = records;
+    public RecordHandler(List<Record> allRecords) {
+        this.allRecords = allRecords;
         searchMap = new HashMap<>();
-        searchResults = new HashMap<>();
+        searchResultsMap = new HashMap<>();
         populateSearchMap();
     }
 
-    public List<Record> getRecords() {
-        return records;
+    public List<Record> getAllRecords() {
+        return allRecords;
     }
 
-    public void setRecords(List<Record> records) {
-        this.records = records;
+    public void setAllRecords(List<Record> allRecords) {
+        this.allRecords = allRecords;
     }
 
-    public Map<String, ArrayList<Record>> getSearchMap() {
+    public Map<String, List<Record>> getSearchMap() {
         return searchMap;
     }
 
-    public void setSearchMap(Map<String, ArrayList<Record>> searchMap) {
+    public void setSearchMap(Map<String, List<Record>> searchMap) {
         this.searchMap = searchMap;
     }
 
@@ -51,13 +51,15 @@ public class RecordHandler implements ListAndSearch {
         searchMap.get(key).add(record);
     }
 
-    public Map<String, ArrayList<Record>> getSearchResults() {
-        return searchResults;
+    public Map<String, List<Record>> getSearchResultsMap() {
+        return searchResultsMap;
     }
 
-    public void setSearchResults(Map<String, ArrayList<Record>> searchResults) {
-        this.searchResults = searchResults;
+    public void setSearchResultsMap(Map<String, List<Record>> searchResultsMap) {
+        this.searchResultsMap = searchResultsMap;
     }
+
+
 
     private List<String> extractRecordKeys(Record record) {
         List<String> recordKeys = new ArrayList<>();
@@ -70,13 +72,14 @@ public class RecordHandler implements ListAndSearch {
     }
 
     private void populateSearchMap() {
-        for (Record record : records) {
-            List<String> recordKeys = extractRecordKeys(record);
-            for (String recordKey : recordKeys) {
-                addToSearchMap(recordKey, record);
+        if (searchMap != null) {
+            for (Record record : allRecords) {
+                List<String> recordKeys = extractRecordKeys(record);
+                for (String recordKey : recordKeys) {
+                    addToSearchMap(recordKey, record);
+                }
             }
         }
-
     }
 
     private ArrayList<String> getSortedKeys() {
@@ -88,7 +91,7 @@ public class RecordHandler implements ListAndSearch {
 
     }
 
-    private int binarySearch(String target, ArrayList<String> sortedList, int leftIndex, int rightIndex) {
+    private int binarySearch(String target, List<String> sortedList, int leftIndex, int rightIndex) {
         if (leftIndex > rightIndex) {
             return -1;
         }
@@ -100,28 +103,28 @@ public class RecordHandler implements ListAndSearch {
             return midIndex;
         } else if (target.compareTo(midElement) < 0) {
             return binarySearch(target, sortedList, leftIndex, midIndex - 1);
-        } else { 
+        } else {
             return binarySearch(target, sortedList, midIndex + 1, rightIndex);
         }
 
     }
 
     @Override
-    public Record getNextRecord(Record currentRecord) {
+    public Record getNextRecord(Record currentRecord, List<Record> currentList) {
         Record nextRecord = null;
-
+        
         if (currentRecord != null) {
-            int maxIndex = records.size() - 1;
-            int currentIndex = records.indexOf(currentRecord);
+            int maxIndex = currentList.size() - 1;
+            int currentIndex = currentList.indexOf(currentRecord);
 
             if (currentIndex != -1) {
                 if (currentIndex < maxIndex) {
-                    nextRecord = records.get(currentIndex + 1);
+                    nextRecord = currentList.get(currentIndex + 1);
                 } else if (currentIndex == maxIndex) {
-                    nextRecord = records.get(0);
+                    nextRecord = currentList.get(0);
                 }
             } else {
-                nextRecord = records.get(0);
+                nextRecord = currentList.get(0);
             }
         }
 
@@ -129,21 +132,20 @@ public class RecordHandler implements ListAndSearch {
     }
 
     @Override
-    public Record getPreviousRecord(Record currentRecord) {
+    public Record getPreviousRecord(Record currentRecord, List<Record> currentList) {
         Record previousRecord = null;
-
         if (currentRecord != null) {
-            int maxIndex = records.size() - 1;
-            int currentIndex = records.indexOf(currentRecord);
+            int maxIndex = currentList.size() - 1;
+            int currentIndex = currentList.indexOf(currentRecord);
 
             if (currentIndex != -1) {
                 if (currentIndex > 0) {
-                    previousRecord = records.get(currentIndex - 1);
+                    previousRecord = currentList.get(currentIndex - 1);
                 } else if (currentIndex == 0) {
-                    previousRecord = records.get(maxIndex);
+                    previousRecord = currentList.get(maxIndex);
                 }
             } else {
-                previousRecord = records.get(0);
+                previousRecord = currentList.get(0);
             }
 
         }
@@ -153,23 +155,22 @@ public class RecordHandler implements ListAndSearch {
 
     @Override
     public void search(String keyword) {
-        if (!searchResults.containsKey(keyword)) {
-            
-            ArrayList<String> sortedList = getSortedKeys();
-            ArrayList<Record> matchedRecords;
-            
+        if (!searchResultsMap.containsKey(keyword)) {
+
+            List<String> sortedList = getSortedKeys();
+            List<Record> matchedRecords;
+
             int result = binarySearch(keyword,
-                                      sortedList,
-                                      0,
-                                      sortedList.size() - 1);
-            
-            if(result != -1){
+                    sortedList,
+                    0,
+                    sortedList.size() - 1);
+
+            if (result != -1) {
                 matchedRecords = searchMap.get(keyword);
-                searchResults.put(keyword, matchedRecords);
+                searchResultsMap.put(keyword, matchedRecords);
             } else {
-                searchResults.put(keyword, new ArrayList<>());
+                searchResultsMap.put(keyword, new ArrayList<>());
             }
         }
-    }
-
+    } 
 }

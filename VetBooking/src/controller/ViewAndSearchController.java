@@ -6,6 +6,10 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventType;
 import model.Record;
 import model.IModel;
 import model.RecordHandler;
@@ -22,12 +26,26 @@ public class ViewAndSearchController {
     private SerialisationModel dao;
     private RecordHandler recordHandler;
     private List<Record> currentList;
+    private Record currentRecord;
 
     public ViewAndSearchController(ViewAndSearchAnimalsWindow view, SerialisationModel dao, RecordHandler recordHandler) {
         this.view = view;
         this.dao = dao;
         this.recordHandler = recordHandler;
         currentList = recordHandler.getAllRecords();
+        if (!currentList.isEmpty()) {
+            currentRecord = currentList.get(0);
+        }
+        setupEventHandlers();
+    }
+
+    private void setupEventHandlers() {
+        view.setEventHandler(view.getNextButton(), ActionEvent.ACTION, this::displayNext);
+        view.setEventHandler(view.getPreviousButton(), ActionEvent.ACTION, this::displayPrevious);
+        view.setEventHandler(view.getSearchButton(), ActionEvent.ACTION, this:displaySearchResults
+    
+
+    );
     }
 
     public ViewAndSearchAnimalsWindow getView() {
@@ -74,28 +92,43 @@ public class ViewAndSearchController {
         view.getMedicalHistoryValueLabel().setText(record.getMedicalHistory());
     }
 
-    public void displayNext(Record currentRecord) {
+    public void displayNext(ActionEvent event) {
         Record nextRecord = recordHandler.getNextRecord(currentRecord, currentList);
         displayRecord(nextRecord);
+        currentRecord = nextRecord;
     }
 
-    public void displayPrevious(Record currentRecord) {
+    public void displayPrevious(ActionEvent event) {
         Record previousRecord = recordHandler.getPreviousRecord(currentRecord, currentList);
         displayRecord(previousRecord);
+        currentRecord = previousRecord;
     }
 
-    public void displaySearchResults(ArrayList<Record> searchResults) {
+    public void displaySearchResults(ActionEvent event) {
+        List<Record> searchResults = null;
+        Map searchResultsMap = recordHandler.getSearchResultsMap();
+        if(searchResultsMap.containsKey("needs to be set to keyword from view!!!!")){
+            searchResults = searchResultsMap.get("keyword missing here too");
+        } else {
+            recordHandler.search("keyword missing here too");
+        }
+        
+        if(searchResults == null){
+            searchResults = new ArrayList<>();
+        }
+
         if (!searchResults.isEmpty()) {
-          switchDisplay(searchResults);
+            switchDisplay(searchResults);
         }
     }
 
-    public void displayAll(){
+    public void displayAll() {
         switchDisplay(recordHandler.getAllRecords());
     }
 
-    public void switchDisplay(List<Record> recordsToDisplay){
+    public void switchDisplay(List<Record> recordsToDisplay) {
         currentList = recordsToDisplay; // set currentList for Previous / Next navigation
+        currentRecord = currentList.get(0);
         displayRecord(currentList.get(0)); // display first element of current list
     }
 }

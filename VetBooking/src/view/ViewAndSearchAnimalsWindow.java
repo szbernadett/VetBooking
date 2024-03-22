@@ -5,22 +5,22 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 /**
  *
  * @author igbin
  */
-public class ViewAndSearchAnimalsWindow extends Stage {
-    
+public class ViewAndSearchAnimalsWindow extends DecoupledStage {
+
     private BorderPane root;
-    private Scene mainScene;
+    private Scene scene;
     private GridPane searchPane;
     private Label searchLabel;
     private TextField searchTextField;
@@ -49,7 +49,14 @@ public class ViewAndSearchAnimalsWindow extends Stage {
     private Button nextButton;
     private Button exitButton;
 
-    public ViewAndSearchAnimalsWindow(ArrayList<Record> records) {
+    public ViewAndSearchAnimalsWindow(List<Record> records) {
+        initWindow(records);
+        show();
+
+    }
+
+
+    private void initWindow(List<Record> records) {
         int recordAmount = records.size();
         System.out.println("records size: " + recordAmount);
         Record currentRecord;
@@ -61,30 +68,30 @@ public class ViewAndSearchAnimalsWindow extends Stage {
             currentRecord = null;
             currentRecordNumber = 0;
         }
-        
+
         root = new BorderPane();
-        mainScene = new Scene(root);
+        scene = new Scene(root);
         searchPane = new GridPane();
         searchLabel = new Label("Search:");
         searchTextField = new TextField();
         searchButton = new Button("Find");
         searchInstructionLabel = new Label("Search records by animal name, "
-                                         + "location type (zoo, farm, domestic,"
-                                         + " animal type");
+                + "location type (zoo, farm, domestic,"
+                + " animal type");
         recordNavigationLabel = new Label("Record " + currentRecordNumber
-                                         +" of " + recordAmount);
-        
+                + " of " + recordAmount);
+
         searchPane.add(searchLabel, 0, 0);
         searchPane.add(searchTextField, 1, 0);
         searchPane.add(searchButton, 2, 0);
         searchPane.add(searchInstructionLabel, 1, 1);
-        
-        if (currentRecord == null){
+
+        if (currentRecord == null) {
             searchButton.setDisable(true);
             searchInstructionLabel.setText("There are no animal records to "
-                                         + "display or search");
+                    + "display or search");
         }
-        
+
         mainPane = new GridPane();
         nameLabel = new Label("Name:");
         nameValueLabel = new Label("");
@@ -102,7 +109,7 @@ public class ViewAndSearchAnimalsWindow extends Stage {
         dateRegisteredValueLabel = new Label("");
         medicalHistoryLabel = new Label("Medical History:");
         medicalHistoryValueLabel = new Label("");
-        
+
         mainPane.add(nameLabel, 0, 0);
         mainPane.add(nameValueLabel, 1, 0);
         mainPane.add(animalTypeLabel, 0, 1);
@@ -117,39 +124,25 @@ public class ViewAndSearchAnimalsWindow extends Stage {
         mainPane.add(dateRegisteredValueLabel, 3, 4);
         mainPane.add(medicalHistoryLabel, 2, 5);
         mainPane.add(medicalHistoryValueLabel, 3, 5);
-        
+
         // TODO add code to set values for labels if current record is not null
-        
         buttonPane = new GridPane();
         previousButton = new Button("< Previous");
         nextButton = new Button("Next >");
         buttonPane.add(previousButton, 0, 0);
-        buttonPane. add(nextButton, 1, 0);
-        
+        buttonPane.add(nextButton, 1, 0);
+
         exitButton = new Button("Exit");
-        
+
         root.setTop(searchPane);
         root.setCenter(mainPane);
         root.setRight(exitButton);
         root.setBottom(buttonPane);
-        
+
         setTitle("View and Search Animal Records");
-        setScene(mainScene);
-        
-        show();
-                    
+        setScene(scene);
     }
 
-    public Scene getMainScene() {
-        return mainScene;
-    }
-
-    public void setMainScene(Scene mainScene) {
-        this.mainScene = mainScene;
-    }
-
-    
-    
     public BorderPane getRoot() {
         return root;
     }
@@ -157,8 +150,6 @@ public class ViewAndSearchAnimalsWindow extends Stage {
     public void setRoot(BorderPane root) {
         this.root = root;
     }
-
-   
 
     public GridPane getSearchPane() {
         return searchPane;
@@ -375,8 +366,5 @@ public class ViewAndSearchAnimalsWindow extends Stage {
     public void setExitButton(Button exitButton) {
         this.exitButton = exitButton;
     }
-    
-    
-    
-   
+
 }

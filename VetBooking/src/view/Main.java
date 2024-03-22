@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.MainWindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.SerialisationModel;
@@ -20,13 +21,15 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SerialisationModel dao = new SerialisationModel();
+        
         launch(args);
     }
 
     @Override
     public void start(Stage stage) {
+        SerialisationModel dao = new SerialisationModel();
         MainWindow mainWindow = new MainWindow();
+        MainWindowController mwController = new MainWindowController(mainWindow, dao);
         mainWindow.show();
     }
 

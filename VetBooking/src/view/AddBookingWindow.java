@@ -29,7 +29,7 @@ import model.Vet;
  *
  * @author igbin
  */
-public class AddBookingWindow extends Stage{
+public class AddBookingWindow extends DecoupledStage{
     
     private BorderPane root;
     private Scene mainScene;

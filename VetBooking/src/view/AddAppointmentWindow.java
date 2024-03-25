@@ -58,7 +58,7 @@ public class AddAppointmentWindow extends CustomStage {
     private Button cancelBtn;
     private Button saveBtn;
 
-    public AddAppointmentWindow(ObservableList<Animal> animals, ObservableList<Vet> vets) {
+    public AddAppointmentWindow() {
         initWindow();
         show();
 

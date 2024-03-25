@@ -18,9 +18,9 @@ import javafx.stage.Stage;
 public abstract class CustomStage extends Stage {
 
     protected abstract void initWindow();
-    
-    protected <T extends Event> void setEventHandler(Node node, EventType<T> type, EventHandler<T> handler){
+
+    public <T extends Event> void setEventHandler(Node node, EventType<T> type, EventHandler<T> handler) {
         node.addEventHandler(type, handler);
     }
-    
+
 }

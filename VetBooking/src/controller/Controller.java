@@ -8,22 +8,24 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import view.CustomStage;
 import model.DAO;
+import model.SerialisationDAO;
 
 /**
  *
  * @author igbin
+ * @param <T>
  */
 public abstract class Controller<T extends CustomStage> {
     
     protected T view;
-    protected DAO dao;
+    protected SerialisationDAO model;
 
     public Controller() {
     }
 
-    public Controller(T view, DAO dao) {
+    public Controller(T view, SerialisationDAO model) {
         this.view = view;
-        this.dao = dao;
+        this.model = model;
     }
 
     protected abstract void setupEventHandlers();
@@ -41,11 +43,11 @@ public abstract class Controller<T extends CustomStage> {
     }
 
     public DAO getDao() {
-        return dao;
+        return model;
     }
 
-    public void setDao(DAO dao) {
-        this.dao = dao;
+    public void setDao(SerialisationDAO model) {
+        this.model = model;
     }
     
     

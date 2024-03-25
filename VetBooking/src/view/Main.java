@@ -27,9 +27,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        SerialisationDAO dao = new SerialisationDAO();
+        SerialisationDAO model = new SerialisationDAO();
         MainWindow mainWindow = new MainWindow();
-        new MainWindowController(mainWindow, dao);
+        new MainWindowController(mainWindow, model);
         mainWindow.show();
     }
 

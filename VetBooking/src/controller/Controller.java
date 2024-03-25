@@ -4,31 +4,39 @@
  */
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import model.IModel;
+import view.CustomStage;
 
 /**
  *
  * @author igbin
  */
-public abstract class Controller {
+public abstract class Controller<T extends CustomStage> {
     
-    private Stage view;
-    private IModel dao;
+    protected T view;
+    protected IModel dao;
 
     public Controller() {
     }
 
-    public Controller(Stage view, IModel dao) {
+    public Controller(T view, IModel dao) {
         this.view = view;
         this.dao = dao;
     }
 
+    protected abstract void setupEventHandlers();
+    
+    protected void exitWindow(ActionEvent event){
+        view.close();
+    }
+    
     public Stage getView() {
         return view;
     }
 
-    public void setView(Stage view) {
+    public void setView(T view) {
         this.view = view;
     }
 

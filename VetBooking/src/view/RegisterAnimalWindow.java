@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import model.Address;
 import model.AnimalType;
 import model.Caretaker;
@@ -25,7 +24,7 @@ import model.Caretaker;
  *
  * @author igbin
  */
-public class RegisterAnimalWindow extends Stage {
+public class RegisterAnimalWindow extends CustomStage {
     
     private BorderPane root;
     private Scene mainScene;

@@ -4,7 +4,6 @@
  */
 package view;
 
-import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,7 +16,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author igbin
  */
-public class ViewAndSearchAnimalsWindow extends DecoupledStage {
+public class ViewAndSearchAnimalsWindow extends CustomStage {
 
     private BorderPane root;
     private Scene scene;
@@ -44,9 +43,11 @@ public class ViewAndSearchAnimalsWindow extends DecoupledStage {
     private Label dateRegisteredValueLabel;
     private Label medicalHistoryLabel;
     private Label medicalHistoryValueLabel;
-    private GridPane buttonPane;
+    private GridPane bottomButtonPane;
+    private GridPane rightButtonPane;
     private Button previousButton;
     private Button nextButton;
+    private Button viewAllButton;
     private Button exitButton;
 
     public ViewAndSearchAnimalsWindow(List<Record> records) {
@@ -54,7 +55,6 @@ public class ViewAndSearchAnimalsWindow extends DecoupledStage {
         show();
 
     }
-
 
     private void initWindow(List<Record> records) {
         int recordAmount = records.size();
@@ -74,7 +74,7 @@ public class ViewAndSearchAnimalsWindow extends DecoupledStage {
         searchPane = new GridPane();
         searchLabel = new Label("Search:");
         searchTextField = new TextField();
-        searchButton = new Button("Find");
+        searchButton = new Button("Go");
         searchInstructionLabel = new Label("Search records by animal name, "
                 + "location type (zoo, farm, domestic,"
                 + " animal type");
@@ -88,8 +88,7 @@ public class ViewAndSearchAnimalsWindow extends DecoupledStage {
 
         if (currentRecord == null) {
             searchButton.setDisable(true);
-            searchInstructionLabel.setText("There are no animal records to "
-                    + "display or search");
+            searchInstructionLabel.setText("There are no animal records to display");
         }
 
         mainPane = new GridPane();
@@ -124,20 +123,25 @@ public class ViewAndSearchAnimalsWindow extends DecoupledStage {
         mainPane.add(dateRegisteredValueLabel, 3, 4);
         mainPane.add(medicalHistoryLabel, 2, 5);
         mainPane.add(medicalHistoryValueLabel, 3, 5);
-
-        // TODO add code to set values for labels if current record is not null
-        buttonPane = new GridPane();
+        //
+        //  add code to set values for labels if current record is not null
+        //
+        bottomButtonPane = new GridPane();
         previousButton = new Button("< Previous");
         nextButton = new Button("Next >");
-        buttonPane.add(previousButton, 0, 0);
-        buttonPane.add(nextButton, 1, 0);
+        bottomButtonPane.add(previousButton, 0, 0);
+        bottomButtonPane.add(nextButton, 1, 0);
 
+        rightButtonPane = new GridPane();
+        viewAllButton = new Button("View All");
         exitButton = new Button("Exit");
+        rightButtonPane.add(viewAllButton, 0,0);
+        rightButtonPane.add(exitButton, 0, 1);
 
         root.setTop(searchPane);
         root.setCenter(mainPane);
-        root.setRight(exitButton);
-        root.setBottom(buttonPane);
+        root.setRight(rightButtonPane);
+        root.setBottom(bottomButtonPane);
 
         setTitle("View and Search Animal Records");
         setScene(scene);
@@ -336,11 +340,19 @@ public class ViewAndSearchAnimalsWindow extends DecoupledStage {
     }
 
     public GridPane getButtonPane() {
-        return buttonPane;
+        return bottomButtonPane;
     }
 
-    public void setButtonPane(GridPane buttonPane) {
-        this.buttonPane = buttonPane;
+    public void setButtonPane(GridPane bottomButtonPane) {
+        this.bottomButtonPane = bottomButtonPane;
+    }
+
+    public GridPane getRightButtonPane() {
+        return rightButtonPane;
+    }
+
+    public void setRightButtonPane(GridPane rightButtonPane) {
+        this.rightButtonPane = rightButtonPane;
     }
 
     public Button getPreviousButton() {
@@ -357,6 +369,14 @@ public class ViewAndSearchAnimalsWindow extends DecoupledStage {
 
     public void setNextButton(Button nextButton) {
         this.nextButton = nextButton;
+    }
+
+    public Button getViewAllButton() {
+        return viewAllButton;
+    }
+
+    public void setViewAllButton(Button viewAllButton) {
+        this.viewAllButton = viewAllButton;
     }
 
     public Button getExitButton() {

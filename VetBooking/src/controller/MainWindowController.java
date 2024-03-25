@@ -4,6 +4,7 @@
  */
 package controller;
 
+import javafx.event.ActionEvent;
 import model.IModel;
 import view.MainWindow;
 
@@ -11,16 +12,39 @@ import view.MainWindow;
  *
  * @author igbin
  */
-public class MainWindowController {
+public class MainWindowController extends Controller<MainWindow>{
     
-    protected MainWindow view;
-    protected IModel dao;
 
     public MainWindowController(MainWindow view, IModel dao) {
-        this.view = view;
-        this.dao = dao;
+        super(view, dao);
+        
+        setupEventHandlers();
     }
+
+    @Override
+    protected final void setupEventHandlers() {
+        view.getAddNewTypeMenuItem().addEventHandler(ActionEvent.ACTION, this::openAddNewAnimalTypeWindow);
+        view.getBookBtn().addEventHandler(ActionEvent.ACTION, this::openAddBookingWindow);
+        view.getViewAndSearchMenuItem().addEventHandler(ActionEvent.ACTION, this::openViewAndSearchAnimalsWindow);
+        view.getRegisterAnimalMenuItem().addEventHandler(ActionEvent.ACTION, this::openRegisterAnimalWindow);
+        view.getDeleteBtn().addEventHandler(ActionEvent.ACTION, this::deleteBooking);
+        view.getEditBtn().addEventHandler(ActionEvent.ACTION, this::editBooking);
+    }
+
+   
+
+
+    private void openAddNewAnimalTypeWindow(ActionEvent event){}
     
+    private void openAddBookingWindow(ActionEvent event){}
+    
+    private void openViewAndSearchAnimalsWindow(ActionEvent event){}
+    
+    private void openRegisterAnimalWindow(ActionEvent event){}
+    
+    private void deleteBooking(ActionEvent event){}
+    
+    private void editBooking(ActionEvent event){}
     
     
     

@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventType;
 import model.Record;
-import model.IModel;
 import model.RecordHandler;
 import model.SerialisationModel;
 import view.ViewAndSearchAnimalsWindow;
@@ -20,17 +17,14 @@ import view.ViewAndSearchAnimalsWindow;
  *
  * @author igbin
  */
-public class ViewAndSearchController {
+public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWindow> {
 
-    private ViewAndSearchAnimalsWindow view;
-    private SerialisationModel dao;
     private RecordHandler recordHandler;
     private List<Record> currentList;
     private Record currentRecord;
 
     public ViewAndSearchController(ViewAndSearchAnimalsWindow view, SerialisationModel dao, RecordHandler recordHandler) {
-        this.view = view;
-        this.dao = dao;
+        super(view, dao);
         this.recordHandler = recordHandler;
         currentList = recordHandler.getAllRecords();
         if (!currentList.isEmpty()) {
@@ -39,29 +33,13 @@ public class ViewAndSearchController {
         setupEventHandlers();
     }
 
-    private void setupEventHandlers() {
+    @Override
+    protected final void setupEventHandlers() {
         view.setEventHandler(view.getNextButton(), ActionEvent.ACTION, this::displayNext);
         view.setEventHandler(view.getPreviousButton(), ActionEvent.ACTION, this::displayPrevious);
-        view.setEventHandler(view.getSearchButton(), ActionEvent.ACTION, this:displaySearchResults
-    
-
-    );
-    }
-
-    public ViewAndSearchAnimalsWindow getView() {
-        return view;
-    }
-
-    public void setView(ViewAndSearchAnimalsWindow view) {
-        this.view = view;
-    }
-
-    public IModel getDao() {
-        return dao;
-    }
-
-    public void setDao(SerialisationModel dao) {
-        this.dao = dao;
+        view.setEventHandler(view.getSearchButton(), ActionEvent.ACTION, this::displaySearchResults);
+        view.setEventHandler(view.getViewAllButton(), ActionEvent.ACTION, this::displayAll);
+        view.setEventHandler(view.getExitButton(), ActionEvent.ACTION, this::exitWindow);
     }
 
     public RecordHandler getRecordHandler() {
@@ -80,7 +58,7 @@ public class ViewAndSearchController {
         this.currentList = currentList;
     }
 
-    public void displayRecord(Record record) {
+    private void displayRecord(Record record) {
 
         view.getNameValueLabel().setText(record.getAnimal().getIdentifier());
         view.getAnimalTypeValueLabel().setText(record.getAnimal().getAnimalType().getTypeName());
@@ -92,28 +70,37 @@ public class ViewAndSearchController {
         view.getMedicalHistoryValueLabel().setText(record.getMedicalHistory());
     }
 
-    public void displayNext(ActionEvent event) {
+    private void displayNext(ActionEvent event) {
         Record nextRecord = recordHandler.getNextRecord(currentRecord, currentList);
         displayRecord(nextRecord);
         currentRecord = nextRecord;
     }
 
-    public void displayPrevious(ActionEvent event) {
+    private void displayPrevious(ActionEvent event) {
         Record previousRecord = recordHandler.getPreviousRecord(currentRecord, currentList);
         displayRecord(previousRecord);
         currentRecord = previousRecord;
     }
 
-    public void displaySearchResults(ActionEvent event) {
+    private List<Record> fetchSearchResults(String keyword) {
         List<Record> searchResults = null;
-        Map searchResultsMap = recordHandler.getSearchResultsMap();
-        if(searchResultsMap.containsKey("needs to be set to keyword from view!!!!")){
-            searchResults = searchResultsMap.get("keyword missing here too");
+        Map<String, List<Record>> searchResultsMap = recordHandler.getSearchResultsMap();
+        if (searchResultsMap.containsKey(keyword)) {
+            searchResults = searchResultsMap.get(keyword);
         } else {
-            recordHandler.search("keyword missing here too");
+            //
+            // call method to prepare search keyword (remove characters, validate etc.)
+            //
+            recordHandler.search(keyword);
         }
-        
-        if(searchResults == null){
+
+        return searchResults;
+    }
+
+    private void displaySearchResults(ActionEvent event) {
+        String keyword = view.getSearchTextField().getText();
+        List<Record> searchResults = fetchSearchResults(keyword);
+        if (searchResults == null) {
             searchResults = new ArrayList<>();
         }
 
@@ -122,13 +109,13 @@ public class ViewAndSearchController {
         }
     }
 
-    public void displayAll() {
+    private void displayAll(ActionEvent event) {
         switchDisplay(recordHandler.getAllRecords());
     }
 
     public void switchDisplay(List<Record> recordsToDisplay) {
         currentList = recordsToDisplay; // set currentList for Previous / Next navigation
-        currentRecord = currentList.get(0);
-        displayRecord(currentList.get(0)); // display first element of current list
+        currentRecord = currentList.get(0); // set currently displayed record to first element of current list
+        displayRecord(currentRecord); // display current record
     }
 }

@@ -20,7 +20,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import model.Animal;
 import model.Appointment.AppointmentType;
 import model.Vet;
@@ -29,7 +28,7 @@ import model.Vet;
  *
  * @author igbin
  */
-public class AddBookingWindow extends DecoupledStage{
+public class AddBookingWindow extends CustomStage{
     
     private BorderPane root;
     private Scene mainScene;

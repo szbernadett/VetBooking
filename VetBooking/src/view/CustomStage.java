@@ -4,7 +4,6 @@
  */
 package view;
 
-import controller.TheEventHandler;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -15,7 +14,7 @@ import javafx.stage.Stage;
  *
  * @author igbin
  */
-public abstract class DecoupledStage extends Stage {
+public abstract class CustomStage extends Stage {
 
     public <T extends Event> void setEventHandler(Node node, EventType<T> type, EventHandler<T> handler){
         node.addEventHandler(type, handler);

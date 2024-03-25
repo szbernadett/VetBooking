@@ -29,7 +29,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         SerialisationModel dao = new SerialisationModel();
         MainWindow mainWindow = new MainWindow();
-        MainWindowController mwController = new MainWindowController(mainWindow, dao);
+        new MainWindowController(mainWindow, dao);
         mainWindow.show();
     }
 

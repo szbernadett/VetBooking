@@ -13,6 +13,12 @@ import java.util.List;
  */
 public interface IModel {
     
+    void saveAppointment(Appointment appointment);
+    void deleteAppointment(Appointment appointment);
+    
+    void saveAnimalType(AnimalType animalType);
+    void saveRecord(Record record);
+    
     void saveAnimals(List<Animal> animals) throws IOException;
     void saveAnimalTypes(List<AnimalType> animalTypes) throws IOException;
     void saveVets(List<Vet> vets) throws IOException;

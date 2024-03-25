@@ -16,14 +16,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import model.AnimalType.SpecialistCategory;
 
 /**
  *
  * @author igbin
  */
-public class AddNewAnimalTypeWindow extends Stage{
+public class AddNewAnimalTypeWindow extends CustomStage{
     
     private BorderPane root;
     private Scene mainScene;

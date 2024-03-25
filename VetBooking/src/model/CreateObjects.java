@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import javafx.collections.FXCollections;
 import model.Address.LocationType;
 import model.Animal.Gender;
 import model.AnimalType.SpecialistCategory;
@@ -123,7 +124,7 @@ public class CreateObjects {
     Record rec11 = new Record(LocalDate.of(2024,3,21), zan5, "", new ArrayList<>());
 
     
-    List<Animal> animals = new ArrayList<>();
+    List<Animal> animals = FXCollections.observableArrayList();
     animals.add(pet1);
     animals.add(pet2);
     animals.add(pet3);
@@ -136,7 +137,7 @@ public class CreateObjects {
     animals.add(zan4);
     animals.add(zan5);
     
-    List<AnimalType> animalTypes = new ArrayList<>();
+    List<AnimalType> animalTypes = FXCollections.observableArrayList();
     animalTypes.add(duck);
     animalTypes.add(lion);
     animalTypes.add(python);
@@ -149,7 +150,7 @@ public class CreateObjects {
     animalTypes.add(horse);
     animalTypes.add(tarantula);
     
-    List<Record> records = new ArrayList<>();
+    List<Record> records = FXCollections.observableArrayList();
     records.add(rec1);
     records.add(rec2);
     records.add(rec3);
@@ -162,7 +163,7 @@ public class CreateObjects {
     records.add(rec10);
     records.add(rec11);
 
-    List<Administrator> administrators = new ArrayList<>();
+    List<Administrator> administrators = FXCollections.observableArrayList();
     administrators.add(admin1);
     
     List<Vet> vets = new ArrayList<>();
@@ -173,7 +174,7 @@ public class CreateObjects {
     vets.add(vet5);
     vets.add(vet6);
     
-    List<Caretaker> caretakers = new ArrayList<>();
+    List<Caretaker> caretakers = FXCollections.observableArrayList();
     caretakers.add(care1);
     caretakers.add(care2);
     caretakers.add(care3);
@@ -182,7 +183,7 @@ public class CreateObjects {
     caretakers.add(care6);
     caretakers.add(care7);
     
-    List<Address> addresses = new ArrayList<>();
+    List<Address> addresses = FXCollections.observableArrayList();
     addresses.add(farm1);
     addresses.add(farm2);
     addresses.add(manczoo);
@@ -192,7 +193,7 @@ public class CreateObjects {
     addresses.add(dom4);
     addresses.add(dom5);
     
-    List<Appointment> appointments = new ArrayList<>();
+    List<Appointment> appointments = FXCollections.observableArrayList();
     
     IModel dao = new SerialisationModel();
     

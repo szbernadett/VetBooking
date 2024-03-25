@@ -17,13 +17,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  *
  * @author igbin
  */
-public class MainWindow extends Stage {
+public class MainWindow extends CustomStage {
 
     private BorderPane root;
     private VBox buttonPaneRight;

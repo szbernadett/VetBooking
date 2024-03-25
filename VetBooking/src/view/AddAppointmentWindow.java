@@ -28,8 +28,8 @@ import model.Vet;
  *
  * @author igbin
  */
-public class AddBookingWindow extends CustomStage{
-    
+public class AddAppointmentWindow extends CustomStage {
+
     private BorderPane root;
     private Scene mainScene;
     private GridPane mainPane;
@@ -56,20 +56,27 @@ public class AddBookingWindow extends CustomStage{
     private ButtonBar buttonBar;
     private Button clearAllBtn;
     private Button cancelBtn;
-    private Button saveBtn; 
+    private Button saveBtn;
 
-    public AddBookingWindow(ObservableList<Animal> animals, ObservableList<Vet> vets) {
+    public AddAppointmentWindow(ObservableList<Animal> animals, ObservableList<Vet> vets) {
+        initWindow();
+        show();
+
+    }
+
+    @Override
+    protected final void initWindow() {
         root = new BorderPane();
         mainScene = new Scene(root);
         mainPane = new GridPane();
         animalLabel = new Label("Animal:");
         animalValueTextField = new TextField();
         listScrollPane = new ScrollPane();
-        filteredAnimalsListView = new ListView<>(animals);
+        filteredAnimalsListView = new ListView<>();
         listScrollPane.setContent(filteredAnimalsListView);
         listScrollPane.setFitToHeight(true);
         listScrollPane.setFitToWidth(true);
-        appointmentTypeLabel = new Label ("Appointment Type:");
+        appointmentTypeLabel = new Label("Appointment Type:");
         apptTypeRBPane = new FlowPane();
         apptTypeToggleGroup = new ToggleGroup();
         standardRBtn = new RadioButton(AppointmentType.STANDARD.toString());
@@ -84,19 +91,19 @@ public class AddBookingWindow extends CustomStage{
         vaccinationRBtn.setToggleGroup(apptTypeToggleGroup);
         checkupRBtn.setToggleGroup(apptTypeToggleGroup);
         surgeryRBtn.setToggleGroup(apptTypeToggleGroup);
-        apptTypeRBPane.getChildren().addAll(standardRBtn, emergencyRBtn, 
-                                             prescriptionRBtn, vaccinationRBtn, 
-                                             checkupRBtn, surgeryRBtn);
+        apptTypeRBPane.getChildren().addAll(standardRBtn, emergencyRBtn,
+                prescriptionRBtn, vaccinationRBtn,
+                checkupRBtn, surgeryRBtn);
         locationLabel = new Label("Location:");
         locationValueLabel = new Label("");
         vetLabel = new Label("Vet:");
-        vetCBox = new ComboBox(vets);
+        vetCBox = new ComboBox();
         hiddenLabel = new Label("If no available doctors, please book on: 0161 1234 5678");
         hiddenLabel.setVisible(false);
-        
+
         dateLabel = new Label("Date:");
         apptDatePicker = new DatePicker();
-        
+
         mainPane.add(animalLabel, 0, 0);
         mainPane.add(animalValueTextField, 1, 0);
         mainPane.add(listScrollPane, 1, 1, 1, 4);
@@ -108,24 +115,22 @@ public class AddBookingWindow extends CustomStage{
         mainPane.add(vetCBox, 3, 2);
         mainPane.add(dateLabel, 2, 3);
         mainPane.add(apptDatePicker, 3, 3);
-        
+
         buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));
         clearAllBtn = new Button("Clear All");
         cancelBtn = new Button("Cancel");
         saveBtn = new Button("Save");
         buttonBar.getButtons().addAll(clearAllBtn, cancelBtn, saveBtn);
-        
+
         root.setCenter(mainPane);
         root.setBottom(buttonBar);
-        
+
         setTitle("Book Appointment");
         setScene(mainScene);
-        
-        show();
-        
     }
 
+    
     public BorderPane getRoot() {
         return root;
     }
@@ -133,7 +138,7 @@ public class AddBookingWindow extends CustomStage{
     public void setRoot(BorderPane root) {
         this.root = root;
     }
-    
+
     public Scene getMainScene() {
         return mainScene;
     }
@@ -341,11 +346,5 @@ public class AddBookingWindow extends CustomStage{
     public void setSaveBtn(Button saveBtn) {
         this.saveBtn = saveBtn;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

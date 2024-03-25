@@ -45,25 +45,28 @@ public class RegisterAnimalWindow extends CustomStage {
     private Button cancelBtn;
     private Button saveBtn;
     
-    public RegisterAnimalWindow(ObservableList<AnimalType> animalTypes, 
-                           ObservableList<Caretaker> caretakers,
-                           ObservableList<Address> addresses) {
-        
-        root = new BorderPane();
+    public RegisterAnimalWindow() {
+        initWindow();
+        show();
+    }
+
+    @Override
+    protected final void initWindow() {
+           root = new BorderPane();
         mainScene = new Scene(root);
         mainPane = new GridPane();
         idLabel = new Label ("Identifier / Name:");
         idValueTField = new TextField();
         typeLabel = new Label("Animal type:");
-        typeValueCBox = new ComboBox(animalTypes);
+        typeValueCBox = new ComboBox();
         addNewTypeBtn = new Button("Add New");
         addNewTypeBtn.setOnAction((ActionEvent e) -> {
             AddNewAnimalTypeWindow addNewAnimalTypeWindow = new AddNewAnimalTypeWindow();
         });
         caretakerLabel = new Label ("Caretaker / Owner:");
-        caretakerValueCBox = new ComboBox(caretakers);
+        caretakerValueCBox = new ComboBox();
         addressLabel = new Label ("Address:");
-        addressValueCBox = new ComboBox(addresses);
+        addressValueCBox = new ComboBox();
         dateOfBirthLabel = new Label ("Date of Birth:");
         dobDatePicker = new DatePicker();
         
@@ -93,9 +96,9 @@ public class RegisterAnimalWindow extends CustomStage {
         
         setTitle("Register New Animal");
         setScene(mainScene);
-        show();
-        
     }
+    
+    
 
     public BorderPane getRoot() {
         return root;

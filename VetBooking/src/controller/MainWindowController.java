@@ -5,7 +5,7 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import view.AddBookingWindow;
+import view.AddAppointmentWindow;
 import view.MainWindow;
 import model.DAO;
 
@@ -16,7 +16,7 @@ import model.DAO;
 public class MainWindowController extends Controller<MainWindow>{
     
 
-    public MainWindowController(MainWindow view, DAO dao) {
+    public MainWindowController(MainWindow view, SerialisationDAO dao) {
         super(view, dao);
         
         setupEventHandlers();
@@ -38,7 +38,7 @@ public class MainWindowController extends Controller<MainWindow>{
     private void openAddNewAnimalTypeWindow(ActionEvent event){}
     
     private void openAddBookingWindow(ActionEvent event){
-        AddBookingWindow addBookingWindow = new AddBookingWindow(dao.getAnimals(), dao.getVets());
+        AddAppointmentWindow addBookingWindow = new AddAppointmentWindow(dao.getAnimals(), dao.getVets());
     }
     
     private void openViewAndSearchAnimalsWindow(ActionEvent event){}

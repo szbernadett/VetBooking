@@ -22,8 +22,8 @@ import model.AnimalType.SpecialistCategory;
  *
  * @author igbin
  */
-public class AddNewAnimalTypeWindow extends CustomStage{
-    
+public class AddNewAnimalTypeWindow extends CustomStage {
+
     private BorderPane root;
     private Scene mainScene;
     private GridPane mainPane;
@@ -43,6 +43,12 @@ public class AddNewAnimalTypeWindow extends CustomStage{
     private Button saveBtn;
 
     public AddNewAnimalTypeWindow() {
+        initWindow();
+        show();
+    }
+
+    @Override
+    protected final void initWindow() {
         root = new BorderPane();
         mainScene = new Scene(root);
         mainPane = new GridPane();
@@ -54,34 +60,30 @@ public class AddNewAnimalTypeWindow extends CustomStage{
         venomousCheckBox = new CheckBox(SpecialistCategory.VENOMOUS.toString());
         exoticCheckBox = new CheckBox(SpecialistCategory.EXOTIC.toString());
         aquaticCheckBox = new CheckBox(SpecialistCategory.AQUATIC.toString());
-        checkboxGroup.getChildren().addAll(largeCheckBox, venomousCheckBox, 
-                                              exoticCheckBox, aquaticCheckBox);
+        checkboxGroup.getChildren().addAll(largeCheckBox, venomousCheckBox,
+                exoticCheckBox, aquaticCheckBox);
         maxAgeLabel = new Label("Maximum expeted age (years):");
         maxAgeCBox = new ComboBox(FXCollections.observableArrayList());
-        
+
         mainPane.add(typeNameLabel, 0, 0);
         mainPane.add(typeNameValueTField, 1, 0);
         mainPane.add(specialistCategoryLabel, 0, 1);
         mainPane.add(checkboxGroup, 1, 1);
         mainPane.add(maxAgeLabel, 0, 2);
         mainPane.add(maxAgeCBox, 1, 2);
-        
-        buttonBar= new ButtonBar();
+
+        buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));
         clearAllBtn = new Button("Clear All");
         cancelBtn = new Button("Cancel");
         saveBtn = new Button("Save");
         buttonBar.getButtons().addAll(clearAllBtn, cancelBtn, saveBtn);
-        
+
         root.setCenter(mainPane);
         root.setBottom(buttonBar);
-        
+
         setTitle("Add New Animal Type");
         setScene(mainScene);
-        
-        show();
-        
- 
     }
 
     public BorderPane getRoot() {
@@ -219,8 +221,5 @@ public class AddNewAnimalTypeWindow extends CustomStage{
     public void setSaveBtn(Button saveBtn) {
         this.saveBtn = saveBtn;
     }
-    
-    
-    
-    
+
 }

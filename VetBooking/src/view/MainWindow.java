@@ -44,7 +44,8 @@ public class MainWindow extends CustomStage {
         initWindow();
     }
 
-    private void initWindow() {
+    @Override
+    protected final void initWindow() {
         root = new BorderPane();
         buttonPaneRight = new VBox();
         scene = new Scene(root);
@@ -53,21 +54,13 @@ public class MainWindow extends CustomStage {
         editBtn = new Button("Edit");
         deleteBtn = new Button("Delete");
         bookBtn = new Button("Book");
-        bookBtn.setOnAction(e -> {
-            AddBookingWindow addBookingWindow = new AddBookingWindow(FXCollections.observableArrayList(),
-                    FXCollections.observableArrayList());
-        });
         exitBtn = new Button("Exit");
         menuBar = new MenuBar();
         animalsMenu = new Menu("Animals");
         viewAndSearchMenuItem = new MenuItem("View and Search ");
-        viewAndSearchMenuItem.setOnAction(e -> new ViewAndSearchAnimalsWindow(new ArrayList<>()));
         registerAnimalMenuItem = new MenuItem("Register New Animal");
-        registerAnimalMenuItem.setOnAction(e -> new RegisterAnimalWindow(FXCollections.observableArrayList(),
-                FXCollections.observableArrayList(), FXCollections.observableArrayList()));
         addNewTypeMenuItem = new MenuItem("Add New Animal Type");
         addNewTypeMenuItem.setOnAction(e -> new AddNewAnimalTypeWindow());
-
         animalsMenu.getItems().addAll(registerAnimalMenuItem,
                 viewAndSearchMenuItem,
                 addNewTypeMenuItem);

@@ -4,6 +4,7 @@
  */
 package view;
 
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -16,7 +17,10 @@ import javafx.stage.Stage;
  */
 public abstract class CustomStage extends Stage {
 
-    public <T extends Event> void setEventHandler(Node node, EventType<T> type, EventHandler<T> handler){
+    protected abstract void initWindow();
+    
+    protected <T extends Event> void setEventHandler(Node node, EventType<T> type, EventHandler<T> handler){
         node.addEventHandler(type, handler);
     }
+    
 }

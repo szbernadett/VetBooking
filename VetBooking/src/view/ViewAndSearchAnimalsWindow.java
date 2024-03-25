@@ -50,13 +50,17 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
     private Button viewAllButton;
     private Button exitButton;
 
-    public ViewAndSearchAnimalsWindow(List<Record> records) {
-        initWindow(records);
+    public ViewAndSearchAnimalsWindow() {
+        initWindow();
         show();
 
     }
 
-    private void initWindow(List<Record> records) {
+    @Override
+    protected final void initWindow() {
+
+        // should be implemented in the controller
+        /*
         int recordAmount = records.size();
         System.out.println("records size: " + recordAmount);
         Record currentRecord;
@@ -68,7 +72,7 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
             currentRecord = null;
             currentRecordNumber = 0;
         }
-
+         */
         root = new BorderPane();
         scene = new Scene(root);
         searchPane = new GridPane();
@@ -78,18 +82,14 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
         searchInstructionLabel = new Label("Search records by animal name, "
                 + "location type (zoo, farm, domestic,"
                 + " animal type");
-        recordNavigationLabel = new Label("Record " + currentRecordNumber
-                + " of " + recordAmount);
+        recordNavigationLabel = new Label();
 
         searchPane.add(searchLabel, 0, 0);
         searchPane.add(searchTextField, 1, 0);
         searchPane.add(searchButton, 2, 0);
         searchPane.add(searchInstructionLabel, 1, 1);
 
-        if (currentRecord == null) {
-            searchButton.setDisable(true);
-            searchInstructionLabel.setText("There are no animal records to display");
-        }
+        // disable search button and set search instruction label in controller if there are no records 
 
         mainPane = new GridPane();
         nameLabel = new Label("Name:");
@@ -135,7 +135,7 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
         rightButtonPane = new GridPane();
         viewAllButton = new Button("View All");
         exitButton = new Button("Exit");
-        rightButtonPane.add(viewAllButton, 0,0);
+        rightButtonPane.add(viewAllButton, 0, 0);
         rightButtonPane.add(exitButton, 0, 1);
 
         root.setTop(searchPane);

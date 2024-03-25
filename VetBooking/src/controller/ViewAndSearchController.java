@@ -10,7 +10,7 @@ import java.util.Map;
 import javafx.event.ActionEvent;
 import model.Record;
 import model.RecordHandler;
-import model.SerialisationModel;
+import model.SerialisationDAO;
 import view.ViewAndSearchAnimalsWindow;
 
 /**
@@ -23,7 +23,7 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
     private List<Record> currentList;
     private Record currentRecord;
 
-    public ViewAndSearchController(ViewAndSearchAnimalsWindow view, SerialisationModel dao, RecordHandler recordHandler) {
+    public ViewAndSearchController(ViewAndSearchAnimalsWindow view, SerialisationDAO dao, RecordHandler recordHandler) {
         super(view, dao);
         this.recordHandler = recordHandler;
         currentList = recordHandler.getAllRecords();

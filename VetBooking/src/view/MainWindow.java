@@ -41,7 +41,10 @@ public class MainWindow extends CustomStage {
     private MenuItem addNewTypeMenuItem;
 
     public MainWindow() {
+        initWindow();
+    }
 
+    private void initWindow() {
         root = new BorderPane();
         buttonPaneRight = new VBox();
         scene = new Scene(root);

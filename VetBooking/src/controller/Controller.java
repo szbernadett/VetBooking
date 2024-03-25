@@ -6,8 +6,8 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import model.IModel;
 import view.CustomStage;
+import model.DAO;
 
 /**
  *
@@ -16,12 +16,12 @@ import view.CustomStage;
 public abstract class Controller<T extends CustomStage> {
     
     protected T view;
-    protected IModel dao;
+    protected DAO dao;
 
     public Controller() {
     }
 
-    public Controller(T view, IModel dao) {
+    public Controller(T view, DAO dao) {
         this.view = view;
         this.dao = dao;
     }
@@ -40,11 +40,11 @@ public abstract class Controller<T extends CustomStage> {
         this.view = view;
     }
 
-    public IModel getDao() {
+    public DAO getDao() {
         return dao;
     }
 
-    public void setDao(IModel dao) {
+    public void setDao(DAO dao) {
         this.dao = dao;
     }
     

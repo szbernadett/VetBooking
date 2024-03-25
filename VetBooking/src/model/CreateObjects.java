@@ -195,7 +195,7 @@ public class CreateObjects {
     
     List<Appointment> appointments = FXCollections.observableArrayList();
     
-    IModel dao = new SerialisationModel();
+    DAO dao = new SerialisationDAO();
     
     try {
         dao.saveAnimals(animals);

@@ -20,7 +20,7 @@ import javafx.collections.FXCollections;
  *
  * @author igbin
  */
-public class SerialisationModel implements IModel {
+public class SerialisationDAO implements DAO {
 
     private List<Animal> animals;
     private List<AnimalType> animalTypes;
@@ -31,7 +31,7 @@ public class SerialisationModel implements IModel {
     private List<Appointment> appointments;
     private List<Address> addresses;
 
-    public SerialisationModel() {
+    public SerialisationDAO() {
     }
 
     public List<Animal> getAnimals() {

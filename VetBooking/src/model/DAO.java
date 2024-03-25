@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author igbin
  */
-public interface IModel {
+public interface DAO {
     
     void saveAppointment(Appointment appointment);
     void deleteAppointment(Appointment appointment);

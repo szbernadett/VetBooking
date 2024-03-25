@@ -7,7 +7,8 @@ package view;
 import controller.MainWindowController;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.SerialisationModel;
+import model.DAOAdapter;
+import model.SerialisationDAO;
 
 /**
  *
@@ -27,7 +28,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        SerialisationModel dao = new SerialisationModel();
+        SerialisationDAO sd = new SerialisationDAO();
+        DAOAdapter dao = new DAOAdapter(sd);
         MainWindow mainWindow = new MainWindow();
         new MainWindowController(mainWindow, dao);
         mainWindow.show();

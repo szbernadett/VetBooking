@@ -5,9 +5,14 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import model.Appointment;
 import view.AddAppointmentWindow;
 import view.MainWindow;
 import model.SerialisationDAO;
+import view.AddNewAnimalTypeWindow;
+import view.EditAppointmentWindow;
+import view.RegisterAnimalWindow;
+import view.ViewAndSearchAnimalsWindow;
 
 /**
  *
@@ -15,10 +20,10 @@ import model.SerialisationDAO;
  */
 public class MainWindowController extends Controller<MainWindow>{
     
-
-    public MainWindowController(MainWindow view, SerialisationDAO dao) {
-        super(view, dao);
-        
+     private Appointment selectedAppointment;
+    
+    public MainWindowController(MainWindow view, SerialisationDAO model) {
+        super(view, model);
         setupEventHandlers();
     }
 
@@ -28,26 +33,34 @@ public class MainWindowController extends Controller<MainWindow>{
         view.getBookBtn().addEventHandler(ActionEvent.ACTION, this::openAddBookingWindow);
         view.getViewAndSearchMenuItem().addEventHandler(ActionEvent.ACTION, this::openViewAndSearchAnimalsWindow);
         view.getRegisterAnimalMenuItem().addEventHandler(ActionEvent.ACTION, this::openRegisterAnimalWindow);
-        view.getDeleteBtn().addEventHandler(ActionEvent.ACTION, this::deleteBooking);
-        view.getEditBtn().addEventHandler(ActionEvent.ACTION, this::editBooking);
+        view.getDeleteBtn().addEventHandler(ActionEvent.ACTION, this::deleteAppointment);
+        view.getEditBtn().addEventHandler(ActionEvent.ACTION, this::editAppointment);
     }
 
    
-
-
-    private void openAddNewAnimalTypeWindow(ActionEvent event){}
-    
-    private void openAddBookingWindow(ActionEvent event){
-        AddAppointmentWindow addBookingWindow = new AddAppointmentWindow();
+    private void openAddNewAnimalTypeWindow(ActionEvent event){
+        AddNewAnimalTypeWindow addNewAnimalTypeWin = new AddNewAnimalTypeWindow();
     }
     
-    private void openViewAndSearchAnimalsWindow(ActionEvent event){}
+    private void openAddBookingWindow(ActionEvent event){
+        AddAppointmentWindow addBookingWin = new AddAppointmentWindow();
+    }
     
-    private void openRegisterAnimalWindow(ActionEvent event){}
+    private void openViewAndSearchAnimalsWindow(ActionEvent event){
+        ViewAndSearchAnimalsWindow viewAndSearchWin = new ViewAndSearchAnimalsWindow();
+    }
     
-    private void deleteBooking(ActionEvent event){}
+    private void openRegisterAnimalWindow(ActionEvent event){
+        RegisterAnimalWindow registerAnimalWin = new RegisterAnimalWindow();
+    }
     
-    private void editBooking(ActionEvent event){}
+    private void deleteAppointment(ActionEvent event){
+        model.deleteAppointment(selectedAppointment);
+    }
+    
+    private void editAppointment(ActionEvent event){
+        EditAppointmentWindow editAppointmentWin = new EditAppointmentWindow();
+    }
     
     
     

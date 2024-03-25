@@ -4,8 +4,6 @@
  */
 package view;
 
-import java.util.ArrayList;
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +12,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -51,6 +50,15 @@ public class MainWindow extends CustomStage {
         scene = new Scene(root);
         tableScroll = new ScrollPane();
         appointmentTable = new TableView();
+        appointmentTable.setEditable(true);
+        TableColumn dateCol = new TableColumn("Date");
+        TableColumn timeCol = new TableColumn("Time");
+        TableColumn animalCol = new TableColumn("Animal");
+        TableColumn locationTypeCol = new TableColumn("Location");
+        TableColumn addressCol = new TableColumn("Address");
+        TableColumn apptTypeCol = new TableColumn("Type");
+        TableColumn paymentCol = new TableColumn("Paid");
+        appointmentTable.getColumns().addAll(dateCol,timeCol, animalCol, locationTypeCol, addressCol, apptTypeCol, paymentCol);
         editBtn = new Button("Edit");
         deleteBtn = new Button("Delete");
         bookBtn = new Button("Book");
@@ -60,7 +68,6 @@ public class MainWindow extends CustomStage {
         viewAndSearchMenuItem = new MenuItem("View and Search ");
         registerAnimalMenuItem = new MenuItem("Register New Animal");
         addNewTypeMenuItem = new MenuItem("Add New Animal Type");
-        addNewTypeMenuItem.setOnAction(e -> new AddNewAnimalTypeWindow());
         animalsMenu.getItems().addAll(registerAnimalMenuItem,
                 viewAndSearchMenuItem,
                 addNewTypeMenuItem);

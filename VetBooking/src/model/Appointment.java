@@ -6,28 +6,33 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 /**
  *
  * @author igbin
  */
 public class Appointment implements Serializable {
-    
+
     private LocalDate date;
+    private String time;
     private Animal animal;
     private Address address;
     private Vet vet;
     private AppointmentType appointmentType;
+    private boolean paid;
 
     public Appointment() {
     }
 
-    public Appointment(LocalDate date, Animal animal, Address address, Vet vet, AppointmentType appointmentType) {
+    public Appointment(LocalDate date, String time, Animal animal, Address address, Vet vet, AppointmentType appointmentType, boolean paid) {
         this.date = date;
+        this.time = time;
         this.animal = animal;
         this.address = address;
         this.vet = vet;
         this.appointmentType = appointmentType;
+        this.paid=paid;
     }
 
     public LocalDate getDate() {
@@ -36,6 +41,14 @@ public class Appointment implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public Animal getAnimal() {
@@ -53,7 +66,7 @@ public class Appointment implements Serializable {
     public void setAddress(Address address) {
         this.address = address;
     }
-    
+
     public Vet getVet() {
         return vet;
     }
@@ -61,7 +74,7 @@ public class Appointment implements Serializable {
     public void setVet(Vet vet) {
         this.vet = vet;
     }
-
+    
     public AppointmentType getAppointmentType() {
         return appointmentType;
     }
@@ -69,18 +82,24 @@ public class Appointment implements Serializable {
     public void setAppointmentType(AppointmentType appointmentType) {
         this.appointmentType = appointmentType;
     }
-    
-    
-    
-    
-    public enum AppointmentType{
-        STANDARD("standard"), 
-        CHECKUP("checkup"), 
-        PRESCRIPTION("prescription"), 
-        EMERGENCY("emergency"), 
-        VACCINATION("vaccination"), 
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+   
+
+    public enum AppointmentType {
+        STANDARD("standard"),
+        CHECKUP("checkup"),
+        PRESCRIPTION("prescription"),
+        EMERGENCY("emergency"),
+        VACCINATION("vaccination"),
         SURGERY("surgery");
-        
+
         private final String stringValue;
 
         private AppointmentType(String stringValue) {
@@ -90,22 +109,53 @@ public class Appointment implements Serializable {
         @Override
         public String toString() {
             return stringValue;
-          
+
+        }
+
+    }
+    
+    public enum TimeSlots{
+        ALL(Set.of("08:30","08:45",
+                   "09:00", "09:15", "09:30", "09:45", 
+                   "10:00",
+                   "11:00", "11:15", "11:30", "11:45",
+                   "12:30", "12:45",
+                   "13:00", "13:15", "13:30", "13:45",
+                   "14:00", "14:15", "14:30", "14:45",
+                   "15:00", "15:15", "15:30", "15:45",
+                   "18:00", "18:15", "18:30", "18:45")),
+        STANDARD(Set.of("09:00", "09:15", "09:30", "09:45", 
+                "11:00", "11:15", "11:30", "11:45",
+                "12:30", "12:45",
+                "13:00", "13:15", "13:30", "13:45",
+                "14:00", "14:15", "14:30", "14:45",
+                "15:00", "15:15", "15:30", "15:45",
+                "18:00", "18:15", "18:30", "18:45")),
+        EMERGENCY(Set.of("08:30","08:45", "19:00", "19:15")),
+        SURGERY(Set.of("10:00"));
+        
+        private final Set<String> times;
+
+        private TimeSlots(Set<String> times) {
+            this.times = times;
+        }
+
+        public Set<String> getTimes() {
+            return times;
         }
         
         
-        
     }
-    
-    public enum AppointmentFee{
-        
+
+    public enum AppointmentFee {
+
         PRESCRIPTION(10),
         CALLOUT(20),
         BASE(50),
         EMERGENCY(100),
         MINOR_SURGERY(150),
         MAJOR_SURGERY(300);
-        
+
         private final int feeAmount;
 
         private AppointmentFee(int feeAmount) {
@@ -114,29 +164,27 @@ public class Appointment implements Serializable {
 
         public int getFeeAmount() {
             return feeAmount;
-        }       
-        
+        }
+
     }
-    
-    public enum MedicationFee{
+
+    public enum MedicationFee {
         ANESTH_GENERAL(200),
         ANESTH_LOCAL(100),
         VACCINE_CAT_1(50),
         VACCINE_CAT_2(100),
         ANTIBIOTICS(30);
-        
-        
+
         private final int feeAmount;
-        
-        private MedicationFee(int feeAmount){
+
+        private MedicationFee(int feeAmount) {
             this.feeAmount = feeAmount;
         }
 
         public int getFeeAmount() {
             return feeAmount;
         }
-        
-        
+
     }
-    
+
 }

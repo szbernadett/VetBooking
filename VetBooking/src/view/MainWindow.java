@@ -41,6 +41,7 @@ public class MainWindow extends CustomStage {
 
     public MainWindow() {
         initWindow();
+        show();
     }
 
     @Override

@@ -29,7 +29,8 @@ public class Main extends Application {
     public void start(Stage stage) {
         SerialisationDAO model = new SerialisationDAO();
         MainWindow mainWindow = new MainWindow();
-        new MainWindowController(mainWindow, model);
+        MainWindowController mainWinController = new MainWindowController(mainWindow, model);
+        mainWinController.getView().show();
         mainWindow.show();
     }
 

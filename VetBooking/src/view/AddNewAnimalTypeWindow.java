@@ -44,7 +44,6 @@ public class AddNewAnimalTypeWindow extends CustomStage {
 
     public AddNewAnimalTypeWindow() {
         initWindow();
-        show();
     }
 
     @Override

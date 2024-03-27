@@ -4,7 +4,6 @@
  */
 package view;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,9 +19,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import model.Animal;
 import model.Appointment.AppointmentType;
-import model.Vet;
 
 /**
  *
@@ -53,6 +50,8 @@ public class AddAppointmentWindow extends CustomStage {
     private Label hiddenLabel;
     private Label dateLabel;
     private DatePicker apptDatePicker;
+    private Label timeLabel;
+    private ComboBox timeCbox;
     private ButtonBar buttonBar;
     private Button clearAllBtn;
     private Button cancelBtn;
@@ -60,10 +59,9 @@ public class AddAppointmentWindow extends CustomStage {
 
     public AddAppointmentWindow() {
         initWindow();
-        show();
 
     }
-
+    
     @Override
     protected final void initWindow() {
         root = new BorderPane();
@@ -104,9 +102,12 @@ public class AddAppointmentWindow extends CustomStage {
         dateLabel = new Label("Date:");
         apptDatePicker = new DatePicker();
 
+        timeLabel = new Label("Time:");
+        timeCbox = new ComboBox();
+
         mainPane.add(animalLabel, 0, 0);
         mainPane.add(animalValueTextField, 1, 0);
-        mainPane.add(listScrollPane, 1, 1, 1, 4);
+        mainPane.add(listScrollPane, 1, 1, 1, 5);
         mainPane.add(appointmentTypeLabel, 2, 0);
         mainPane.add(apptTypeRBPane, 3, 0);
         mainPane.add(locationLabel, 2, 1);
@@ -115,6 +116,8 @@ public class AddAppointmentWindow extends CustomStage {
         mainPane.add(vetCBox, 3, 2);
         mainPane.add(dateLabel, 2, 3);
         mainPane.add(apptDatePicker, 3, 3);
+        mainPane.add(timeLabel, 2, 4);
+        mainPane.add(timeCbox, 3, 4);
 
         buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));
@@ -130,7 +133,6 @@ public class AddAppointmentWindow extends CustomStage {
         setScene(mainScene);
     }
 
-    
     public BorderPane getRoot() {
         return root;
     }
@@ -313,6 +315,22 @@ public class AddAppointmentWindow extends CustomStage {
 
     public void setApptDatePicker(DatePicker apptDatePicker) {
         this.apptDatePicker = apptDatePicker;
+    }
+
+    public Label getTimeLabel() {
+        return timeLabel;
+    }
+
+    public void setTimeLabel(Label timeLabel) {
+        this.timeLabel = timeLabel;
+    }
+
+    public ComboBox getTimeCbox() {
+        return timeCbox;
+    }
+
+    public void setTimeCbox(ComboBox timeCbox) {
+        this.timeCbox = timeCbox;
     }
 
     public ButtonBar getButtonBar() {

@@ -11,6 +11,7 @@ import view.MainWindow;
 import model.SerialisationDAO;
 import view.AddNewAnimalTypeWindow;
 import view.EditAppointmentWindow;
+import view.EditAppointmentWindow;
 import view.RegisterAnimalWindow;
 import view.ViewAndSearchAnimalsWindow;
 
@@ -40,18 +41,22 @@ public class MainWindowController extends Controller<MainWindow>{
    
     private void openAddNewAnimalTypeWindow(ActionEvent event){
         AddNewAnimalTypeWindow addNewAnimalTypeWin = new AddNewAnimalTypeWindow();
+        addNewAnimalTypeWin.show();
     }
     
     private void openAddBookingWindow(ActionEvent event){
-        AddAppointmentWindow addBookingWin = new AddAppointmentWindow();
+        AddAppointmentWindow addAppointmentWin = new AddAppointmentWindow();
+        addAppointmentWin.show();
     }
     
     private void openViewAndSearchAnimalsWindow(ActionEvent event){
         ViewAndSearchAnimalsWindow viewAndSearchWin = new ViewAndSearchAnimalsWindow();
+        viewAndSearchWin.show();
     }
     
     private void openRegisterAnimalWindow(ActionEvent event){
         RegisterAnimalWindow registerAnimalWin = new RegisterAnimalWindow();
+        registerAnimalWin.show();
     }
     
     private void deleteAppointment(ActionEvent event){
@@ -60,6 +65,7 @@ public class MainWindowController extends Controller<MainWindow>{
     
     private void editAppointment(ActionEvent event){
         EditAppointmentWindow editAppointmentWin = new EditAppointmentWindow();
+        editAppointmentWin.show();
     }
     
     

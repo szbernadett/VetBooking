@@ -4,7 +4,6 @@
  */
 package view;
 
-import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,8 +51,6 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
 
     public ViewAndSearchAnimalsWindow() {
         initWindow();
-        show();
-
     }
 
     @Override

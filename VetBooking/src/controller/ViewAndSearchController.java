@@ -23,8 +23,8 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
     private List<Record> currentList;
     private Record currentRecord;
 
-    public ViewAndSearchController(ViewAndSearchAnimalsWindow view, SerialisationDAO dao, RecordHandler recordHandler) {
-        super(view, dao);
+    public ViewAndSearchController(ViewAndSearchAnimalsWindow view, SerialisationDAO model, RecordHandler recordHandler) {
+        super(view, model);
         this.recordHandler = recordHandler;
         currentList = recordHandler.getAllRecords();
         if (!currentList.isEmpty()) {

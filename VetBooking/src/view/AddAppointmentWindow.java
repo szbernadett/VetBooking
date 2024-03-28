@@ -108,12 +108,12 @@ public class AddAppointmentWindow extends CustomStage {
         mainPane.add(animalLabel, 0, 0);
         mainPane.add(animalValueTextField, 1, 0);
         mainPane.add(listScrollPane, 1, 1, 1, 5);
-        mainPane.add(appointmentTypeLabel, 2, 0);
-        mainPane.add(apptTypeRBPane, 3, 0);
+        mainPane.add(vetLabel, 2, 0);
+        mainPane.add(vetCBox, 3, 0);
         mainPane.add(locationLabel, 2, 1);
         mainPane.add(locationValueLabel, 3, 1);
-        mainPane.add(vetLabel, 2, 2);
-        mainPane.add(vetCBox, 3, 2);
+        mainPane.add(appointmentTypeLabel, 2, 2);
+        mainPane.add(apptTypeRBPane, 3, 2);
         mainPane.add(dateLabel, 2, 3);
         mainPane.add(apptDatePicker, 3, 3);
         mainPane.add(timeLabel, 2, 4);

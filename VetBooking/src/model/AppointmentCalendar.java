@@ -8,12 +8,14 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import model.Appointment.TimeSlots;
+import model.Appointment.AppointmentType;
+import model.Appointment.TimeSlot;
 
 /**
  *
@@ -21,11 +23,21 @@ import model.Appointment.TimeSlots;
  */
 public class AppointmentCalendar {
 
-    HashMap<Vet, TreeMap<LocalDate, TreeSet<String>>> appointmentsByVetsMap;
+    private Map<Vet, Map<LocalDate, Map<TimeSlot, Set<String>>>> bookedVetAppointmentsMap;
+    public static final LocalDate startDate = LocalDate.now();
+    public static final LocalDate endDate = startDate.plusMonths(1);
 
     public AppointmentCalendar(List<Appointment> appointments) {
-        appointmentsByVetsMap = new HashMap<>();
+        bookedVetAppointmentsMap = new HashMap<>();
         populateMap(appointments);
+    }
+
+    public Map<Vet, Map<LocalDate, Map<TimeSlot, Set<String>>>> getBookedVetAppointmentsMap() {
+        return bookedVetAppointmentsMap;
+    }
+
+    public void setBookedVetAppointmentsMap(Map<Vet, Map<LocalDate, Map<TimeSlot, Set<String>>>> bookedVetAppointmentsMap) {
+        this.bookedVetAppointmentsMap = bookedVetAppointmentsMap;
     }
 
     private void populateMap(List<Appointment> appointments) {
@@ -33,47 +45,34 @@ public class AppointmentCalendar {
             LocalDate date = appt.getDate();
             String time = appt.getTime();
             Vet vet = appt.getVet();
+            TimeSlot timeSlotType = Appointment.timeSlotByApptType(appt.getAppointmentType());
 
-            appointmentsByVetsMap.putIfAbsent(vet, new TreeMap<>());
-            Map<LocalDate, TreeSet<String>> bookedAppointments = appointmentsByVetsMap.get(vet);
-            bookedAppointments.putIfAbsent(date, new TreeSet<>());
-            Set<String> times = bookedAppointments.get(date);
+            bookedVetAppointmentsMap.putIfAbsent(vet, new HashMap<>());
+            Map<LocalDate, Map<TimeSlot, Set<String>>> datesMap = bookedVetAppointmentsMap.get(vet);
+            datesMap.putIfAbsent(date, new HashMap<>());
+            Map<TimeSlot, Set<String>> timeSlotMap = datesMap.get(date);
+            timeSlotMap.putIfAbsent(timeSlotType, new TreeSet<>());
+            Set<String> times = timeSlotMap.get(timeSlotType);
             times.add(time);
-
         }
     }
 
-    public List<LocalDate> getWeekdaysInMonth() {
-        LocalDate startDate = LocalDate.now();
-        LocalDate endDate = startDate.plusMonths(1);
-        List<LocalDate> weekdays = new ArrayList<>();
-        LocalDate current = startDate;
-
-        while (!current.isAfter(endDate)) {
-            DayOfWeek dayOfWeek = current.getDayOfWeek();
-            if (dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY) {
-                weekdays.add(current);
+    public Set<String> getFreeTimeSlots(Vet vet, LocalDate date, AppointmentType apptType) {
+        Set<String> allTimesForSlot;
+        if (vet != null && date != null && apptType != null) {
+            TimeSlot timeSlotType = Appointment.timeSlotByApptType(apptType);
+            allTimesForSlot = timeSlotType.getTimes();
+            Map<LocalDate, Map<TimeSlot, Set<String>>> apptsByDate = bookedVetAppointmentsMap.get(vet);
+            if (apptsByDate != null) {
+                Map<TimeSlot, Set<String>> apptsByTimeSlot = apptsByDate.get(date);
+                if (apptsByTimeSlot != null) {
+                    Set<String> bookedTimes = apptsByTimeSlot.get(timeSlotType);
+                    allTimesForSlot.removeAll(bookedTimes);
+                }
             }
-            current = current.plusDays(1);
+        } else {
+            allTimesForSlot = new HashSet<>();
         }
-
-        return weekdays;
+        return allTimesForSlot;
     }
-
-    
-
-    public Set<String> getFreeTimeSlots(Vet vet, LocalDate date) {
-        Set<String> allTimes = TimeSlots.ALL.getTimes();
-
-        TreeMap<LocalDate, TreeSet<String>> vetAppointments = appointmentsByVetsMap.get(vet);
-        if (vetAppointments != null) {
-            TreeSet<String> bookedSlots = vetAppointments.get(date);
-            if (bookedSlots != null) {
-                allTimes.removeAll(bookedSlots);
-            }
-        }
-
-        return allTimes;
-    }
-
 }

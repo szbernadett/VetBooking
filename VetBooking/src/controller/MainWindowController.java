@@ -11,7 +11,6 @@ import view.MainWindow;
 import model.SerialisationDAO;
 import view.AddNewAnimalTypeWindow;
 import view.EditAppointmentWindow;
-import view.EditAppointmentWindow;
 import view.RegisterAnimalWindow;
 import view.ViewAndSearchAnimalsWindow;
 

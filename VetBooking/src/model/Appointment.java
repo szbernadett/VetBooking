@@ -6,6 +6,8 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -21,6 +23,17 @@ public class Appointment implements Serializable {
     private Vet vet;
     private AppointmentType appointmentType;
     private boolean paid;
+    private static final Map<AppointmentType, TimeSlot> apptTypeToTimeSlotMap;
+    
+    static{
+        apptTypeToTimeSlotMap = new HashMap<>();
+        apptTypeToTimeSlotMap.put(AppointmentType.STANDARD, TimeSlot.STANDARD);
+        apptTypeToTimeSlotMap.put(AppointmentType.SURGERY, TimeSlot.SURGERY);
+        apptTypeToTimeSlotMap.put(AppointmentType.EMERGENCY, TimeSlot.EMERGENCY);
+        apptTypeToTimeSlotMap.put(AppointmentType.CHECKUP, TimeSlot.STANDARD);
+        apptTypeToTimeSlotMap.put(AppointmentType.PRESCRIPTION, TimeSlot.STANDARD);
+        apptTypeToTimeSlotMap.put(AppointmentType.VACCINATION, TimeSlot.STANDARD);     
+    }
 
     public Appointment() {
     }
@@ -92,6 +105,10 @@ public class Appointment implements Serializable {
     }
    
 
+    public static TimeSlot timeSlotByApptType(AppointmentType apptType){
+        return apptTypeToTimeSlotMap.get(apptType);
+    }
+    
     public enum AppointmentType {
         STANDARD("standard"),
         CHECKUP("checkup"),
@@ -105,6 +122,16 @@ public class Appointment implements Serializable {
         private AppointmentType(String stringValue) {
             this.stringValue = stringValue;
         }
+        
+        public static AppointmentType fromStringValue(String stringValue){
+            for(AppointmentType type : AppointmentType.values()){
+                if(type.stringValue.equalsIgnoreCase(stringValue)){
+                    return type;
+                }
+            }
+            
+            throw new IllegalArgumentException("No AppointmentType with this stringValue");
+        }
 
         @Override
         public String toString() {
@@ -114,7 +141,7 @@ public class Appointment implements Serializable {
 
     }
     
-    public enum TimeSlots{
+    public enum TimeSlot{
         ALL(Set.of("08:30","08:45",
                    "09:00", "09:15", "09:30", "09:45", 
                    "10:00",
@@ -136,7 +163,7 @@ public class Appointment implements Serializable {
         
         private final Set<String> times;
 
-        private TimeSlots(Set<String> times) {
+        private TimeSlot(Set<String> times) {
             this.times = times;
         }
 

@@ -4,7 +4,6 @@
  */
 package view;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -47,7 +46,6 @@ public class RegisterAnimalWindow extends CustomStage {
     
     public RegisterAnimalWindow() {
         initWindow();
-        show();
     }
 
     @Override

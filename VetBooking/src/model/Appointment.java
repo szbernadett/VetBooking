@@ -19,7 +19,7 @@ public class Appointment implements Serializable {
     private LocalDate date;
     private String time;
     private Animal animal;
-    private Address address;
+    private String location;
     private Vet vet;
     private AppointmentType appointmentType;
     private boolean paid;
@@ -38,11 +38,11 @@ public class Appointment implements Serializable {
     public Appointment() {
     }
 
-    public Appointment(LocalDate date, String time, Animal animal, Address address, Vet vet, AppointmentType appointmentType, boolean paid) {
+    public Appointment(LocalDate date, String time, Animal animal, String location, Vet vet, AppointmentType appointmentType, boolean paid) {
         this.date = date;
         this.time = time;
         this.animal = animal;
-        this.address = address;
+        this.location = location;
         this.vet = vet;
         this.appointmentType = appointmentType;
         this.paid=paid;
@@ -72,12 +72,12 @@ public class Appointment implements Serializable {
         this.animal = animal;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getLocation() {
+        return location;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Vet getVet() {

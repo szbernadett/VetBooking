@@ -18,12 +18,12 @@ import model.SerialisationDAO;
 public abstract class Controller<T extends CustomStage> {
     
     protected T view;
-    protected SerialisationDAO model;
+    protected DAO model;
 
     public Controller() {
     }
 
-    public Controller(T view, SerialisationDAO model) {
+    public Controller(T view, DAO model) {
         this.view = view;
         this.model = model;
     }

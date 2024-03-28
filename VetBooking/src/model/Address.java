@@ -61,8 +61,35 @@ public class Address implements Serializable {
     }
 
     public enum LocationType{
-    ZOO, FARM, VET_OFFICE, DOMESTIC
+    ZOO("zoo"), 
+    FARM("farm"), 
+    VET_OFFICE("vet office"), 
+    DOMESTIC("domestic");
+    
+        private final String stringValue;
+
+        private LocationType(String stringValue) {
+            this.stringValue = stringValue;
+        }
+
+        public String getStringValue() {
+            return stringValue;
+        }
+
+        @Override
+        public String toString() {
+            return stringValue;
+        }
+        
+        
+        
     }
+
+    @Override
+    public String toString() {
+        return  addressLine1 + " " + postcode + ", " + locationType.toString();
+    }
+    
    
     
     

@@ -6,9 +6,9 @@ package controller;
 
 import javafx.event.ActionEvent;
 import model.Appointment;
+import model.DAO;
 import view.AddAppointmentWindow;
 import view.MainWindow;
-import model.SerialisationDAO;
 import view.AddNewAnimalTypeWindow;
 import view.EditAppointmentWindow;
 import view.RegisterAnimalWindow;
@@ -22,7 +22,7 @@ public class MainWindowController extends Controller<MainWindow>{
     
      private Appointment selectedAppointment;
     
-    public MainWindowController(MainWindow view, SerialisationDAO model) {
+    public MainWindowController(MainWindow view, DAO model) {
         super(view, model);
         setupEventHandlers();
     }

@@ -4,8 +4,11 @@
  */
 package view;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import model.Appointment;
 
 /**
  *
@@ -15,20 +18,22 @@ public class EditAppointmentWindow extends AddAppointmentWindow {
 
     private Label paidLabel;
     private CheckBox paidCheckBox;
+    private Appointment appointment;
 
-    public EditAppointmentWindow() {
-       // super();
+    public EditAppointmentWindow(Appointment appointment) {
+        super();
         initComponents();
+        this.appointment = appointment;
     }
 
     private void initComponents() {
         super.initWindow();
         paidLabel = new Label("Paid:");
         paidCheckBox = new CheckBox();
-        super.getMainPane().getChildren().remove(super.getListScrollPane());
-        super.getMainPane().add(super.getListScrollPane(), 1, 1, 1, 6);
-        super.getMainPane().add(paidLabel, 2, 5);
-        super.getMainPane().add(paidCheckBox, 3, 5);
+        GridPane gridPane = super.getBottomGridPane();
+        gridPane.add(paidLabel, 4, 4);
+        gridPane.add(paidCheckBox, 5, 4);
+        paidCheckBox.addEventHandler(ActionEvent.ACTION, this::checkboxSelected);
     }
 
     public Label getPaidLabel() {
@@ -45,6 +50,23 @@ public class EditAppointmentWindow extends AddAppointmentWindow {
 
     public void setPaidCheckBox(CheckBox paidCheckBox) {
         this.paidCheckBox = paidCheckBox;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+    }
+    
+    
+    private void checkboxSelected(ActionEvent event){
+        if(paidCheckBox.isSelected()){
+            appointment.setPaid(true);
+        } else {
+            appointment.setPaid(false);
+        }
     }
 
 }

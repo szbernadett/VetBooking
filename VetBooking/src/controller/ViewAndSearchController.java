@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.event.ActionEvent;
+import model.DAO;
 import model.Record;
 import model.RecordHandler;
 import model.SerialisationDAO;
@@ -23,7 +24,7 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
     private List<Record> currentList;
     private Record currentRecord;
 
-    public ViewAndSearchController(ViewAndSearchAnimalsWindow view, SerialisationDAO model, RecordHandler recordHandler) {
+    public ViewAndSearchController(ViewAndSearchAnimalsWindow view, DAO model, RecordHandler recordHandler) {
         super(view, model);
         this.recordHandler = recordHandler;
         currentList = recordHandler.getAllRecords();

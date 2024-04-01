@@ -77,6 +77,21 @@ public abstract class Person implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if(title != null){
+            sb.append(title);
+            sb.append(" ");
+        }
+        sb.append(firstName);
+        sb.append(" ");
+        sb.append(lastName);
+        return sb.toString();
+    }
+
+ 
+
     
     public enum Title{
         MR("Mr"),

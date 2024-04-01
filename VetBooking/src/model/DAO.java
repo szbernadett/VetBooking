@@ -20,12 +20,16 @@ public interface DAO {
     void saveRecord(Record record);
     
     void saveAnimals(List<Animal> animals) throws IOException;
+    void saveAnimals() throws IOException;
     void saveAnimalTypes(List<AnimalType> animalTypes) throws IOException;
+    void saveAnimalTypes() throws IOException;
     void saveVets(List<Vet> vets) throws IOException;
     void saveAdministrators(List<Administrator> administrators) throws IOException;
     void saveCaretakers(List<Caretaker> caretakers) throws IOException;
     void saveRecords(List<Record> records) throws IOException;
+    void saveRecords() throws IOException;
     void saveAppointments(List<Appointment> appointments) throws IOException;
+    void saveAppointments() throws IOException;
     void saveAddresses(List<Address> addresses) throws IOException;
 
     List<Animal> getAllAnimals() throws ClassNotFoundException, IOException;
@@ -36,6 +40,7 @@ public interface DAO {
     List<Address> getAllAddresses() throws ClassNotFoundException, IOException;
     List<AnimalType> getAllAnimalTypes() throws ClassNotFoundException, IOException;
     List<Appointment> getAllAppointments() throws ClassNotFoundException, IOException;  
+
     
     
     

@@ -31,7 +31,6 @@ public class Main extends Application {
         MainWindow mainWindow = new MainWindow();
         MainWindowController mainWinController = new MainWindowController(mainWindow, model);
         mainWinController.getView().show();
-        mainWindow.show();
     }
 
 

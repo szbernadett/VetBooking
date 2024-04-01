@@ -13,11 +13,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import model.Appointment.AppointmentType;
 
@@ -30,12 +28,13 @@ public class AddAppointmentWindow extends CustomStage {
     private BorderPane root;
     private Scene mainScene;
     private GridPane mainPane;
+    private GridPane topGridPane;
+    private GridPane bottomGridPane;
     private Label animalLabel;
-    private TextField animalValueTextField;
-    private ScrollPane listScrollPane;
+    private TextField animalSearchTextField;
     private ListView filteredAnimalsListView;
     private Label appointmentTypeLabel;
-    private FlowPane apptTypeRBPane;
+    private GridPane apptTypeGridPane;
     private ToggleGroup apptTypeToggleGroup;
     private RadioButton standardRBtn;
     private RadioButton emergencyRBtn;
@@ -43,10 +42,14 @@ public class AddAppointmentWindow extends CustomStage {
     private RadioButton vaccinationRBtn;
     private RadioButton checkupRBtn;
     private RadioButton surgeryRBtn;
+    private Label selectedAnimalLbl;
+    private Label selectedAnimalNameLbl;
+    private Label selectedVetLbl;
+    private Label selectedVetNameLbl;
     private Label locationLabel;
     private Label locationValueLabel;
     private Label vetLabel;
-    private ComboBox vetCBox;
+    private ListView vetListView;
     private Label hiddenLabel;
     private Label dateLabel;
     private DatePicker apptDatePicker;
@@ -61,21 +64,19 @@ public class AddAppointmentWindow extends CustomStage {
         initWindow();
 
     }
-    
+
     @Override
     protected final void initWindow() {
         root = new BorderPane();
         mainScene = new Scene(root);
         mainPane = new GridPane();
+        topGridPane = new GridPane();
+        bottomGridPane = new GridPane();
         animalLabel = new Label("Animal:");
-        animalValueTextField = new TextField();
-        listScrollPane = new ScrollPane();
-        filteredAnimalsListView = new ListView<>();
-        listScrollPane.setContent(filteredAnimalsListView);
-        listScrollPane.setFitToHeight(true);
-        listScrollPane.setFitToWidth(true);
+        animalSearchTextField = new TextField();
+        filteredAnimalsListView = new ListView();
         appointmentTypeLabel = new Label("Appointment Type:");
-        apptTypeRBPane = new FlowPane();
+        apptTypeGridPane = new GridPane();
         apptTypeToggleGroup = new ToggleGroup();
         standardRBtn = new RadioButton(AppointmentType.STANDARD.toString());
         emergencyRBtn = new RadioButton(AppointmentType.EMERGENCY.toString());
@@ -89,13 +90,20 @@ public class AddAppointmentWindow extends CustomStage {
         vaccinationRBtn.setToggleGroup(apptTypeToggleGroup);
         checkupRBtn.setToggleGroup(apptTypeToggleGroup);
         surgeryRBtn.setToggleGroup(apptTypeToggleGroup);
-        apptTypeRBPane.getChildren().addAll(standardRBtn, emergencyRBtn,
-                prescriptionRBtn, vaccinationRBtn,
-                checkupRBtn, surgeryRBtn);
+        apptTypeGridPane.add(standardRBtn, 0, 0);
+        apptTypeGridPane.add(emergencyRBtn, 1, 0);
+        apptTypeGridPane.add(surgeryRBtn, 2, 0);
+        apptTypeGridPane.add(checkupRBtn, 0, 1);
+        apptTypeGridPane.add(vaccinationRBtn, 1, 1);
+        apptTypeGridPane.add(prescriptionRBtn, 2, 1);
+        selectedAnimalLbl = new Label("Animal:");
+        selectedAnimalNameLbl = new Label();
+        selectedVetLbl = new Label("Vet:");
+        selectedVetNameLbl = new Label();
         locationLabel = new Label("Location:");
         locationValueLabel = new Label("");
         vetLabel = new Label("Vet:");
-        vetCBox = new ComboBox();
+        vetListView = new ListView();
         hiddenLabel = new Label("If no available doctors, please book on: 0161 1234 5678");
         hiddenLabel.setVisible(false);
 
@@ -105,19 +113,26 @@ public class AddAppointmentWindow extends CustomStage {
         timeLabel = new Label("Time:");
         timeCbox = new ComboBox();
 
-        mainPane.add(animalLabel, 0, 0);
-        mainPane.add(animalValueTextField, 1, 0);
-        mainPane.add(listScrollPane, 1, 1, 1, 5);
-        mainPane.add(vetLabel, 2, 0);
-        mainPane.add(vetCBox, 3, 0);
-        mainPane.add(locationLabel, 2, 1);
-        mainPane.add(locationValueLabel, 3, 1);
-        mainPane.add(appointmentTypeLabel, 2, 2);
-        mainPane.add(apptTypeRBPane, 3, 2);
-        mainPane.add(dateLabel, 2, 3);
-        mainPane.add(apptDatePicker, 3, 3);
-        mainPane.add(timeLabel, 2, 4);
-        mainPane.add(timeCbox, 3, 4);
+        topGridPane.add(animalLabel, 0, 0);
+        topGridPane.add(animalSearchTextField, 1, 0);
+        topGridPane.add(filteredAnimalsListView, 1, 1);
+        topGridPane.add(vetLabel, 2, 0);
+        topGridPane.add(vetListView, 3, 1);
+        bottomGridPane.add(selectedAnimalLbl, 0, 0);
+        bottomGridPane.add(selectedAnimalNameLbl, 1, 0);
+        bottomGridPane.add(selectedVetLbl, 0, 1);
+        bottomGridPane.add(selectedVetNameLbl, 1, 1);
+        bottomGridPane.add(locationLabel, 0, 2);
+        bottomGridPane.add(locationValueLabel, 1, 2);
+        bottomGridPane.add(appointmentTypeLabel, 0, 3);
+        bottomGridPane.add(apptTypeGridPane, 1, 3);
+        bottomGridPane.add(dateLabel, 0, 4);
+        bottomGridPane.add(apptDatePicker, 1, 4);
+        bottomGridPane.add(timeLabel, 2, 4);
+        bottomGridPane.add(timeCbox, 3, 4);
+
+        mainPane.add(topGridPane, 0, 0);
+        mainPane.add(bottomGridPane, 0, 1);
 
         buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));
@@ -157,6 +172,23 @@ public class AddAppointmentWindow extends CustomStage {
         this.mainPane = mainPane;
     }
 
+    public GridPane getTopGridPane() {
+        return topGridPane;
+    }
+
+    public void setTopGridPane(GridPane topGridPane) {
+        this.topGridPane = topGridPane;
+    }
+
+    public GridPane getBottomGridPane() {
+        return bottomGridPane;
+    }
+
+    public void setBottomGridPane(GridPane bottomGridPane) {
+        this.bottomGridPane = bottomGridPane;
+    }
+
+    
     public Label getAnimalLabel() {
         return animalLabel;
     }
@@ -165,21 +197,14 @@ public class AddAppointmentWindow extends CustomStage {
         this.animalLabel = animalLabel;
     }
 
-    public TextField getAnimalValueTextField() {
-        return animalValueTextField;
+    public TextField getAnimalSearchTextField() {
+        return animalSearchTextField;
     }
 
-    public void setAnimalValueTextField(TextField animalValueTextField) {
-        this.animalValueTextField = animalValueTextField;
+    public void setAnimalSearchTextField(TextField animalSearchTextField) {
+        this.animalSearchTextField = animalSearchTextField;
     }
 
-    public ScrollPane getListScrollPane() {
-        return listScrollPane;
-    }
-
-    public void setListScrollPane(ScrollPane listScrollPane) {
-        this.listScrollPane = listScrollPane;
-    }
 
     public ListView getFilteredAnimalsListView() {
         return filteredAnimalsListView;
@@ -197,12 +222,12 @@ public class AddAppointmentWindow extends CustomStage {
         this.appointmentTypeLabel = appointmentTypeLabel;
     }
 
-    public FlowPane getApptTypeRBPane() {
-        return apptTypeRBPane;
+    public GridPane getApptTypeGridPane() {
+        return apptTypeGridPane;
     }
 
-    public void setApptTypeRBPane(FlowPane apptTypeRBPane) {
-        this.apptTypeRBPane = apptTypeRBPane;
+    public void setApptTypeGridPane(GridPane apptTypeRBPane) {
+        this.apptTypeGridPane = apptTypeRBPane;
     }
 
     public ToggleGroup getApptTypeToggleGroup() {
@@ -261,6 +286,39 @@ public class AddAppointmentWindow extends CustomStage {
         this.surgeryRBtn = surgeryRBtn;
     }
 
+    public Label getSelectedAnimalLbl() {
+        return selectedAnimalLbl;
+    }
+
+    public void setSelectedAnimalLbl(Label selectedAnimalLbl) {
+        this.selectedAnimalLbl = selectedAnimalLbl;
+    }
+
+    public Label getSelectedAnimalNameLbl() {
+        return selectedAnimalNameLbl;
+    }
+
+    public void setSelectedAnimalNameLbl(Label selectedAnimalNameLbl) {
+        this.selectedAnimalNameLbl = selectedAnimalNameLbl;
+    }
+
+    public Label getSelectedVetLbl() {
+        return selectedVetLbl;
+    }
+
+    public void setSelectedVetLbl(Label selectedVetLbl) {
+        this.selectedVetLbl = selectedVetLbl;
+    }
+
+    public Label getSelectedVetNameLbl() {
+        return selectedVetNameLbl;
+    }
+
+    public void setSelectedVetNameLbl(Label selectedVetNameLbl) {
+        this.selectedVetNameLbl = selectedVetNameLbl;
+    }
+
+    
     public Label getLocationLabel() {
         return locationLabel;
     }
@@ -285,12 +343,12 @@ public class AddAppointmentWindow extends CustomStage {
         this.vetLabel = vetLabel;
     }
 
-    public ComboBox getVetCBox() {
-        return vetCBox;
+    public ListView getVetListView() {
+        return vetListView;
     }
 
-    public void setVetCBox(ComboBox vetCBox) {
-        this.vetCBox = vetCBox;
+    public void setVetCBox(ListView vetCBox) {
+        this.vetListView = vetCBox;
     }
 
     public Label getHiddenLabel() {

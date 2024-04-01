@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,89 +36,126 @@ public class SerialisationDAO implements DAO {
 
     @Override
     public void saveAnimals(List<Animal> animals) throws IOException {
-        String fileName = FileName.classToFileName(Animal.class);
-        FileOutputStream fos = new FileOutputStream(fileName);
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(animals);
-            oos.flush();
+        if (animals != null) {
+            String fileName = FileName.classToFileName(Animal.class);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            animals = new ArrayList<>(animals);
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(animals);
+                oos.flush();
+            }
         }
+    }
+
+    @Override
+    public void saveAnimals() throws IOException {
+        saveAnimals(animals);
     }
 
     @Override
     public void saveAnimalTypes(List<AnimalType> animalTypes) throws IOException {
-        String fileName = FileName.classToFileName(AnimalType.class);
-        FileOutputStream fos = new FileOutputStream(fileName);
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(animalTypes);
-            oos.flush();
+        if (animalTypes != null) {
+            String fileName = FileName.classToFileName(AnimalType.class);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            animalTypes = new ArrayList<>(animalTypes);
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(animalTypes);
+                oos.flush();
+            }
         }
     }
 
     @Override
-    public void saveVets(List<Vet> vets) throws IOException {
-        String fileName = FileName.classToFileName(Vet.class);
-        FileOutputStream fos = new FileOutputStream(fileName);
+    public void saveAnimalTypes() throws IOException {
+        saveAnimalTypes(animalTypes);
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(vets);
-            oos.flush();
+    }
+
+    @Override
+    public void saveVets(List<Vet> vets) throws IOException {
+        if (vets != null) {
+            String fileName = FileName.classToFileName(Vet.class);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            vets = new ArrayList<>(vets);
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(vets);
+                oos.flush();
+            }
         }
     }
 
     @Override
     public void saveAdministrators(List<Administrator> administrators) throws IOException {
-        String fileName = FileName.classToFileName(Administrator.class);
-        FileOutputStream fos = new FileOutputStream(fileName);
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(administrators);
-            oos.flush();
+        if (administrators != null) {
+            String fileName = FileName.classToFileName(Administrator.class);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            administrators = new ArrayList<>(administrators);
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(administrators);
+                oos.flush();
+            }
         }
     }
 
     @Override
     public void saveCaretakers(List<Caretaker> caretakers) throws IOException {
-        String fileName = FileName.classToFileName(Caretaker.class);
-        FileOutputStream fos = new FileOutputStream(fileName);
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(caretakers);
-            oos.flush();
+        if (caretakers != null) {
+            String fileName = FileName.classToFileName(Caretaker.class);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            caretakers = new ArrayList<>(caretakers);
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(caretakers);
+                oos.flush();
+            }
         }
     }
 
     @Override
     public void saveRecords(List<Record> records) throws IOException {
-        String fileName = FileName.classToFileName(Record.class);
-        FileOutputStream fos = new FileOutputStream(fileName);
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(records);
-            oos.flush();
+        if (records != null) {
+            String fileName = FileName.classToFileName(Record.class);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            records = new ArrayList<>(records);
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(records);
+                oos.flush();
+            }
         }
+    }
+
+    @Override
+    public void saveRecords() throws IOException {
+        saveRecords(records);
     }
 
     @Override
     public void saveAppointments(List<Appointment> appointments) throws IOException {
-        String fileName = FileName.classToFileName(Appointment.class);
-        FileOutputStream fos = new FileOutputStream(fileName);
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(appointments);
-            oos.flush();
+        if (appointments != null) {
+            String fileName = FileName.classToFileName(Appointment.class);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            appointments = new ArrayList<>(appointments);
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(appointments);
+                oos.flush();
+            }
         }
     }
 
     @Override
-    public void saveAddresses(List<Address> addresses) throws IOException {
-        String fileName = FileName.classToFileName(Address.class);
-        FileOutputStream fos = new FileOutputStream(fileName);
+    public void saveAppointments() throws IOException {
+        saveAppointments(appointments);
+    }
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(addresses);
-            oos.flush();
+    @Override
+    public void saveAddresses(List<Address> addresses) throws IOException {
+        if (addresses != null) {
+            String fileName = FileName.classToFileName(Address.class);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            addresses = new ArrayList<>(addresses);
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(addresses);
+                oos.flush();
+            }
         }
     }
 

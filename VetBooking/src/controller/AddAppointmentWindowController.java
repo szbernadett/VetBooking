@@ -5,10 +5,12 @@
 package controller;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -16,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -27,9 +30,9 @@ import model.Animal;
 import model.Appointment;
 import model.Appointment.AppointmentType;
 import model.Vet;
-import view.AddAppointmentWindow;
 import model.AppointmentCalendar;
 import model.DAO;
+import view.AddAppointmentWindow;
 
 /**
  *
@@ -44,10 +47,11 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     private Map<String, Animal> animalNamesMap;
     private Animal selectedAnimal;
     private List<Vet> vets;
-    private List<Vet> comboBoxVets;
+    private List<Vet> listViewVets;
+    private List<String> cBoxTimeSlots;
     private Vet selectedVet;
     private String location;
-    private AppointmentType appointmentType;
+    private AppointmentType selectedAppointmentType;
     private LocalDate selectedDate;
     private String selectedTime;
 
@@ -62,12 +66,13 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     }
 
     private void initLists() {
-        try{
-        animals = model.getAllAnimals();
-        listViewAnimals = FXCollections.observableArrayList(animals);
-        vets = model.getAllVets();
-        comboBoxVets = FXCollections.observableArrayList(vets);
-        }catch(ClassNotFoundException | IOException ex){
+        try {
+            animals = model.getAllAnimals();
+            listViewAnimals = FXCollections.observableArrayList(animals);
+            vets = model.getAllVets();
+            listViewVets = FXCollections.observableArrayList();
+            cBoxTimeSlots = FXCollections.observableArrayList();
+        } catch (ClassNotFoundException | IOException ex) {
             System.out.println(ex);
         }
     }
@@ -86,10 +91,10 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         if (listViewAnimals != null) {
             view.getFilteredAnimalsListView().setItems((ObservableList) listViewAnimals);
             view.getFilteredAnimalsListView().setEditable(false); // test if this is needed
+            view.getVetListView().setItems((ObservableList) listViewVets);
         }
 
-        view.getApptDatePicker().setDayCellFactory(getCustomDayCellFactory
-        (AppointmentCalendar.startDate, AppointmentCalendar.endDate));
+        view.getApptDatePicker().setDayCellFactory(getCustomDayCellFactory(AppointmentCalendar.startDate, AppointmentCalendar.endDate));
     }
 
     private Callback<DatePicker, DateCell> getCustomDayCellFactory(LocalDate startDate, LocalDate endDate) {
@@ -99,6 +104,11 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
                 super.updateItem(item, empty);
                 if (item.isBefore(startDate) || item.isAfter(endDate)) {
                     setDisable(true);
+                } else {
+                    if (item.getDayOfWeek() == DayOfWeek.SATURDAY
+                            || item.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                        setDisable(true);
+                    }
                 }
             }
         };
@@ -110,10 +120,10 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
             listViewAnimals.clear();
             listViewAnimals.addAll(animals);
         } else {
-            String text = view.getAnimalValueTextField().getText();
+            String text = view.getAnimalSearchTextField().getText().toLowerCase();
 
             for (String name : animalNames) {
-                if (!name.contains(text)) {
+                if (!name.toLowerCase().contains(text)) {
                     listViewAnimals.remove(animalNamesMap.get(name));
                 }
             }
@@ -122,67 +132,91 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
 
     @Override
     protected final void setupEventHandlers() {
-        view.setEventHandler(view.getAnimalValueTextField(), KeyEvent.KEY_RELEASED, this::filterAnimals);
-        view.setEventHandler(view.getVetCBox(), ActionEvent.ACTION, this::vetSelected);
+        view.setEventHandler(view.getAnimalSearchTextField(), KeyEvent.KEY_RELEASED, this::filterAnimals);
         view.setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
+        view.setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::resetView);
+        view.setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
+        view.setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
 
     }
 
     private void addListeners() {
-        view.getFilteredAnimalsListView().getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            selectedAnimal = animals.get(animals.indexOf((Animal) newValue));
-            filterVets();
-            if(selectedAnimal.getAddress().getLocationType() == LocationType.DOMESTIC){
-                location=LocationType.VET_OFFICE.toString();
-            } else {
-                location = selectedAnimal.getAddress().toString();
+        view.getFilteredAnimalsListView().getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                selectedAnimal = (Animal) newValue;
+                view.getSelectedAnimalNameLbl().setText(selectedAnimal.toString());
+                filterVets();
+                if (selectedAnimal.getAddress().getLocationType() == LocationType.DOMESTIC) {
+                    location = LocationType.VET_OFFICE.toString();
+                } else {
+                    location = selectedAnimal.getAddress().toString();
+                }
+                view.getLocationValueLabel().setText(location);
             }
         });
 
+        view.getVetListView().getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        selectedVet = (Vet) newValue;
+                        view.getApptTypeToggleGroup().selectToggle(null);
+                        cBoxTimeSlots.clear();
+                        view.getApptDatePicker().setValue(null);
+                        view.getSelectedVetNameLbl().setText(selectedVet.toString());
+                    }
+                });
         view.getApptTypeToggleGroup().selectedToggleProperty()
                 .addListener((observable, olValue, newValue) -> {
                     if (newValue != null) {
-                        Set<String> times;
-                        RadioButton rb = (RadioButton) newValue;
-                        String buttonText = rb.getText();
-                        appointmentType = AppointmentType.fromStringValue(buttonText);
-                        switch (appointmentType) {
-                            case AppointmentType.SURGERY -> {
-                                times = calendar.getFreeTimeSlots(selectedVet, selectedDate, appointmentType);
-                                view.getTimeCbox().setItems(FXCollections.observableArrayList(times));
-                            }
-                            case AppointmentType.EMERGENCY -> {
-                                times = calendar.getFreeTimeSlots(selectedVet, selectedDate, appointmentType);
-                                view.getTimeCbox().setItems(FXCollections.observableArrayList(times));
-                            }
-                            default -> {
-                                times = calendar.getFreeTimeSlots(selectedVet, selectedDate, appointmentType);
-                                view.getTimeCbox().setItems(FXCollections.observableArrayList(times));
-                            }
-                        }
+                        filterTimeSlots();
                     }
                 }
                 );
 
         view.getApptDatePicker().valueProperty().addListener((observable, oldValue, newValue) -> {
             selectedDate = newValue;
+            filterTimeSlots();
         });
 
     }
 
     private void filterVets() {
-        comboBoxVets.clear();
-        for (Vet vet : comboBoxVets) {
+        listViewVets.clear();
+        for (Vet vet : vets) {
             if (vet.getSpecialistCategories().containsAll(selectedAnimal
                     .getAnimalType()
                     .getSpecialistCategories())) {
-                comboBoxVets.add(vet);
+                listViewVets.add(vet);
             }
         }
     }
 
-    private void vetSelected(ActionEvent event) {
-        selectedVet = (Vet) view.getVetCBox().getValue();
+    private void filterTimeSlots() {
+        RadioButton rb = (RadioButton) view.getApptTypeToggleGroup().getSelectedToggle();
+        if (rb != null) {
+            String buttonText = rb.getText();
+            selectedAppointmentType = AppointmentType.fromStringValue(buttonText);
+            switch (selectedAppointmentType) {
+                case AppointmentType.SURGERY -> {
+                    cBoxTimeSlots = FXCollections
+                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
+                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
+                }
+                case AppointmentType.EMERGENCY -> {
+                    cBoxTimeSlots = FXCollections
+                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
+                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
+                }
+                default -> {
+                    cBoxTimeSlots = FXCollections
+                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
+                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
+                }
+                 
+
+            }
+        }
     }
 
     private void timeSelected(ActionEvent event) {
@@ -202,23 +236,54 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
             alert.setContentText("Please select an animal, vet, date, appointment type and time");
             alert.showAndWait();
         } else {
-            Appointment appointment = new Appointment(selectedDate, 
-                                                      selectedTime, 
-                                                      selectedAnimal, 
-                                                      location, 
-                                                      selectedVet,
-                                                      appointmentType,
-                                                      false);
+            Appointment appointment = new Appointment(selectedDate,
+                    selectedTime,
+                    selectedAnimal,
+                    location,
+                    selectedVet,
+                    selectedAppointmentType,
+                    false);
             model.saveAppointment(appointment);
-
+            calendar.addAppointmentToMap(appointment);
+            resetView();
+            Alert alert = infoAlert("Info", "Success", "Appointment saved.");
+            alert.showAndWait();
         }
     }
-    
-    private void resetView(){
-        view.getAnimalValueTextField().setText("");
+
+    private void resetSelectedValues(){
+        selectedAnimal = null;
+        selectedDate = null;
+        selectedDate = null;
+        selectedVet = null;
+        selectedAppointmentType = null;
+    }
+    private void resetView() {
+        resetSelectedValues();
+        view.getAnimalSearchTextField().setText("");
         listViewAnimals.clear();
         listViewAnimals.addAll(animals);
-        comboBoxVets.clear();
+        listViewVets.clear();
+        view.getSelectedAnimalNameLbl().setText("");
+        view.getSelectedVetNameLbl().setText("");
+        view.getApptTypeToggleGroup().selectToggle(null);
+        view.getApptDatePicker().setValue(null);
+        cBoxTimeSlots.clear();
         
+
+    }
+
+    private void resetView(ActionEvent event) {
+        resetView();
+    }
+
+    private void cancel(ActionEvent event) {
+        Alert alert = warningAlert("Warning",
+                "Cancel Process",
+                "Changes will not be saved. Do you wish to proceed?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            view.close();
+        }
     }
 }

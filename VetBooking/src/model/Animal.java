@@ -82,6 +82,11 @@ public abstract class Animal implements Serializable {
         this.gender = gender;
     }
 
+    @Override
+    public String toString() {
+        return identifier +", " +getAnimalType().getTypeName();
+    }
+
    
     
      public enum Gender{

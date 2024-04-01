@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.time.LocalDate;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,10 +13,18 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
+import model.Address;
+import model.Address.LocationType;
+import model.Animal;
+import model.Appointment;
+import model.Appointment.AppointmentType;
 
 /**
  *
@@ -52,13 +61,35 @@ public class MainWindow extends CustomStage {
         appointmentTable = new TableView();
         appointmentTable.setEditable(true);
         TableColumn dateCol = new TableColumn("Date");
+        dateCol.setCellValueFactory(new PropertyValueFactory<Appointment, LocalDate>("date"));
         TableColumn timeCol = new TableColumn("Time");
+        timeCol.setCellValueFactory(new PropertyValueFactory<Appointment, String>("time"));
         TableColumn animalCol = new TableColumn("Animal");
-        TableColumn locationTypeCol = new TableColumn("Location");
-        TableColumn addressCol = new TableColumn("Address");
+        animalCol.setCellValueFactory(new PropertyValueFactory<Appointment, Animal>("animal"));
+        TableColumn locationCol = new TableColumn("Location");
+        locationCol.setCellValueFactory(new PropertyValueFactory<Appointment, String>("location"));
         TableColumn apptTypeCol = new TableColumn("Type");
+        apptTypeCol.setCellValueFactory(new PropertyValueFactory<Appointment, AppointmentType>("appointmentType"));
         TableColumn paymentCol = new TableColumn("Paid");
-        appointmentTable.getColumns().addAll(dateCol,timeCol, animalCol, locationTypeCol, addressCol, apptTypeCol, paymentCol);
+        paymentCol.setCellValueFactory(new PropertyValueFactory<Appointment, Boolean>("paid"));
+        paymentCol.setCellFactory(column -> new TableCell<Appointment, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item ? "Yes" : "No");
+                }
+            }
+
+        });
+
+        appointmentTable.getColumns().addAll(dateCol, timeCol, animalCol,
+                locationCol, apptTypeCol,
+                paymentCol);
         editBtn = new Button("Edit");
         deleteBtn = new Button("Delete");
         bookBtn = new Button("Book");

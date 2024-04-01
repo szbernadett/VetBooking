@@ -23,7 +23,7 @@ public class Appointment implements Serializable {
     private Vet vet;
     private AppointmentType appointmentType;
     private boolean paid;
-    private static final Map<AppointmentType, TimeSlot> apptTypeToTimeSlotMap;
+    private static transient final Map<AppointmentType, TimeSlot> apptTypeToTimeSlotMap;
     
     static{
         apptTypeToTimeSlotMap = new HashMap<>();

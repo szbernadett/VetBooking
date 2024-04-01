@@ -87,7 +87,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return  addressLine1 + " " + postcode + ", " + locationType.toString();
+        return  addressLine1 + " " + postcode;
     }
     
    

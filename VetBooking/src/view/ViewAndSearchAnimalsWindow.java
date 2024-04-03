@@ -55,55 +55,52 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
 
     @Override
     protected final void initWindow() {
-
-        // should be implemented in the controller
-        /*
-        int recordAmount = records.size();
-        System.out.println("records size: " + recordAmount);
-        Record currentRecord;
-        int currentRecordNumber;
-        if (recordAmount > 0) {
-            currentRecord = records.get(0);
-            currentRecordNumber = 1;
-        } else {
-            currentRecord = null;
-            currentRecordNumber = 0;
-        }
-         */
         root = new BorderPane();
         scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/resources/style.css").toExternalForm());
         searchPane = new GridPane();
         searchLabel = new Label("Search:");
         searchTextField = new TextField();
         searchButton = new Button("Go");
-        searchInstructionLabel = new Label("Search records by animal name, "
-                + "location type (zoo, farm, domestic,"
-                + " animal type");
+        searchInstructionLabel = new Label("""
+                                           Search records by animal name, 
+                                           location type(zoo, farm, domestic),
+                                           owner / caretaker name or animal type.
+                                           Single word only. Exact match only.""");
+        searchInstructionLabel.getStyleClass().add("label-italic");
         recordNavigationLabel = new Label();
 
         searchPane.add(searchLabel, 0, 0);
         searchPane.add(searchTextField, 1, 0);
         searchPane.add(searchButton, 2, 0);
         searchPane.add(searchInstructionLabel, 1, 1);
+        searchPane.add(recordNavigationLabel, 1, 2);
 
         // disable search button and set search instruction label in controller if there are no records 
         mainPane = new GridPane();
         nameLabel = new Label("Name:");
+        nameLabel.getStyleClass().add("label-bold");
         nameValueLabel = new Label("");
         animalTypeLabel = new Label("Type:");
+        animalTypeLabel.getStyleClass().add("label-bold");
         animalTypeValueLabel = new Label("");
         dateOfBirthLabel = new Label("Date of Birth:");
+        dateOfBirthLabel.getStyleClass().add("label-bold");
         dateOfBirthValueLabel = new Label("");
         caretakerLabel = new Label("Owner / Caretaker:");
+        caretakerLabel.getStyleClass().add("label-bold");
         caretakerValueLabel = new Label("");
         addressLabel = new Label("Address:");
+        addressLabel.getStyleClass().add("label-bold");
         addressValueLabel = new Label("");
         locationTypeLabel = new Label("Address Location Type:");
+        locationTypeLabel.getStyleClass().add("label-bold");
         locationTypeValueLabel = new Label("");
         dateRegisteredLabel = new Label("Date Registered:");
+        dateRegisteredLabel.getStyleClass().add("label-bold");
         dateRegisteredValueLabel = new Label("");
         medicalHistoryLabel = new Label("Medical History:");
+        medicalHistoryLabel.getStyleClass().add("label-bold");
         medicalHistoryValueLabel = new Label("");
 
         mainPane.add(nameLabel, 0, 0);
@@ -115,14 +112,12 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
         mainPane.add(caretakerLabel, 0, 3);
         mainPane.add(caretakerValueLabel, 1, 3);
         mainPane.add(addressLabel, 2, 0);
-        mainPane.add(addressValueLabel, 3, 0, 1, 4);
-        mainPane.add(dateRegisteredLabel, 2, 4);
-        mainPane.add(dateRegisteredValueLabel, 3, 4);
-        mainPane.add(medicalHistoryLabel, 2, 5);
-        mainPane.add(medicalHistoryValueLabel, 3, 5);
-        //
-        //  add code to set values for labels if current record is not null
-        //
+        mainPane.add(addressValueLabel, 3, 0);
+        mainPane.add(dateRegisteredLabel, 2, 1);
+        mainPane.add(dateRegisteredValueLabel, 3, 1);
+        mainPane.add(medicalHistoryLabel, 2, 2);
+        mainPane.add(medicalHistoryValueLabel, 3, 2);
+       
         bottomButtonPane = new GridPane();
         previousButton = new Button("< Previous");
         nextButton = new Button("Next >");

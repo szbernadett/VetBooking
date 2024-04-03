@@ -33,7 +33,7 @@ public class RecordHandler implements ListAndSearch {
         if (instance == null) {
             instance = new RecordHandler(allRecords);
         }
-        
+
         return instance;
     }
 
@@ -70,10 +70,11 @@ public class RecordHandler implements ListAndSearch {
 
     private List<String> extractRecordKeys(Record record) {
         List<String> recordKeys = new ArrayList<>();
-        recordKeys.add(record.getAnimal().getIdentifier());
-        recordKeys.add(record.getAnimal().getCaretaker().getFirstName());
-        recordKeys.add(record.getAnimal().getCaretaker().getLastName());
-        recordKeys.add(record.getAnimal().getAnimalType().getTypeName());
+        recordKeys.add(record.getAnimal().getIdentifier().toLowerCase());
+        recordKeys.add(record.getAnimal().getAnimalType().getTypeName().toLowerCase());
+        recordKeys.add(record.getAnimal().getCaretaker().getFirstName().toLowerCase());
+        recordKeys.add(record.getAnimal().getCaretaker().getLastName().toLowerCase());
+        recordKeys.add(record.getAnimal().getAddress().getLocationType().toString().toLowerCase());
 
         return recordKeys;
     }
@@ -93,7 +94,10 @@ public class RecordHandler implements ListAndSearch {
         Set<String> keySet = searchMap.keySet();
         ArrayList<String> sortedList = new ArrayList<>(keySet);
         Collections.sort(sortedList);
-
+        System.out.println("sorted list: ");
+        for (String string : sortedList) {
+            System.out.println(string);
+        }
         return sortedList;
 
     }
@@ -102,13 +106,13 @@ public class RecordHandler implements ListAndSearch {
         if (leftIndex > rightIndex) {
             return -1;
         }
-
         int midIndex = (leftIndex + rightIndex) / 2;
         String midElement = sortedList.get(midIndex);
+        System.out.println(target + ", " + midElement);
 
-        if (midElement.equals(target)) {
+        if (midElement.equalsIgnoreCase(target)) {
             return midIndex;
-        } else if (target.compareTo(midElement) < 0) {
+        } else if (target.compareToIgnoreCase(midElement) < 0) {
             return binarySearch(target, sortedList, leftIndex, midIndex - 1);
         } else {
             return binarySearch(target, sortedList, midIndex + 1, rightIndex);

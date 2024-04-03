@@ -4,7 +4,6 @@
  */
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javafx.event.ActionEvent;
@@ -22,6 +21,8 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
     private RecordHandler recordHandler;
     private List<Record> currentList;
     private Record currentRecord;
+    private int currentRecordCount;
+    private int currentRecordNum;
 
     public ViewAndSearchController(ViewAndSearchAnimalsWindow view, DAO model, RecordHandler recordHandler) {
         super(view, model);
@@ -30,6 +31,8 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         if (!currentList.isEmpty()) {
             currentRecord = currentList.get(0);
         }
+        setRecordNavNumbers();
+
         setupEventHandlers();
         displayRecord(currentRecord);
     }
@@ -69,31 +72,32 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         view.getDateRegisteredValueLabel().setText(record.getDateRegistered().toString());
         view.getLocationTypeValueLabel().setText(record.getAnimal().getAddress().getLocationType().toString());
         view.getMedicalHistoryValueLabel().setText(record.getMedicalHistory());
+        setRecordNavLabelText();
     }
 
     private void displayNext(ActionEvent event) {
         Record nextRecord = recordHandler.getNextRecord(currentRecord, currentList);
         displayRecord(nextRecord);
         currentRecord = nextRecord;
+        currentRecordNum = currentList.indexOf(currentRecord) + 1;
     }
 
     private void displayPrevious(ActionEvent event) {
         Record previousRecord = recordHandler.getPreviousRecord(currentRecord, currentList);
         displayRecord(previousRecord);
         currentRecord = previousRecord;
+        currentRecordNum = currentList.indexOf(currentRecord) + 1;
     }
 
     private List<Record> fetchSearchResults(String keyword) {
-        List<Record> searchResults = null;
+        List<Record> searchResults;
         Map<String, List<Record>> searchResultsMap = recordHandler.getSearchResultsMap();
-        if (searchResultsMap.containsKey(keyword)) {
-            searchResults = searchResultsMap.get(keyword);
-        } else {
-            //
-            // call method to prepare search keyword (remove characters, validate etc.)
-            //
+        if (!searchResultsMap.containsKey(keyword)) {
+            keyword = prepareKeyword(keyword);
             recordHandler.search(keyword);
         }
+
+        searchResults = searchResultsMap.get(keyword);
 
         return searchResults;
     }
@@ -101,22 +105,63 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
     private void displaySearchResults(ActionEvent event) {
         String keyword = view.getSearchTextField().getText();
         List<Record> searchResults = fetchSearchResults(keyword);
-        if (searchResults == null) {
-            searchResults = new ArrayList<>();
-        }
+        System.out.println(searchResults);
+        currentRecordCount = searchResults.size();
 
         if (!searchResults.isEmpty()) {
             switchDisplay(searchResults);
+        } else {
+            clearView();
+            currentRecordCount = 0;
+            currentRecordNum = 0;
+            setRecordNavLabelText();
         }
+
     }
 
     private void displayAll(ActionEvent event) {
         switchDisplay(recordHandler.getAllRecords());
     }
 
-    public void switchDisplay(List<Record> recordsToDisplay) {
+    private void switchDisplay(List<Record> recordsToDisplay) {
         currentList = recordsToDisplay; // set currentList for Previous / Next navigation
         currentRecord = currentList.get(0); // set currently displayed record to first element of current list
         displayRecord(currentRecord); // display current record
+        setRecordNavNumbers();
+        setRecordNavLabelText();
+    }
+
+    private void setRecordNavNumbers(){
+         if (!currentList.isEmpty()) {
+            currentRecordNum = currentList.indexOf(currentRecord) + 1;
+            currentRecordCount = currentList.size();
+        } else {
+            currentRecordNum = 0;
+            currentRecordCount = 0;
+        }
+    }
+    private void setRecordNavLabelText() {
+        String text;
+        text = "Displaying " + currentRecordNum
+                + " of " + currentRecordCount
+                + " records";
+
+        view.getRecordNavigationLabel().setText(text);
+    }
+
+    private void clearView() {
+        view.getNameValueLabel().setText("");
+        view.getAnimalTypeValueLabel().setText("");
+        view.getCaretakerValueLabel().setText("");
+        view.getLocationTypeValueLabel().setText("");
+        view.getAddressValueLabel().setText("");
+        view.getDateOfBirthValueLabel().setText("");
+        view.getDateRegisteredValueLabel().setText("");
+        view.getMedicalHistoryValueLabel().setText("");
+
+    }
+    
+    private String prepareKeyword(String keyword){
+        return keyword.toLowerCase();
     }
 }

@@ -4,7 +4,8 @@
  */
 package view;
 
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -23,4 +24,8 @@ public abstract class CustomStage extends Stage {
         node.addEventHandler(type, handler);
     }
 
+    public <U> void addEventListener(ObservableValue<U> observable, ChangeListener<? super U> listener){
+        observable.addListener(listener);
+    }
+  
 }

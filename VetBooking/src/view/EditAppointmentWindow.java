@@ -18,22 +18,21 @@ public class EditAppointmentWindow extends AddAppointmentWindow {
 
     private Label paidLabel;
     private CheckBox paidCheckBox;
-    private Appointment appointment;
 
-    public EditAppointmentWindow(Appointment appointment) {
+    public EditAppointmentWindow() {
         super();
         initComponents();
-        this.appointment = appointment;
     }
 
     private void initComponents() {
         super.initWindow();
         paidLabel = new Label("Paid:");
         paidCheckBox = new CheckBox();
-        GridPane gridPane = super.getBottomGridPane();
-        gridPane.add(paidLabel, 4, 4);
-        gridPane.add(paidCheckBox, 5, 4);
-        paidCheckBox.addEventHandler(ActionEvent.ACTION, this::checkboxSelected);
+        GridPane bGridPane = super.getBottomGridPane();
+        bGridPane.add(paidLabel, 4, 4);
+        bGridPane.add(paidCheckBox, 5, 4);
+        bGridPane.getChildren().remove(super.getClearAllBtn());
+        super.getTopGridPane().getChildren().remove(super.getAnimalSearchTextField());      
     }
 
     public Label getPaidLabel() {
@@ -52,21 +51,9 @@ public class EditAppointmentWindow extends AddAppointmentWindow {
         this.paidCheckBox = paidCheckBox;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
 
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
     
     
-    private void checkboxSelected(ActionEvent event){
-        if(paidCheckBox.isSelected()){
-            appointment.setPaid(true);
-        } else {
-            appointment.setPaid(false);
-        }
-    }
+    
 
 }

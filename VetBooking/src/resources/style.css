@@ -1,0 +1,21 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 3 Apr 2024, 13:23:42
+    Author     : igbin
+*/
+
+.label-bold {
+    -fx-font-weight: bold;
+}
+
+.label-italic {
+    -fx-font-style: italic;
+}
+
+.label-bold-italic {
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+}

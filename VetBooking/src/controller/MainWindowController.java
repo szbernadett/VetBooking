@@ -5,7 +5,10 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -14,12 +17,14 @@ import javafx.scene.control.ButtonType;
 import model.Appointment;
 import model.AppointmentCalendar;
 import model.DAO;
+import model.RecordHandler;
 import view.AddAppointmentWindow;
 import view.MainWindow;
 import view.AddNewAnimalTypeWindow;
 import view.EditAppointmentWindow;
 import view.RegisterAnimalWindow;
 import view.ViewAndSearchAnimalsWindow;
+import model.Record;
 
 /**
  *
@@ -28,11 +33,15 @@ import view.ViewAndSearchAnimalsWindow;
 public class MainWindowController extends Controller<MainWindow> {
 
     private Appointment selectedAppointment;
+    private List<Appointment> allAppointments;
+    private List<Record> allRecords;
 
     public MainWindowController(MainWindow view, DAO model) {
         super(view, model);
         try {
-            view.getAppointmentTable().setItems((ObservableList) model.getAllAppointments());
+            allAppointments = model.getAllAppointments();
+            allRecords = model.getAllRecords();
+            view.getAppointmentTable().setItems((ObservableList) allAppointments);
         } catch (ClassNotFoundException | IOException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -55,13 +64,17 @@ public class MainWindowController extends Controller<MainWindow> {
         view.getExitBtn().addEventHandler(ActionEvent.ACTION, this::exitWindow);
         view.setOnCloseRequest(this::exitWindow);
     }
-    
-    private void addListeners(){
-        view.getAppointmentTable().getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    selectedAppointment = (Appointment) newValue;
-                    System.out.println(newValue);
-                });
+
+    private void addListeners() {
+        view.addEventListener(view.getAppointmentTable()
+                .getSelectionModel()
+                .selectedItemProperty(),
+                this::appointmentSelected);
+    }
+
+    private void appointmentSelected(ObservableValue<? extends Object> observable,
+            Object oldValue, Object newValue) {
+        selectedAppointment = (Appointment) newValue;
     }
 
     private void openAddNewAnimalTypeWindow(ActionEvent event) {
@@ -71,19 +84,17 @@ public class MainWindowController extends Controller<MainWindow> {
 
     private void openAddAppointmentWindow(ActionEvent event) {
         AddAppointmentWindow addAppointmentWin = new AddAppointmentWindow();
-        try {
-            AddAppointmentWindowController aawController = new AddAppointmentWindowController(
-                    addAppointmentWin,
-                    model,
-                    AppointmentCalendar.getInstance(model.getAllAppointments()));
-        } catch (ClassNotFoundException | IOException ex) {
-            System.out.println(ex);
-        }
+        AddAppointmentWindowController aawController = new AddAppointmentWindowController(
+                addAppointmentWin,
+                model,
+                AppointmentCalendar.getInstance(allAppointments));
         addAppointmentWin.show();
     }
 
     private void openViewAndSearchAnimalsWindow(ActionEvent event) {
         ViewAndSearchAnimalsWindow viewAndSearchWin = new ViewAndSearchAnimalsWindow();
+        ViewAndSearchController vasWinController = new ViewAndSearchController(
+                viewAndSearchWin, model, RecordHandler.getInstance(allRecords));
         viewAndSearchWin.show();
     }
 
@@ -95,14 +106,39 @@ public class MainWindowController extends Controller<MainWindow> {
     private void deleteAppointment(ActionEvent event) {
         if (selectedAppointment != null) {
             model.deleteAppointment(selectedAppointment);
+        } else {
+            Alert alert = noneSelectedAlert(POJOName.APPOINTMENT);
+            alert.showAndWait();
         }
     }
 
     private void editAppointment(ActionEvent event) {
         if (selectedAppointment != null) {
-            EditAppointmentWindow editAppointmentWin = new EditAppointmentWindow(selectedAppointment);
-            editAppointmentWin.show();
+            if (!selectedAppointment.getDate().isBefore(LocalDate.now())) {
+                EditAppointmentWindow editAppointmentWin = new EditAppointmentWindow();
+                EditAppointmentWindowController eaWinController
+                        = new EditAppointmentWindowController(editAppointmentWin,
+                                model,
+                                AppointmentCalendar
+                                        .getInstance(allAppointments),
+                                selectedAppointment,
+                                this);
+                editAppointmentWin.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Wrong date");
+                alert.setContentText("Past appointments cannot be edited.");
+                alert.show();
+            }
+        } else {
+            Alert alert = noneSelectedAlert(POJOName.APPOINTMENT);
+            alert.show();
         }
+    }
+
+    public void refreshTable() {
+        view.getAppointmentTable().refresh();
     }
 
     @Override
@@ -112,11 +148,10 @@ public class MainWindowController extends Controller<MainWindow> {
             model.saveAnimals();
             model.saveAnimalTypes();
             model.saveRecords();
+            super.exitWindow(event);
         } catch (IOException ex) {
             System.out.println(ex);
-            Alert alert = warningAlert("Warning",
-                    "Close without saving",
-                    "Could not save changes. Close anyway?");
+            Alert alert = saveInterruptedAlert();
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.YES) {
                 super.exitWindow(event);

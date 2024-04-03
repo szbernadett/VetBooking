@@ -72,6 +72,7 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
          */
         root = new BorderPane();
         scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         searchPane = new GridPane();
         searchLabel = new Label("Search:");
         searchTextField = new TextField();
@@ -87,7 +88,6 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
         searchPane.add(searchInstructionLabel, 1, 1);
 
         // disable search button and set search instruction label in controller if there are no records 
-
         mainPane = new GridPane();
         nameLabel = new Label("Name:");
         nameValueLabel = new Label("");

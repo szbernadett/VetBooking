@@ -24,7 +24,7 @@ public class AppointmentCalendar {
     public static final LocalDate startDate = LocalDate.now();
     public static final LocalDate endDate = startDate.plusMonths(1);
 
-    public AppointmentCalendar(List<Appointment> appointments) {
+    private AppointmentCalendar(List<Appointment> appointments) {
         bookedVetAppointmentsMap = new HashMap<>();
         populateMap(appointments);
     }

@@ -17,6 +17,7 @@ import java.util.Set;
  */
 public class RecordHandler implements ListAndSearch {
 
+    private static RecordHandler instance;
     private List<Record> allRecords;
     private Map<String, List<Record>> searchMap;
     private Map<String, List<Record>> searchResultsMap;
@@ -26,6 +27,14 @@ public class RecordHandler implements ListAndSearch {
         searchMap = new HashMap<>();
         searchResultsMap = new HashMap<>();
         populateSearchMap();
+    }
+
+    public static RecordHandler getInstance(List<Record> allRecords) {
+        if (instance == null) {
+            instance = new RecordHandler(allRecords);
+        }
+        
+        return instance;
     }
 
     public List<Record> getAllRecords() {
@@ -58,8 +67,6 @@ public class RecordHandler implements ListAndSearch {
     public void setSearchResultsMap(Map<String, List<Record>> searchResultsMap) {
         this.searchResultsMap = searchResultsMap;
     }
-
-
 
     private List<String> extractRecordKeys(Record record) {
         List<String> recordKeys = new ArrayList<>();
@@ -112,7 +119,7 @@ public class RecordHandler implements ListAndSearch {
     @Override
     public Record getNextRecord(Record currentRecord, List<Record> currentList) {
         Record nextRecord = null;
-        
+
         if (currentRecord != null) {
             int maxIndex = currentList.size() - 1;
             int currentIndex = currentList.indexOf(currentRecord);
@@ -172,5 +179,5 @@ public class RecordHandler implements ListAndSearch {
                 searchResultsMap.put(keyword, new ArrayList<>());
             }
         }
-    } 
+    }
 }

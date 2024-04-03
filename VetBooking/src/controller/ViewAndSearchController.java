@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import model.DAO;
 import model.Record;
 import model.RecordHandler;
-import model.SerialisationDAO;
 import view.ViewAndSearchAnimalsWindow;
 
 /**
@@ -32,6 +31,7 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
             currentRecord = currentList.get(0);
         }
         setupEventHandlers();
+        displayRecord(currentRecord);
     }
 
     @Override

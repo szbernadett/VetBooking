@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -41,8 +40,28 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
     public AddNewAnimalTypeWindowController(AddNewAnimalTypeWindow view, DAO model) {
         super(view, model);
         initLists();
-        setupView();
+        dataToView();
         setDataChangeHandlers();
+    }
+
+    @Override
+    protected final void setDataChangeHandlers() {
+        setEventHandler(view.getAquaticCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
+        setEventHandler(view.getVenomousCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
+        setEventHandler(view.getExoticCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
+        setEventHandler(view.getLargeCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
+        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
+        setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::clearView);
+        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAnimalType);
+        setEventHandler(view.getMaxAgeCBox(), ActionEvent.ACTION, this::maxAgeSelected);
+        view.setOnCloseRequest(this::cancel);
+
+    }
+
+    @Override
+    protected final void dataToView() {
+        populateAgeList();
+        view.getMaxAgeCBox().setItems(FXCollections.observableArrayList(maxAgeList));
     }
 
     private void initLists() {
@@ -61,11 +80,6 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
         } else {
             existingNames = new ArrayList<>();
         }
-    }
-
-    private void setupView() {
-        populateAgeList();
-        view.getMaxAgeCBox().setItems(FXCollections.observableArrayList(maxAgeList));
     }
 
     private void populateAgeList() {
@@ -90,7 +104,7 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
         }
     }
 
-    private void saveAnimalType(Event event) {
+    private void saveAnimalType(ActionEvent event) {
         if (animalTypeName == null
                 || selectedMaxAge == null) {
 
@@ -107,7 +121,7 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
         }
     }
 
-    private void clearView(Event event) {
+    private void clearView(ActionEvent event) {
         view.getTypeNameValueTField().setText("");
         for (Node node : view.getCheckboxGroup().getChildren()) {
             ((CheckBox) node).setSelected(false);
@@ -151,28 +165,8 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
         return result;
     }
 
-    private void maxAgeSelected(ObservableValue<? extends Object> observable,
-            Object oldValue, Object newValue) {
-
-        selectedMaxAge = (Integer) newValue;
+    private void maxAgeSelected(ActionEvent event) {
+        selectedMaxAge = (Integer) view.getMaxAgeCBox().getValue();
     }
-
-    @Override
-    protected final void setDataChangeHandlers() {
-        setEventHandler(view.getAquaticCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
-        setEventHandler(view.getVenomousCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
-        setEventHandler(view.getExoticCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
-        setEventHandler(view.getLargeCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
-        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
-        setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::clearView);
-        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAnimalType);
-        view.setOnCloseRequest(this::cancel);
-        view.getMaxAgeCBox().getSelectionModel().selectedItemProperty()
-                .addListener(this::maxAgeSelected);
-    }
-
-  
-
-    
 
 }

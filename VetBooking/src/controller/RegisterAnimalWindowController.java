@@ -6,7 +6,7 @@ package controller;
 
 import java.time.LocalDate;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.scene.control.RadioButton;
 import model.Address;
 import model.Animal.DateOfBirth;
@@ -33,6 +33,66 @@ public class RegisterAnimalWindowController extends Controller<RegisterAnimalWin
         super(view, model);
     }
 
+    @Override
+    protected void setDataChangeHandlers() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    protected void dataToView() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public AnimalType getAnimalType() {
+        return animalType;
+    }
+
+    public void setAnimalType(AnimalType animalType) {
+        this.animalType = animalType;
+    }
+
+    public Caretaker getCaretaker() {
+        return caretaker;
+    }
+
+    public void setCaretaker(Caretaker caretaker) {
+        this.caretaker = caretaker;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(DateOfBirth dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public LocalDate getDateRegistered() {
+        return dateRegistered;
+    }
+
+    public void setDateRegistered(LocalDate dateRegistered) {
+        this.dateRegistered = dateRegistered;
+    }
+    
+    
+
     private void dobToggleSelected(ObservableValue<? extends Object> observable,
             Object oldValue, Object newValue) {
 
@@ -42,36 +102,31 @@ public class RegisterAnimalWindowController extends Controller<RegisterAnimalWin
 
             if (buttonText.equals(RadioLabel.DATE.getStringValue())) {
                 view.getDobDatePicker().setDisable(false);
-                dateOfBirth=DateOfBirth.of(view.getDobDatePicker().getValue());
+                dateOfBirth = DateOfBirth.of(view.getDobDatePicker().getValue());
             } else {
                 view.getDobDatePicker().setDisable(true);
-                dateOfBirth=DateOfBirth.notApplicable();
+                dateOfBirth = DateOfBirth.notApplicable();
             }
         }
     }
-    
+
     private void dateSelected(ObservableValue<? extends Object> observable,
-            Object oldValue, Object newValue){
-        
-        dateOfBirth = DateOfBirth.of((LocalDate)newValue);
-        
-    }
-    
-    private void animalTypeSelected(Event event){
-        animalType = view.getTypeValueCBox().getValue();
-    }
-    
-    private void caretakerSelected(Event event){
-        caretaker = (Caretaker) view.getCaretakerValueCBox().getValue();
-    }
-    
-    private void addressSelected(Event event){
-        address = view.getAddressValueCBox().getValue();
+            Object oldValue, Object newValue) {
+
+        dateOfBirth = DateOfBirth.of((LocalDate) newValue);
+
     }
 
-    @Override
-    protected void setDataChangeHandlers() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void animalTypeSelected(ActionEvent event) {
+        animalType = view.getTypeValueCBox().getValue();
+    }
+
+    private void caretakerSelected(ActionEvent event) {
+        caretaker = (Caretaker) view.getCaretakerValueCBox().getValue();
+    }
+
+    private void addressSelected(ActionEvent event) {
+        address = view.getAddressValueCBox().getValue();
     }
 
 }

@@ -38,17 +38,7 @@ public class MainWindowController extends Controller<MainWindow> {
 
     public MainWindowController(MainWindow view, DAO model) {
         super(view, model);
-        try {
-            allAppointments = model.getAllAppointments();
-            allRecords = model.getAllRecords();
-            view.getAppointmentTable().setItems((ObservableList) allAppointments);
-        } catch (ClassNotFoundException | IOException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Cannot access data");
-            alert.setContentText("Could not load appointments from file");
-
-        }
+        dataToView();
         setDataChangeHandlers();
     }
 
@@ -68,6 +58,66 @@ public class MainWindowController extends Controller<MainWindow> {
                 this::appointmentSelected);
     }
 
+    @Override
+    protected final void dataToView() {
+        try {
+            allAppointments = model.getAllAppointments();
+            allRecords = model.getAllRecords();
+            view.getAppointmentTable().setItems((ObservableList) allAppointments);
+        } catch (ClassNotFoundException | IOException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Cannot access data");
+            alert.setContentText("Could not load appointments from file");
+
+        }
+    }
+
+    @Override
+    protected void exitWindow(Event event) {
+        try {
+            model.saveAppointments();
+            model.saveAnimals();
+            model.saveAnimalTypes();
+            model.saveRecords();
+            super.exitWindow(event);
+        } catch (IOException ex) {
+            System.out.println(ex);
+            Alert alert = saveInterruptedAlert();
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                super.exitWindow(event);
+            }
+
+        }
+
+    }
+
+    public Appointment getSelectedAppointment() {
+        return selectedAppointment;
+    }
+
+    public void setSelectedAppointment(Appointment selectedAppointment) {
+        this.selectedAppointment = selectedAppointment;
+    }
+
+    public List<Appointment> getAllAppointments() {
+        return allAppointments;
+    }
+
+    public void setAllAppointments(List<Appointment> allAppointments) {
+        this.allAppointments = allAppointments;
+    }
+
+    public List<Record> getAllRecords() {
+        return allRecords;
+    }
+
+    public void setAllRecords(List<Record> allRecords) {
+        this.allRecords = allRecords;
+    }
+
+    
     private void appointmentSelected(ObservableValue<? extends Object> observable,
             Object oldValue, Object newValue) {
         selectedAppointment = (Appointment) newValue;
@@ -137,26 +187,6 @@ public class MainWindowController extends Controller<MainWindow> {
 
     public void refreshTable() {
         view.getAppointmentTable().refresh();
-    }
-
-    @Override
-    protected void exitWindow(Event event) {
-        try {
-            model.saveAppointments();
-            model.saveAnimals();
-            model.saveAnimalTypes();
-            model.saveRecords();
-            super.exitWindow(event);
-        } catch (IOException ex) {
-            System.out.println(ex);
-            Alert alert = saveInterruptedAlert();
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.YES) {
-                super.exitWindow(event);
-            }
-
-        }
-
     }
 
 }

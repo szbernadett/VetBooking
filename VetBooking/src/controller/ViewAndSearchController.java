@@ -32,9 +32,9 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
             currentRecord = currentList.get(0);
         }
         setRecordNavNumbers();
-
+        dataToView();
         setDataChangeHandlers();
-        displayRecord(currentRecord);
+
     }
 
     @Override
@@ -45,6 +45,13 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         setEventHandler(view.getViewAllButton(), ActionEvent.ACTION, this::displayAll);
         setEventHandler(view.getExitButton(), ActionEvent.ACTION, this::exitWindow);
     }
+
+    @Override
+    protected final void dataToView() {
+        displayRecord(currentRecord);
+    }
+    
+    
 
     public RecordHandler getRecordHandler() {
         return recordHandler;

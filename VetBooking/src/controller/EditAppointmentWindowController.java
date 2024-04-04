@@ -64,21 +64,26 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
         setDataChangeHandlers();
     }
 
-    private void paidCheckboxSelected(Event event) {
-        isPaid = view.getPaidCheckBox().isSelected();
+    @Override
+    protected final void setDataChangeHandlers() {
+        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
+        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
+        setEventHandler(view.getPaidCheckBox(), ActionEvent.ACTION, this::paidCheckboxSelected);
+        setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
+        addEventListener(view.getVetListView()
+                .getSelectionModel()
+                .selectedItemProperty(),
+                this::vetSelected);
+        addEventListener(view.getApptTypeToggleGroup()
+                .selectedToggleProperty(),
+                this::apptTypeSelected);
+        addEventListener(view.getApptDatePicker()
+                .valueProperty(),
+                this::dateSelected);
     }
 
-    private void getSelectedValues() {
-        selectedAnimal = appointment.getAnimal();
-        selectedVet = appointment.getVet();
-        selectedDate = appointment.getDate();
-        selectedTime = appointment.getTime();
-        selectedAppointmentType = appointment.getAppointmentType();
-        isPaid = appointment.isPaid();
-
-    }
-
-    private void dataToView() {
+    @Override
+    protected final void dataToView() {
         getSelectedValues();
         view.getFilteredAnimalsListView().setItems((ObservableList) listViewAnimals);
         view.getFilteredAnimalsListView().getSelectionModel().select(selectedAnimal);
@@ -95,6 +100,134 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
         filterTimeSlots();
         view.getTimeCbox().setValue(selectedTime);
         view.getPaidCheckBox().setSelected(appointment.isPaid());
+    }
+
+    public AppointmentCalendar getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(AppointmentCalendar calendar) {
+        this.calendar = calendar;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+    }
+
+    public MainWindowController getMainWinController() {
+        return mainWinController;
+    }
+
+    public void setMainWinController(MainWindowController mainWinController) {
+        this.mainWinController = mainWinController;
+    }
+
+    public Animal getSelectedAnimal() {
+        return selectedAnimal;
+    }
+
+    public void setSelectedAnimal(Animal selectedAnimal) {
+        this.selectedAnimal = selectedAnimal;
+    }
+
+    public Vet getSelectedVet() {
+        return selectedVet;
+    }
+
+    public void setSelectedVet(Vet selectedVet) {
+        this.selectedVet = selectedVet;
+    }
+
+    public AppointmentType getSelectedAppointmentType() {
+        return selectedAppointmentType;
+    }
+
+    public void setSelectedAppointmentType(AppointmentType selectedAppointmentType) {
+        this.selectedAppointmentType = selectedAppointmentType;
+    }
+
+    public LocalDate getSelectedDate() {
+        return selectedDate;
+    }
+
+    public void setSelectedDate(LocalDate selectedDate) {
+        this.selectedDate = selectedDate;
+    }
+
+    public String getSelectedTime() {
+        return selectedTime;
+    }
+
+    public void setSelectedTime(String selectedTime) {
+        this.selectedTime = selectedTime;
+    }
+
+    public Boolean getIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(Boolean isPaid) {
+        this.isPaid = isPaid;
+    }
+
+    public List<Appointment> getAllAppointments() {
+        return allAppointments;
+    }
+
+    public void setAllAppointments(List<Appointment> allAppointments) {
+        this.allAppointments = allAppointments;
+    }
+
+    public List<String> getcBoxTimeSlots() {
+        return cBoxTimeSlots;
+    }
+
+    public void setcBoxTimeSlots(List<String> cBoxTimeSlots) {
+        this.cBoxTimeSlots = cBoxTimeSlots;
+    }
+
+    public List<Vet> getVets() {
+        return vets;
+    }
+
+    public void setVets(List<Vet> vets) {
+        this.vets = vets;
+    }
+
+    public List<Vet> getListViewVets() {
+        return listViewVets;
+    }
+
+    public void setListViewVets(List<Vet> listViewVets) {
+        this.listViewVets = listViewVets;
+    }
+
+    public List<Animal> getListViewAnimals() {
+        return listViewAnimals;
+    }
+
+    public void setListViewAnimals(List<Animal> listViewAnimals) {
+        this.listViewAnimals = listViewAnimals;
+    }
+    
+    
+
+    private void paidCheckboxSelected(Event event) {
+        isPaid = view.getPaidCheckBox().isSelected();
+    }
+
+    private void getSelectedValues() {
+        selectedAnimal = appointment.getAnimal();
+        selectedVet = appointment.getVet();
+        selectedDate = appointment.getDate();
+        selectedTime = appointment.getTime();
+        selectedAppointmentType = appointment.getAppointmentType();
+        isPaid = appointment.isPaid();
+
     }
 
     private void findToggle(AppointmentType type) {
@@ -223,7 +356,7 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
             appointment.setAppointmentType(selectedAppointmentType);
             appointment.setPaid(isPaid);
             mainWinController.refreshTable();
-  
+
             Alert alert = saveSuccessAlert(POJOName.APPOINTMENT);
             alert.show();
             exitWindow(event);
@@ -237,25 +370,4 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
             view.close();
         }
     }
-
-
-
-    @Override
-    protected final void setDataChangeHandlers() {
-        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
-        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
-        setEventHandler(view.getPaidCheckBox(), ActionEvent.ACTION, this::paidCheckboxSelected);
-        setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
-        addEventListener(view.getVetListView()
-                .getSelectionModel()
-                .selectedItemProperty(),
-                this::vetSelected);
-        addEventListener(view.getApptTypeToggleGroup()
-                .selectedToggleProperty(),
-                this::apptTypeSelected);
-        addEventListener(view.getApptDatePicker()
-                .valueProperty(),
-                this::dateSelected);
-    }
-
 }

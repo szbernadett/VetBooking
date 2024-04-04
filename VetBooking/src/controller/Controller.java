@@ -37,14 +37,8 @@ public abstract class Controller<T extends CustomStage> {
     }
 
     protected abstract void setDataChangeHandlers();
-    
-    protected <T extends Event> void setEventHandler(Node node, EventType<T> et, EventHandler<T> handler){
-        node.addEventHandler(et, handler);
-    }
-    
-    protected <U> void addEventListener(ObservableValue<U> observable, ChangeListener<? super U> listener){
-        observable.addListener(listener);
-    }
+
+    protected abstract void dataToView();
 
     public Stage getView() {
         return view;
@@ -60,6 +54,14 @@ public abstract class Controller<T extends CustomStage> {
 
     public void setDao(SerialisationDAO model) {
         this.model = model;
+    }
+
+    protected <T extends Event> void setEventHandler(Node node, EventType<T> et, EventHandler<T> handler) {
+        node.addEventHandler(et, handler);
+    }
+
+    protected <U> void addEventListener(ObservableValue<U> observable, ChangeListener<? super U> listener) {
+        observable.addListener(listener);
     }
 
     protected void exitWindow(Event event) {

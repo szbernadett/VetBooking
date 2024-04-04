@@ -60,11 +60,148 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         super(view, model);
         this.calendar = calendar;
         initLists();
-        setupView();
+        dataToView();
         setupNameSearch();
         setDataChangeHandlers();
     }
 
+    @Override
+    protected final void setDataChangeHandlers() {
+        setEventHandler(view.getAnimalSearchTextField(), KeyEvent.KEY_RELEASED, this::filterAnimals);
+        setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
+        setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::resetView);
+        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
+        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
+        addEventListener(view.getFilteredAnimalsListView()
+                .getSelectionModel()
+                .selectedItemProperty(),
+                this::animalSelected);
+        addEventListener(view.getVetListView()
+                .getSelectionModel()
+                .selectedItemProperty(),
+                this::vetSelected);
+        addEventListener(view.getApptTypeToggleGroup()
+                .selectedToggleProperty(),
+                this::apptTypeSelected);
+        addEventListener(view.getApptDatePicker()
+                .valueProperty(),
+                this::dateSelected);
+
+    }
+
+    public AppointmentCalendar getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(AppointmentCalendar calendar) {
+        this.calendar = calendar;
+    }
+
+    public Set<String> getAnimalNames() {
+        return animalNames;
+    }
+
+    public void setAnimalNames(Set<String> animalNames) {
+        this.animalNames = animalNames;
+    }
+
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
+    }
+
+    public List<Animal> getListViewAnimals() {
+        return listViewAnimals;
+    }
+
+    public void setListViewAnimals(List<Animal> listViewAnimals) {
+        this.listViewAnimals = listViewAnimals;
+    }
+
+    public Map<String, Animal> getAnimalNamesMap() {
+        return animalNamesMap;
+    }
+
+    public void setAnimalNamesMap(Map<String, Animal> animalNamesMap) {
+        this.animalNamesMap = animalNamesMap;
+    }
+
+    public Animal getSelectedAnimal() {
+        return selectedAnimal;
+    }
+
+    public void setSelectedAnimal(Animal selectedAnimal) {
+        this.selectedAnimal = selectedAnimal;
+    }
+
+    public List<Vet> getVets() {
+        return vets;
+    }
+
+    public void setVets(List<Vet> vets) {
+        this.vets = vets;
+    }
+
+    public List<Vet> getListViewVets() {
+        return listViewVets;
+    }
+
+    public void setListViewVets(List<Vet> listViewVets) {
+        this.listViewVets = listViewVets;
+    }
+
+    public List<String> getcBoxTimeSlots() {
+        return cBoxTimeSlots;
+    }
+
+    public void setcBoxTimeSlots(List<String> cBoxTimeSlots) {
+        this.cBoxTimeSlots = cBoxTimeSlots;
+    }
+
+    public Vet getSelectedVet() {
+        return selectedVet;
+    }
+
+    public void setSelectedVet(Vet selectedVet) {
+        this.selectedVet = selectedVet;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public AppointmentType getSelectedAppointmentType() {
+        return selectedAppointmentType;
+    }
+
+    public void setSelectedAppointmentType(AppointmentType selectedAppointmentType) {
+        this.selectedAppointmentType = selectedAppointmentType;
+    }
+
+    public LocalDate getSelectedDate() {
+        return selectedDate;
+    }
+
+    public void setSelectedDate(LocalDate selectedDate) {
+        this.selectedDate = selectedDate;
+    }
+
+    public String getSelectedTime() {
+        return selectedTime;
+    }
+
+    public void setSelectedTime(String selectedTime) {
+        this.selectedTime = selectedTime;
+    }
+
+    
     private void initLists() {
         try {
             animals = model.getAllAnimals();
@@ -87,7 +224,8 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
-    private void setupView() {
+    @Override
+    protected final void dataToView() {
         if (listViewAnimals != null) {
             view.getFilteredAnimalsListView().setItems((ObservableList) listViewAnimals);
             view.getFilteredAnimalsListView().setEditable(false); // test if this is needed
@@ -128,30 +266,6 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
                 }
             }
         }
-    }
-
-    @Override
-    protected final void setDataChangeHandlers() {
-        setEventHandler(view.getAnimalSearchTextField(), KeyEvent.KEY_RELEASED, this::filterAnimals);
-        setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
-        setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::resetView);
-        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
-        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
-        addEventListener(view.getFilteredAnimalsListView()
-                .getSelectionModel()
-                .selectedItemProperty(),
-                this::animalSelected);
-        addEventListener(view.getVetListView()
-                .getSelectionModel()
-                .selectedItemProperty(),
-                this::vetSelected);
-        addEventListener(view.getApptTypeToggleGroup()
-                .selectedToggleProperty(),
-                this::apptTypeSelected);
-        addEventListener(view.getApptDatePicker()
-                .valueProperty(),
-                this::dateSelected);
-
     }
 
     private void filterVets() {

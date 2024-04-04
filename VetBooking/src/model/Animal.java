@@ -12,20 +12,19 @@ import java.time.LocalDate;
  * @author igbin
  */
 public abstract class Animal implements Serializable {
-    
+
     protected String identifier;
     protected Caretaker caretaker;
     protected Address address;
-    protected LocalDate dateOfBirth;
+    protected DateOfBirth dateOfBirth;
     protected AnimalType animalType;
     protected Gender gender;
-    
 
     public Animal() {
     }
 
-    public Animal(String identifier, Caretaker caretaker, Address address, 
-                  LocalDate dateOfBirth, AnimalType animalType, Gender gender) {
+    public Animal(String identifier, Caretaker caretaker, Address address,
+            DateOfBirth dateOfBirth, AnimalType animalType, Gender gender) {
         this.identifier = identifier;
         this.caretaker = caretaker;
         this.address = address;
@@ -58,11 +57,11 @@ public abstract class Animal implements Serializable {
         this.address = address;
     }
 
-    public LocalDate getDateOfBirth() {
+    public DateOfBirth getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(DateOfBirth dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -84,19 +83,17 @@ public abstract class Animal implements Serializable {
 
     @Override
     public String toString() {
-        return identifier +", " +getAnimalType().getTypeName();
+        return identifier + ", " + getAnimalType().getTypeName();
     }
 
-   
-    
-     public enum Gender{
+    public enum Gender {
         MALE("male"),
         FEMALE("female"),
         NA("n/a");
-        
+
         private final String stringValue;
-        
-        private Gender(String stringValue){
+
+        private Gender(String stringValue) {
             this.stringValue = stringValue;
         }
 
@@ -104,8 +101,41 @@ public abstract class Animal implements Serializable {
         public String toString() {
             return stringValue;
         }
-        
-        
+
     }
-    
+
+   
+    public static class DateOfBirth implements Serializable{
+
+        private LocalDate date;
+        private boolean isNotApplicable;
+
+        public static DateOfBirth of(LocalDate date) {
+            DateOfBirth dob = new DateOfBirth();
+            dob.date = date;
+            dob.isNotApplicable = false;
+            return dob;
+        }
+
+        public static DateOfBirth notApplicable() {
+            DateOfBirth dob = new DateOfBirth();
+            dob.date = null;
+            dob.isNotApplicable = true;
+            return dob;
+        }
+
+        public LocalDate getDate() {
+            return date;
+        }
+
+        public boolean isNotApplicable() {
+            return isNotApplicable;
+        }
+
+        @Override
+        public String toString() {
+            return isNotApplicable ? "N/A" : date.toString();
+        }
+    }
+
 }

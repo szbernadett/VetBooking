@@ -15,7 +15,7 @@ public class Pet extends Animal {
     public Pet() {
     }
 
-    public Pet(String identifier, Caretaker caretaker, Address address, LocalDate dateOfBirth, AnimalType animalType, Gender gender) {
+    public Pet(String identifier, Caretaker caretaker, Address address, DateOfBirth dateOfBirth, AnimalType animalType, Gender gender) {
         super(identifier, caretaker, address, dateOfBirth, animalType, gender);
     }
 

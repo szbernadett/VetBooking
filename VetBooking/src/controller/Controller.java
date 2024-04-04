@@ -4,7 +4,13 @@
  */
 package controller;
 
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -30,7 +36,15 @@ public abstract class Controller<T extends CustomStage> {
         this.model = model;
     }
 
-    protected abstract void setupEventHandlers();
+    protected abstract void setDataChangeHandlers();
+    
+    protected <T extends Event> void setEventHandler(Node node, EventType<T> et, EventHandler<T> handler){
+        node.addEventHandler(et, handler);
+    }
+    
+    protected <U> void addEventListener(ObservableValue<U> observable, ChangeListener<? super U> listener){
+        observable.addListener(listener);
+    }
 
     public Stage getView() {
         return view;
@@ -52,7 +66,7 @@ public abstract class Controller<T extends CustomStage> {
         view.close();
     }
 
-    public Alert saveSuccessAlert(POJOName name) {
+    protected Alert saveSuccessAlert(POJOName name) {
         String objectName = name.getStringValue();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Info");
@@ -63,7 +77,7 @@ public abstract class Controller<T extends CustomStage> {
 
     }
 
-    public Alert closeWithoutSaveAlert() {
+    protected Alert closeWithoutSaveAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
         alert.setHeaderText("Cancel process");
@@ -74,7 +88,7 @@ public abstract class Controller<T extends CustomStage> {
 
     }
 
-    public Alert saveInterruptedAlert() {
+    protected Alert saveInterruptedAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Warning");
         alert.setHeaderText("Close without saving");
@@ -85,7 +99,7 @@ public abstract class Controller<T extends CustomStage> {
 
     }
 
-    public Alert noneSelectedAlert(POJOName name) {
+    protected Alert noneSelectedAlert(POJOName name) {
         String objectName = name.getStringValue();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
@@ -97,13 +111,19 @@ public abstract class Controller<T extends CustomStage> {
 
     }
 
+    protected String prepareString(String text) {
+        text = text.trim().toLowerCase();
+        text = text.replaceAll("[^a-zA-Z0-9]", "");
+        return text;
+    }
+
     public enum POJOName {
         ADDRESS("address"),
         ADMINISTRATOR("administrator"),
         ANIMAL("animal"),
-        ANIMALTYPE("animal type"),
+        ANIMAL_TYPE("animal type"),
         APPOINTMENT("appointment"),
-        APPOINTMENTNOTE("appointment note"),
+        APPOINTMENT_NOTE("appointment note"),
         CARETAKER("caretaker"),
         CITY("city"),
         FARM_ANIMAL("farm animal"),
@@ -129,6 +149,10 @@ public abstract class Controller<T extends CustomStage> {
             return stringValue;
         }
 
+    }
+
+    public enum DuplicateCheck {
+        OK, FAIL;
     }
 
 }

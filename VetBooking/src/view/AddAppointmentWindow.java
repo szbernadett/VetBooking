@@ -50,7 +50,6 @@ public class AddAppointmentWindow extends CustomStage {
     private Label locationValueLabel;
     private Label vetLabel;
     private ListView vetListView;
-    private Label hiddenLabel;
     private Label dateLabel;
     private DatePicker apptDatePicker;
     private Label timeLabel;
@@ -104,8 +103,6 @@ public class AddAppointmentWindow extends CustomStage {
         locationValueLabel = new Label("");
         vetLabel = new Label("Vet:");
         vetListView = new ListView();
-        hiddenLabel = new Label("If no available doctors, please book on: 0161 1234 5678");
-        hiddenLabel.setVisible(false);
 
         dateLabel = new Label("Date:");
         apptDatePicker = new DatePicker();
@@ -349,14 +346,6 @@ public class AddAppointmentWindow extends CustomStage {
 
     public void setVetCBox(ListView vetCBox) {
         this.vetListView = vetCBox;
-    }
-
-    public Label getHiddenLabel() {
-        return hiddenLabel;
-    }
-
-    public void setHiddenLabel(Label hiddenLabel) {
-        this.hiddenLabel = hiddenLabel;
     }
 
     public Label getDateLabel() {

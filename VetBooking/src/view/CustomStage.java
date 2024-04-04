@@ -20,12 +20,6 @@ public abstract class CustomStage extends Stage {
 
     protected abstract void initWindow();
 
-    public <T extends Event> void setEventHandler(Node node, EventType<T> type, EventHandler<T> handler) {
-        node.addEventHandler(type, handler);
-    }
 
-    public <U> void addEventListener(ObservableValue<U> observable, ChangeListener<? super U> listener){
-        observable.addListener(listener);
-    }
   
 }

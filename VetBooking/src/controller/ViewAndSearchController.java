@@ -33,17 +33,17 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         }
         setRecordNavNumbers();
 
-        setupEventHandlers();
+        setDataChangeHandlers();
         displayRecord(currentRecord);
     }
 
     @Override
-    protected final void setupEventHandlers() {
-        view.setEventHandler(view.getNextButton(), ActionEvent.ACTION, this::displayNext);
-        view.setEventHandler(view.getPreviousButton(), ActionEvent.ACTION, this::displayPrevious);
-        view.setEventHandler(view.getSearchButton(), ActionEvent.ACTION, this::displaySearchResults);
-        view.setEventHandler(view.getViewAllButton(), ActionEvent.ACTION, this::displayAll);
-        view.setEventHandler(view.getExitButton(), ActionEvent.ACTION, this::exitWindow);
+    protected final void setDataChangeHandlers() {
+        setEventHandler(view.getNextButton(), ActionEvent.ACTION, this::displayNext);
+        setEventHandler(view.getPreviousButton(), ActionEvent.ACTION, this::displayPrevious);
+        setEventHandler(view.getSearchButton(), ActionEvent.ACTION, this::displaySearchResults);
+        setEventHandler(view.getViewAllButton(), ActionEvent.ACTION, this::displayAll);
+        setEventHandler(view.getExitButton(), ActionEvent.ACTION, this::exitWindow);
     }
 
     public RecordHandler getRecordHandler() {
@@ -93,7 +93,7 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         List<Record> searchResults;
         Map<String, List<Record>> searchResultsMap = recordHandler.getSearchResultsMap();
         if (!searchResultsMap.containsKey(keyword)) {
-            keyword = prepareKeyword(keyword);
+            keyword = prepareString(keyword);
             recordHandler.search(keyword);
         }
 
@@ -121,6 +121,7 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
 
     private void displayAll(ActionEvent event) {
         switchDisplay(recordHandler.getAllRecords());
+        view.getSearchTextField().setText("");
     }
 
     private void switchDisplay(List<Record> recordsToDisplay) {
@@ -131,8 +132,8 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         setRecordNavLabelText();
     }
 
-    private void setRecordNavNumbers(){
-         if (!currentList.isEmpty()) {
+    private void setRecordNavNumbers() {
+        if (!currentList.isEmpty()) {
             currentRecordNum = currentList.indexOf(currentRecord) + 1;
             currentRecordCount = currentList.size();
         } else {
@@ -140,6 +141,7 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
             currentRecordCount = 0;
         }
     }
+
     private void setRecordNavLabelText() {
         String text;
         text = "Displaying " + currentRecordNum
@@ -160,8 +162,5 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         view.getMedicalHistoryValueLabel().setText("");
 
     }
-    
-    private String prepareKeyword(String keyword){
-        return keyword.toLowerCase();
-    }
+
 }

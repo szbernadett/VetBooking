@@ -16,7 +16,7 @@ public class ZooAnimal extends Animal {
     public ZooAnimal() {
     }
 
-    public ZooAnimal(String identifier, Caretaker caretaker, Address address, LocalDate dateOfBirth, AnimalType animalType, Gender gender) {
+    public ZooAnimal(String identifier, Caretaker caretaker, Address address, DateOfBirth dateOfBirth, AnimalType animalType, Gender gender) {
         super(identifier, caretaker, address, dateOfBirth, animalType, gender);
     }
 

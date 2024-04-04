@@ -62,8 +62,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         initLists();
         setupView();
         setupNameSearch();
-        setupEventHandlers();
-        addListeners();
+        setDataChangeHandlers();
     }
 
     private void initLists() {
@@ -132,28 +131,24 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     }
 
     @Override
-    protected final void setupEventHandlers() {
-        view.setEventHandler(view.getAnimalSearchTextField(), KeyEvent.KEY_RELEASED, this::filterAnimals);
-        view.setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
-        view.setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::resetView);
-        view.setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
-        view.setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
-
-    }
-
-    private void addListeners() {
-        view.addEventListener(view.getFilteredAnimalsListView()
+    protected final void setDataChangeHandlers() {
+        setEventHandler(view.getAnimalSearchTextField(), KeyEvent.KEY_RELEASED, this::filterAnimals);
+        setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
+        setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::resetView);
+        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
+        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
+        addEventListener(view.getFilteredAnimalsListView()
                 .getSelectionModel()
                 .selectedItemProperty(),
                 this::animalSelected);
-        view.addEventListener(view.getVetListView()
+        addEventListener(view.getVetListView()
                 .getSelectionModel()
                 .selectedItemProperty(),
                 this::vetSelected);
-        view.addEventListener(view.getApptTypeToggleGroup()
+        addEventListener(view.getApptTypeToggleGroup()
                 .selectedToggleProperty(),
                 this::apptTypeSelected);
-        view.addEventListener(view.getApptDatePicker()
+        addEventListener(view.getApptDatePicker()
                 .valueProperty(),
                 this::dateSelected);
 
@@ -269,7 +264,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
             Alert alert = saveSuccessAlert(POJOName.APPOINTMENT);
             alert.show();
             exitWindow(event);
-            
+
         }
     }
 

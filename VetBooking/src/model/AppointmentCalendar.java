@@ -22,7 +22,7 @@ public class AppointmentCalendar {
     private static AppointmentCalendar instance;
     private final  Map<Vet, Map<LocalDate, Map<TimeSlot, List<String>>>> bookedVetAppointmentsMap; 
     public static final LocalDate startDate = LocalDate.now();
-    public static final LocalDate endDate = startDate.plusMonths(1);
+    public static final LocalDate endDate = startDate.plusMonths(TimeConstraint.MAX_MONTHS_AHEAD.getValue());
 
     private AppointmentCalendar(List<Appointment> appointments) {
         bookedVetAppointmentsMap = new HashMap<>();
@@ -94,4 +94,22 @@ public class AppointmentCalendar {
         }
         return allTimesForSlot;
     }
+    
+    public enum TimeConstraint{
+        MAX_MONTHS_AHEAD(1);
+        
+        private final int value;
+
+        private TimeConstraint(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+        
+        
+    }
+    
+
 }

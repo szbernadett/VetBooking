@@ -15,7 +15,7 @@ public class FarmAnimal extends Animal {
     public FarmAnimal() {
     }
 
-    public FarmAnimal(String identifier, Caretaker caretaker, Address address, LocalDate dateOfBirth, AnimalType animalType, Gender gender) {
+    public FarmAnimal(String identifier, Caretaker caretaker, Address address, DateOfBirth dateOfBirth, AnimalType animalType, Gender gender) {
         super(identifier, caretaker, address, dateOfBirth, animalType, gender);
     }
 

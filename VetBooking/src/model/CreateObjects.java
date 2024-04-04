@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import model.Address.LocationType;
+import model.Animal.DateOfBirth;
 import model.Animal.Gender;
 import model.AnimalType.SpecialistCategory;
 
@@ -98,17 +99,17 @@ public class CreateObjects {
                                                                            SpecialistCategory.EXOTIC)));
     AnimalType horse = new AnimalType("horse", 15, new HashSet<>(Arrays.asList(SpecialistCategory.LARGE)));
     
-    Pet pet1 = new Pet("Zuzu", care2, dom1, LocalDate.of(2023,1,1), cat, Gender.MALE);
-    Pet pet2 = new Pet("Jerry", care6, dom2, LocalDate.of(2023,1,1), tarantula, Gender.NA);
-    Pet pet3 = new Pet("Goldie", care7, dom3, LocalDate.of(2024,1,1), goldfish, Gender.NA);
-    FarmAnimal fan1 = new FarmAnimal("112233", care4, farm1, LocalDate.of(2022,1,1), duck, Gender.FEMALE);
-    FarmAnimal fan2 = new FarmAnimal("Dolly", care5, farm2, LocalDate.of(2020,5,8), horse, Gender.FEMALE);
-    FarmAnimal fan3 = new FarmAnimal("34567", care5, farm2, LocalDate.of(2023,1,1), sheep, Gender.MALE);
-    ZooAnimal zan1 = new ZooAnimal("Bubbles", care1, manczoo, LocalDate.of(2015,10,22), elephant, Gender.MALE);
-    ZooAnimal zan2 = new ZooAnimal("Simba", care3, manczoo, LocalDate.of(2021,4,21), lion, Gender.MALE);
-    ZooAnimal zan3 = new ZooAnimal("Monty", care1, manczoo, LocalDate.of(2023,1,1), python, Gender.NA);
-    ZooAnimal zan4 = new ZooAnimal("Coco", care3, manczoo, LocalDate.of(2024,2,15), chimpanzee, Gender.MALE);
-    ZooAnimal zan5 = new ZooAnimal("Sammy", care3, manczoo, LocalDate.of(2019,11,2), seal, Gender.FEMALE);
+    Pet pet1 = new Pet("Zuzu", care2, dom1, DateOfBirth.of(LocalDate.of(2023,1,1)), cat, Gender.MALE);
+    Pet pet2 = new Pet("Jerry", care6, dom2,DateOfBirth.of(LocalDate.of(2023,1,1)), tarantula, Gender.NA);
+    Pet pet3 = new Pet("Goldie", care7, dom3, DateOfBirth.of(LocalDate.of(2024,1,1)), goldfish, Gender.NA);
+    FarmAnimal fan1 = new FarmAnimal("112233", care4, farm1, DateOfBirth.of(LocalDate.of(2022,1,1)), duck, Gender.FEMALE);
+    FarmAnimal fan2 = new FarmAnimal("Dolly", care5, farm2, DateOfBirth.of(LocalDate.of(2020,5,8)), horse, Gender.FEMALE);
+    FarmAnimal fan3 = new FarmAnimal("34567", care5, farm2, DateOfBirth.of(LocalDate.of(2023,1,1)), sheep, Gender.MALE);
+    ZooAnimal zan1 = new ZooAnimal("Bubbles", care1, manczoo, DateOfBirth.of(LocalDate.of(2015,10,22)), elephant, Gender.MALE);
+    ZooAnimal zan2 = new ZooAnimal("Simba", care3, manczoo, DateOfBirth.of(LocalDate.of(2021,4,21)), lion, Gender.MALE);
+    ZooAnimal zan3 = new ZooAnimal("Monty", care1, manczoo, DateOfBirth.of(LocalDate.of(2023,1,1)), python, Gender.NA);
+    ZooAnimal zan4 = new ZooAnimal("Coco", care3, manczoo, DateOfBirth.of(LocalDate.of(2024,2,15)), chimpanzee, Gender.MALE);
+    ZooAnimal zan5 = new ZooAnimal("Sammy", care3, manczoo, DateOfBirth.of(LocalDate.of(2019,11,2)), seal, Gender.FEMALE);
     
     Record rec1 = new Record(LocalDate.of(2024,3,15), pet1, "", new ArrayList<>());
     Record rec2 = new Record(LocalDate.of(2024,3,15), pet2, "", new ArrayList<>());

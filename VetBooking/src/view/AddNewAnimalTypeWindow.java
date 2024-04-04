@@ -14,8 +14,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import model.AnimalType.SpecialistCategory;
 
 /**
@@ -30,7 +30,7 @@ public class AddNewAnimalTypeWindow extends CustomStage {
     private Label typeNameLabel;
     private TextField typeNameValueTField;
     private Label specialistCategoryLabel;
-    private FlowPane checkboxGroup;
+    private HBox checkboxGroup;
     private CheckBox largeCheckBox;
     private CheckBox venomousCheckBox;
     private CheckBox exoticCheckBox;
@@ -54,7 +54,7 @@ public class AddNewAnimalTypeWindow extends CustomStage {
         typeNameLabel = new Label("Name of type:");
         typeNameValueTField = new TextField();
         specialistCategoryLabel = new Label("Specialist categories:");
-        checkboxGroup = new FlowPane();
+        checkboxGroup = new HBox();
         largeCheckBox = new CheckBox(SpecialistCategory.LARGE.toString());
         venomousCheckBox = new CheckBox(SpecialistCategory.VENOMOUS.toString());
         exoticCheckBox = new CheckBox(SpecialistCategory.EXOTIC.toString());
@@ -133,11 +133,11 @@ public class AddNewAnimalTypeWindow extends CustomStage {
         this.specialistCategoryLabel = specialistCategoryLabel;
     }
 
-    public FlowPane getCheckboxGroup() {
+    public HBox getCheckboxGroup() {
         return checkboxGroup;
     }
 
-    public void setCheckboxGroup(FlowPane checkboxGroup) {
+    public void setCheckboxGroup(HBox checkboxGroup) {
         this.checkboxGroup = checkboxGroup;
     }
 

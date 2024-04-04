@@ -49,12 +49,11 @@ public class MainWindowController extends Controller<MainWindow> {
             alert.setContentText("Could not load appointments from file");
 
         }
-        setupEventHandlers();
-        addListeners();
+        setDataChangeHandlers();
     }
 
     @Override
-    protected final void setupEventHandlers() {
+    protected final void setDataChangeHandlers() {
         view.getAddNewTypeMenuItem().addEventHandler(ActionEvent.ACTION, this::openAddNewAnimalTypeWindow);
         view.getBookBtn().addEventHandler(ActionEvent.ACTION, this::openAddAppointmentWindow);
         view.getViewAndSearchMenuItem().addEventHandler(ActionEvent.ACTION, this::openViewAndSearchAnimalsWindow);
@@ -63,10 +62,7 @@ public class MainWindowController extends Controller<MainWindow> {
         view.getEditBtn().addEventHandler(ActionEvent.ACTION, this::editAppointment);
         view.getExitBtn().addEventHandler(ActionEvent.ACTION, this::exitWindow);
         view.setOnCloseRequest(this::exitWindow);
-    }
-
-    private void addListeners() {
-        view.addEventListener(view.getAppointmentTable()
+        addEventListener(view.getAppointmentTable()
                 .getSelectionModel()
                 .selectedItemProperty(),
                 this::appointmentSelected);
@@ -79,6 +75,8 @@ public class MainWindowController extends Controller<MainWindow> {
 
     private void openAddNewAnimalTypeWindow(ActionEvent event) {
         AddNewAnimalTypeWindow addNewAnimalTypeWin = new AddNewAnimalTypeWindow();
+        AddNewAnimalTypeWindowController anatWinController
+                = new AddNewAnimalTypeWindowController(addNewAnimalTypeWin, model);
         addNewAnimalTypeWin.show();
     }
 

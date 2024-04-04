@@ -61,8 +61,7 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
         this.mainWinController = mainWinController;
         initLists();
         dataToView();
-        setupEventHandlers();
-        addListeners();
+        setDataChangeHandlers();
     }
 
     private void paidCheckboxSelected(Event event) {
@@ -239,26 +238,24 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
         }
     }
 
-    private void addListeners() {
-        view.addEventListener(view.getVetListView()
+
+
+    @Override
+    protected final void setDataChangeHandlers() {
+        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
+        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
+        setEventHandler(view.getPaidCheckBox(), ActionEvent.ACTION, this::paidCheckboxSelected);
+        setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
+        addEventListener(view.getVetListView()
                 .getSelectionModel()
                 .selectedItemProperty(),
                 this::vetSelected);
-        view.addEventListener(view.getApptTypeToggleGroup()
+        addEventListener(view.getApptTypeToggleGroup()
                 .selectedToggleProperty(),
                 this::apptTypeSelected);
-        view.addEventListener(view.getApptDatePicker()
+        addEventListener(view.getApptDatePicker()
                 .valueProperty(),
                 this::dateSelected);
-    }
-
-    @Override
-    protected final void setupEventHandlers() {
-        view.setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
-        view.setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
-        view.setEventHandler(view.getPaidCheckBox(), ActionEvent.ACTION, this::paidCheckboxSelected);
-        view.setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
-
     }
 
 }

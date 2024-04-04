@@ -7,6 +7,7 @@ package controller;
 import java.util.List;
 import java.util.Map;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import model.DAO;
 import model.Record;
 import model.RecordHandler;
@@ -39,19 +40,17 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
 
     @Override
     protected final void setDataChangeHandlers() {
-        setEventHandler(view.getNextButton(), ActionEvent.ACTION, this::displayNext);
-        setEventHandler(view.getPreviousButton(), ActionEvent.ACTION, this::displayPrevious);
-        setEventHandler(view.getSearchButton(), ActionEvent.ACTION, this::displaySearchResults);
-        setEventHandler(view.getViewAllButton(), ActionEvent.ACTION, this::displayAll);
-        setEventHandler(view.getExitButton(), ActionEvent.ACTION, this::exitWindow);
+        view.getNextButton().addEventHandler(ActionEvent.ACTION, this::displayNext);
+        view.getPreviousButton().addEventHandler(ActionEvent.ACTION, this::displayPrevious);
+        view.getSearchButton().addEventHandler(ActionEvent.ACTION, this::displaySearchResults);
+        view.getViewAllButton().addEventHandler(ActionEvent.ACTION, this::displayAll);
+        view.getExitButton().addEventHandler(ActionEvent.ACTION, this::exitWindow);
     }
 
     @Override
     protected final void dataToView() {
         displayRecord(currentRecord);
     }
-    
-    
 
     public RecordHandler getRecordHandler() {
         return recordHandler;
@@ -79,6 +78,7 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         view.getDateRegisteredValueLabel().setText(record.getDateRegistered().toString());
         view.getLocationTypeValueLabel().setText(record.getAnimal().getAddress().getLocationType().toString());
         view.getMedicalHistoryValueLabel().setText(record.getMedicalHistory());
+
         setRecordNavLabelText();
     }
 
@@ -168,6 +168,10 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         view.getDateRegisteredValueLabel().setText("");
         view.getMedicalHistoryValueLabel().setText("");
 
+    }
+
+    private void exitWindow(Event event) {
+        view.close();
     }
 
 }

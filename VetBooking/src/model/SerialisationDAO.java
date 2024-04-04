@@ -295,6 +295,14 @@ public class SerialisationDAO implements DAO {
 
     }
 
+    @Override
+    public void saveAnimal(Animal animal) {
+        if(animals == null){
+            animals = new ArrayList<>();
+        }
+        animals.add(animal);
+    }
+
 }
 
 enum FileName {

@@ -8,14 +8,11 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -66,20 +63,21 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
 
     @Override
     protected final void setDataChangeHandlers() {
-        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
-        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
-        setEventHandler(view.getPaidCheckBox(), ActionEvent.ACTION, this::paidCheckboxSelected);
-        setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
-        addEventListener(view.getVetListView()
+        view.getSaveBtn().addEventHandler(ActionEvent.ACTION, this::saveAppointment);
+        view.getCancelBtn().addEventHandler(ActionEvent.ACTION, this::closeWithoutSave);
+        view.getPaidCheckBox().addEventHandler(ActionEvent.ACTION, this::paidCheckboxSelected);
+        view.getTimeCbox().addEventHandler(ActionEvent.ACTION, this::timeSelected);
+        view.setOnCloseRequest(this::closeWithoutSave);
+        view.getVetListView()
                 .getSelectionModel()
-                .selectedItemProperty(),
-                this::vetSelected);
-        addEventListener(view.getApptTypeToggleGroup()
-                .selectedToggleProperty(),
-                this::apptTypeSelected);
-        addEventListener(view.getApptDatePicker()
-                .valueProperty(),
-                this::dateSelected);
+                .selectedItemProperty()
+                .addListener(this::vetSelected);
+        view.getApptTypeToggleGroup()
+                .selectedToggleProperty()
+                .addListener(this::apptTypeSelected);
+        view.getApptDatePicker()
+                .valueProperty()
+                .addListener(this::dateSelected);
     }
 
     @Override
@@ -213,10 +211,8 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
     public void setListViewAnimals(List<Animal> listViewAnimals) {
         this.listViewAnimals = listViewAnimals;
     }
-    
-    
 
-    private void paidCheckboxSelected(Event event) {
+    private void paidCheckboxSelected(ActionEvent event) {
         isPaid = view.getPaidCheckBox().isSelected();
     }
 
@@ -337,7 +333,7 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
         selectedTime = (String) view.getTimeCbox().getValue();
     }
 
-    private void saveAppointment(Event event) {
+    private void saveAppointment(ActionEvent event) {
         if (selectedVet == null
                 || selectedAppointmentType == null
                 || selectedDate == null
@@ -359,15 +355,8 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
 
             Alert alert = saveSuccessAlert(POJOName.APPOINTMENT);
             alert.show();
-            exitWindow(event);
-        }
-    }
-
-    private void cancel(Event event) {
-        Alert alert = closeWithoutSaveAlert();
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
             view.close();
         }
     }
+    
 }

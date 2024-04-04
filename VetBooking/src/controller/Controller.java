@@ -4,13 +4,8 @@
  */
 package controller;
 
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.util.Optional;
 import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -54,18 +49,6 @@ public abstract class Controller<T extends CustomStage> {
 
     public void setDao(SerialisationDAO model) {
         this.model = model;
-    }
-
-    protected <T extends Event> void setEventHandler(Node node, EventType<T> et, EventHandler<T> handler) {
-        node.addEventHandler(et, handler);
-    }
-
-    protected <U> void addEventListener(ObservableValue<U> observable, ChangeListener<? super U> listener) {
-        observable.addListener(listener);
-    }
-
-    protected void exitWindow(Event event) {
-        view.close();
     }
 
     protected Alert saveSuccessAlert(POJOName name) {
@@ -113,10 +96,27 @@ public abstract class Controller<T extends CustomStage> {
 
     }
 
+    protected Alert dataAccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Cannot access data");
+        alert.setContentText("Could not load data from file");
+
+        return alert;
+    }
+
     protected String prepareString(String text) {
         text = text.trim().toLowerCase();
         text = text.replaceAll("[^a-zA-Z0-9]", "");
         return text;
+    }
+
+    protected void closeWithoutSave(Event event) {
+        Alert alert = closeWithoutSaveAlert();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            view.close();
+        }
     }
 
     public enum POJOName {
@@ -153,7 +153,7 @@ public abstract class Controller<T extends CustomStage> {
 
     }
 
-    public enum DuplicateCheck {
+    public enum Validate {
         OK, FAIL;
     }
 

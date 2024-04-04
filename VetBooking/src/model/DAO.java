@@ -18,6 +18,8 @@ public interface DAO {
     
     void saveAnimalType(AnimalType animalType);
     void saveRecord(Record record);
+    void saveAnimal(Animal animal);
+
     
     void saveAnimals(List<Animal> animals) throws IOException;
     void saveAnimals() throws IOException;
@@ -40,6 +42,7 @@ public interface DAO {
     List<Address> getAllAddresses() throws ClassNotFoundException, IOException;
     List<AnimalType> getAllAnimalTypes() throws ClassNotFoundException, IOException;
     List<Appointment> getAllAppointments() throws ClassNotFoundException, IOException;  
+
 
     
     

@@ -97,6 +97,10 @@ public abstract class Animal implements Serializable {
             this.stringValue = stringValue;
         }
 
+        public String getStringValue() {
+            return stringValue;
+        }
+
         @Override
         public String toString() {
             return stringValue;
@@ -104,8 +108,7 @@ public abstract class Animal implements Serializable {
 
     }
 
-   
-    public static class DateOfBirth implements Serializable{
+    public static class DateOfBirth implements Serializable {
 
         private LocalDate date;
         private boolean isNotApplicable;

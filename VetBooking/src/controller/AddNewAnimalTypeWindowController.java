@@ -8,16 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import model.AnimalType;
 import model.AnimalType.AgeConstraint;
@@ -46,15 +43,15 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
 
     @Override
     protected final void setDataChangeHandlers() {
-        setEventHandler(view.getAquaticCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
-        setEventHandler(view.getVenomousCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
-        setEventHandler(view.getExoticCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
-        setEventHandler(view.getLargeCheckBox(), ActionEvent.ACTION, this::specialistCheckboxSelected);
-        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
-        setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::clearView);
-        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAnimalType);
-        setEventHandler(view.getMaxAgeCBox(), ActionEvent.ACTION, this::maxAgeSelected);
-        view.setOnCloseRequest(this::cancel);
+        view.getAquaticCheckBox().addEventHandler(ActionEvent.ACTION, this::specialistCheckboxSelected);
+        view.getVenomousCheckBox().addEventHandler(ActionEvent.ACTION, this::specialistCheckboxSelected);
+        view.getExoticCheckBox().addEventHandler(ActionEvent.ACTION, this::specialistCheckboxSelected);
+        view.getLargeCheckBox().addEventHandler(ActionEvent.ACTION, this::specialistCheckboxSelected);
+        view.getCancelBtn().addEventHandler(ActionEvent.ACTION, this::closeWithoutSave);
+        view.getClearAllBtn().addEventHandler(ActionEvent.ACTION, this::clearView);
+        view.getSaveBtn().addEventHandler(ActionEvent.ACTION, this::saveAnimalType);
+        view.getMaxAgeCBox().addEventHandler(ActionEvent.ACTION, this::maxAgeSelected);
+        view.setOnCloseRequest(this::closeWithoutSave);
 
     }
 
@@ -109,14 +106,14 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
                 || selectedMaxAge == null) {
 
         } else {
-            if (checkExistingNames() == DuplicateCheck.OK) {
+            if (checkExistingNames() == Validate.OK) {
                 AnimalType animalType = new AnimalType(animalTypeName,
                         selectedMaxAge,
                         specialistCategories);
                 model.saveAnimalType(animalType);
                 Alert alert = saveSuccessAlert(POJOName.ANIMAL_TYPE);
                 alert.show();
-                exitWindow(event);
+                view.close();
             }
         }
     }
@@ -130,25 +127,17 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
 
     }
 
-    private void cancel(Event event) {
-        Alert alert = closeWithoutSaveAlert();
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
-            exitWindow(event);
-        }
 
-    }
-
-    private DuplicateCheck checkExistingNames() {
-        DuplicateCheck result = DuplicateCheck.FAIL;
+    private Validate checkExistingNames() {
+        Validate result = Validate.FAIL;
         String name = prepareString(view.getTypeNameValueTField().getText());
         if (!existingNames.isEmpty()) {
             if (!existingNames.contains(name)) {
                 animalTypeName = name;
-                result = DuplicateCheck.OK;
+                result = Validate.OK;
             } else {
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Warning");
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
                 alert.setHeaderText("Duplicate data");
                 alert.setContentText("Animal type " + name + "already exists. "
                         + "Please choose a different name.");

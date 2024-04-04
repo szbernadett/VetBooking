@@ -52,10 +52,9 @@ public class MainWindowController extends Controller<MainWindow> {
         view.getEditBtn().addEventHandler(ActionEvent.ACTION, this::editAppointment);
         view.getExitBtn().addEventHandler(ActionEvent.ACTION, this::exitWindow);
         view.setOnCloseRequest(this::exitWindow);
-        addEventListener(view.getAppointmentTable()
-                .getSelectionModel()
-                .selectedItemProperty(),
-                this::appointmentSelected);
+        view.getAppointmentTable()
+                .getSelectionModel().selectedItemProperty()
+                .addListener(this::appointmentSelected);
     }
 
     @Override
@@ -65,28 +64,25 @@ public class MainWindowController extends Controller<MainWindow> {
             allRecords = model.getAllRecords();
             view.getAppointmentTable().setItems((ObservableList) allAppointments);
         } catch (ClassNotFoundException | IOException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Cannot access data");
-            alert.setContentText("Could not load appointments from file");
-
+            System.out.println(ex);
+            Alert alert = dataAccessAlert();
+            alert.show();
         }
     }
 
-    @Override
-    protected void exitWindow(Event event) {
+    private void exitWindow(Event event) {
         try {
             model.saveAppointments();
             model.saveAnimals();
             model.saveAnimalTypes();
             model.saveRecords();
-            super.exitWindow(event);
+            view.close();
         } catch (IOException ex) {
             System.out.println(ex);
             Alert alert = saveInterruptedAlert();
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.YES) {
-                super.exitWindow(event);
+                view.close();
             }
 
         }

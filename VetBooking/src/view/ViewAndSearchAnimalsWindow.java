@@ -102,6 +102,8 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
         medicalHistoryLabel = new Label("Medical History:");
         medicalHistoryLabel.getStyleClass().add("label-bold");
         medicalHistoryValueLabel = new Label("");
+        medicalHistoryValueLabel.setPrefWidth(200);
+        medicalHistoryValueLabel.setWrapText(true);
 
         mainPane.add(nameLabel, 0, 0);
         mainPane.add(nameValueLabel, 1, 0);

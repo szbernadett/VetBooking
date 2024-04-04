@@ -12,12 +12,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import model.Address;
+import model.Animal.Gender;
 import model.AnimalType;
 import model.Caretaker;
 
@@ -32,6 +34,12 @@ public class RegisterAnimalWindow extends CustomStage {
     private GridPane mainPane;
     private Label idLabel;
     private TextField idValueTField;
+    private Label genderLabel;
+    private HBox genderRadioPane;
+    private RadioButton femaleRBtn;
+    private RadioButton maleRBtn;
+    private RadioButton naRBtn;
+    private ToggleGroup genderToggleGroup;
     private Label typeLabel;
     private ComboBox<AnimalType> typeValueCBox;
     private Label caretakerLabel;
@@ -39,11 +47,13 @@ public class RegisterAnimalWindow extends CustomStage {
     private Label addressLabel;
     private ComboBox<Address> addressValueCBox;
     private Label dateOfBirthLabel;
-    private HBox radioPane;
+    private HBox dobRadioPane;
     private RadioButton pickDateRBtn;
     private RadioButton notApplicableRBtn;
     private ToggleGroup dobToggleGroup;
     private DatePicker dobDatePicker;
+    private Label medHistoryLabel;
+    private TextArea medHistoryTextArea;
     private ButtonBar buttonBar;
     private Button clearAllBtn;
     private Button cancelBtn;
@@ -60,6 +70,16 @@ public class RegisterAnimalWindow extends CustomStage {
         mainPane = new GridPane();
         idLabel = new Label("Identifier / Name:");
         idValueTField = new TextField();
+        genderLabel = new Label("Gender");
+        genderRadioPane = new HBox();
+        genderToggleGroup = new ToggleGroup();
+        femaleRBtn = new RadioButton(Gender.FEMALE.getStringValue());
+        femaleRBtn.setToggleGroup(genderToggleGroup);
+        maleRBtn = new RadioButton(Gender.MALE.getStringValue());
+        maleRBtn.setToggleGroup(genderToggleGroup);
+        naRBtn = new RadioButton(Gender.NA.getStringValue());
+        naRBtn.setToggleGroup(genderToggleGroup);
+        genderRadioPane.getChildren().addAll(femaleRBtn, maleRBtn, naRBtn);
         typeLabel = new Label("Animal type:");
         typeValueCBox = new ComboBox();
         caretakerLabel = new Label("Caretaker / Owner:");
@@ -67,26 +87,34 @@ public class RegisterAnimalWindow extends CustomStage {
         addressLabel = new Label("Address:");
         addressValueCBox = new ComboBox();
         dateOfBirthLabel = new Label("Date of Birth:");
-        radioPane = new HBox();
+        dobRadioPane = new HBox();
         dobToggleGroup = new ToggleGroup();
-        pickDateRBtn = new RadioButton(RadioLabel.DATE.getStringValue());
+        pickDateRBtn = new RadioButton(DoBRadioLabel.DATE.getStringValue());
         pickDateRBtn.setToggleGroup(dobToggleGroup);
-        notApplicableRBtn = new RadioButton(RadioLabel.NA.getStringValue());
+        notApplicableRBtn = new RadioButton(DoBRadioLabel.NA.getStringValue());
         notApplicableRBtn.setToggleGroup(dobToggleGroup);
-        radioPane.getChildren().addAll(pickDateRBtn, notApplicableRBtn);
+        dobRadioPane.getChildren().addAll(pickDateRBtn, notApplicableRBtn);
         dobDatePicker = new DatePicker();
+        medHistoryLabel = new Label("Medical History: ");
+        medHistoryTextArea = new TextArea();
+        medHistoryTextArea.setPrefWidth(300);
+        medHistoryTextArea.setPrefHeight(100);
 
         mainPane.add(idLabel, 0, 0);
         mainPane.add(idValueTField, 1, 0);
-        mainPane.add(typeLabel, 0, 1);
-        mainPane.add(typeValueCBox, 1, 1);
-        mainPane.add(caretakerLabel, 0, 2);
-        mainPane.add(caretakerValueCBox, 1, 2);
-        mainPane.add(addressLabel, 0, 3);
-        mainPane.add(addressValueCBox, 1, 3);
-        mainPane.add(dateOfBirthLabel, 0, 4);
-        mainPane.add(radioPane, 1, 4);
-        mainPane.add(dobDatePicker, 1, 5);
+        mainPane.add(genderLabel, 0, 1);
+        mainPane.add(genderRadioPane, 1, 1);
+        mainPane.add(typeLabel, 0, 2);
+        mainPane.add(typeValueCBox, 1, 2);
+        mainPane.add(caretakerLabel, 0, 3);
+        mainPane.add(caretakerValueCBox, 1, 3);
+        mainPane.add(addressLabel, 0, 4);
+        mainPane.add(addressValueCBox, 1, 4);
+        mainPane.add(dateOfBirthLabel, 0, 5);
+        mainPane.add(dobRadioPane, 1, 5);
+        mainPane.add(dobDatePicker, 1, 6);
+        mainPane.add(medHistoryLabel, 0, 7);
+        mainPane.add(medHistoryTextArea, 1, 7);
 
         buttonBar = new ButtonBar();
         buttonBar.setPadding(new Insets(10));
@@ -142,6 +170,54 @@ public class RegisterAnimalWindow extends CustomStage {
         this.idValueTField = idValueTField;
     }
 
+    public Label getGenderLabel() {
+        return genderLabel;
+    }
+
+    public void setGenderLabel(Label genderLabel) {
+        this.genderLabel = genderLabel;
+    }
+
+    public HBox getGenderRadioPane() {
+        return genderRadioPane;
+    }
+
+    public void setGenderRadioPane(HBox genderRadioPane) {
+        this.genderRadioPane = genderRadioPane;
+    }
+
+    public RadioButton getFemaleRBtn() {
+        return femaleRBtn;
+    }
+
+    public void setFemaleRBtn(RadioButton femaleRBtn) {
+        this.femaleRBtn = femaleRBtn;
+    }
+
+    public RadioButton getMaleRBtn() {
+        return maleRBtn;
+    }
+
+    public void setMaleRBtn(RadioButton maleRBtn) {
+        this.maleRBtn = maleRBtn;
+    }
+
+    public RadioButton getNaRBtn() {
+        return naRBtn;
+    }
+
+    public void setNaRBtn(RadioButton naRBtn) {
+        this.naRBtn = naRBtn;
+    }
+
+    public ToggleGroup getGenderToggleGroup() {
+        return genderToggleGroup;
+    }
+
+    public void setGenderToggleGroup(ToggleGroup genderToggleGroup) {
+        this.genderToggleGroup = genderToggleGroup;
+    }
+
     public Label getTypeLabel() {
         return typeLabel;
     }
@@ -157,7 +233,6 @@ public class RegisterAnimalWindow extends CustomStage {
     public void setTypeValueCBox(ComboBox<AnimalType> typeValueCBox) {
         this.typeValueCBox = typeValueCBox;
     }
-
 
     public Label getCaretakerLabel() {
         return caretakerLabel;
@@ -199,12 +274,12 @@ public class RegisterAnimalWindow extends CustomStage {
         this.dateOfBirthLabel = dateOfBirthLabel;
     }
 
-    public HBox getRadioPane() {
-        return radioPane;
+    public HBox getDobRadioPane() {
+        return dobRadioPane;
     }
 
-    public void setRadioPane(HBox radioPane) {
-        this.radioPane = radioPane;
+    public void setDobRadioPane(HBox dobRadioPane) {
+        this.dobRadioPane = dobRadioPane;
     }
 
     public RadioButton getPickDateRBtn() {
@@ -230,13 +305,28 @@ public class RegisterAnimalWindow extends CustomStage {
     public void setDobToggleGroup(ToggleGroup dobToggleGroup) {
         this.dobToggleGroup = dobToggleGroup;
     }
-    
-    
 
     public DatePicker getDobDatePicker() {
         return dobDatePicker;
     }
 
+    public Label getMedHistoryLabel() {
+        return medHistoryLabel;
+    }
+
+    public void setMedHistoryLabel(Label medHistoryLabel) {
+        this.medHistoryLabel = medHistoryLabel;
+    }
+
+    public TextArea getMedHistoryTextArea() {
+        return medHistoryTextArea;
+    }
+
+    public void setMedHistoryTextArea(TextArea medHistoryTextArea) {
+        this.medHistoryTextArea = medHistoryTextArea;
+    }
+
+    
     public void setDobDatePicker(DatePicker dobDatePicker) {
         this.dobDatePicker = dobDatePicker;
     }
@@ -273,13 +363,13 @@ public class RegisterAnimalWindow extends CustomStage {
         this.saveBtn = saveBtn;
     }
 
-    public enum RadioLabel {
+    public enum DoBRadioLabel {
         DATE("select date"),
         NA("not applicable");
 
         private final String stringValue;
 
-        private RadioLabel(String stringValue) {
+        private DoBRadioLabel(String stringValue) {
             this.stringValue = stringValue;
         }
 

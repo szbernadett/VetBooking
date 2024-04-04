@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javafx.beans.value.ObservableValue;
@@ -19,7 +18,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -67,25 +65,26 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
 
     @Override
     protected final void setDataChangeHandlers() {
-        setEventHandler(view.getAnimalSearchTextField(), KeyEvent.KEY_RELEASED, this::filterAnimals);
-        setEventHandler(view.getTimeCbox(), ActionEvent.ACTION, this::timeSelected);
-        setEventHandler(view.getClearAllBtn(), ActionEvent.ACTION, this::resetView);
-        setEventHandler(view.getCancelBtn(), ActionEvent.ACTION, this::cancel);
-        setEventHandler(view.getSaveBtn(), ActionEvent.ACTION, this::saveAppointment);
-        addEventListener(view.getFilteredAnimalsListView()
+        view.getAnimalSearchTextField().addEventHandler(KeyEvent.KEY_RELEASED, this::filterAnimals);
+        view.getTimeCbox().addEventHandler(ActionEvent.ACTION, this::timeSelected);
+        view.getClearAllBtn().addEventHandler(ActionEvent.ACTION, this::resetView);
+        view.getCancelBtn().addEventHandler(ActionEvent.ACTION, this::closeWithoutSave);
+        view.getSaveBtn().addEventHandler(ActionEvent.ACTION, this::saveAppointment);
+        view.setOnCloseRequest(this::closeWithoutSave);
+        view.getFilteredAnimalsListView()
                 .getSelectionModel()
-                .selectedItemProperty(),
-                this::animalSelected);
-        addEventListener(view.getVetListView()
+                .selectedItemProperty()
+                .addListener(this::animalSelected);
+        view.getVetListView()
                 .getSelectionModel()
-                .selectedItemProperty(),
-                this::vetSelected);
-        addEventListener(view.getApptTypeToggleGroup()
-                .selectedToggleProperty(),
-                this::apptTypeSelected);
-        addEventListener(view.getApptDatePicker()
-                .valueProperty(),
-                this::dateSelected);
+                .selectedItemProperty()
+                .addListener(this::vetSelected);
+        view.getApptTypeToggleGroup()
+                .selectedToggleProperty()
+                .addListener(this::apptTypeSelected);
+        view.getApptDatePicker()
+                .valueProperty()
+                .addListener(this::dateSelected);
 
     }
 
@@ -201,7 +200,6 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         this.selectedTime = selectedTime;
     }
 
-    
     private void initLists() {
         try {
             animals = model.getAllAnimals();
@@ -377,7 +375,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
             resetView();
             Alert alert = saveSuccessAlert(POJOName.APPOINTMENT);
             alert.show();
-            exitWindow(event);
+            view.close();
 
         }
     }
@@ -408,11 +406,5 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         resetView();
     }
 
-    private void cancel(ActionEvent event) {
-        Alert alert = closeWithoutSaveAlert();
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
-            view.close();
-        }
-    }
+
 }

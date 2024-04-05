@@ -5,7 +5,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -86,6 +85,11 @@ public class AnimalType implements Serializable {
             throw new IllegalArgumentException("No AppointmentType with this stringValue");
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return typeName;
     }
 
     public enum AgeConstraint {

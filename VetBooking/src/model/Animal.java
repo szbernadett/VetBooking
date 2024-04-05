@@ -101,6 +101,15 @@ public abstract class Animal implements Serializable {
             return stringValue;
         }
 
+        public static Gender fromStringValue(String value) {
+            for(Gender gender : Gender.values()){
+                if(gender.getStringValue().equals(value)){
+                    return gender;
+                }
+            }
+            throw new IllegalArgumentException("No Gender with this stringValue");
+        }
+
         @Override
         public String toString() {
             return stringValue;

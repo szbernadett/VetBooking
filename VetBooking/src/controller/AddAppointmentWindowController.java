@@ -4,6 +4,7 @@
  */
 package controller;
 
+import controller.Controller.Validate;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -17,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -54,7 +54,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     private LocalDate selectedDate;
     private String selectedTime;
 
-    public AddAppointmentWindowController(AddAppointmentWindow view, DAO model, AppointmentCalendar calendar) {
+    public AddAppointmentWindowController(AddAppointmentWindow view, DAO model, AppointmentCalendar calendar){
         super(view, model);
         this.calendar = calendar;
         initLists();
@@ -70,7 +70,6 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         view.getClearAllBtn().addEventHandler(ActionEvent.ACTION, this::resetView);
         view.getCancelBtn().addEventHandler(ActionEvent.ACTION, this::closeWithoutSave);
         view.getSaveBtn().addEventHandler(ActionEvent.ACTION, this::saveAppointment);
-        view.setOnCloseRequest(this::closeWithoutSave);
         view.getFilteredAnimalsListView()
                 .getSelectionModel()
                 .selectedItemProperty()
@@ -87,6 +86,18 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
                 .addListener(this::dateSelected);
 
     }
+    
+    @Override
+    protected final void dataToView() {
+        if (listViewAnimals != null) {
+            view.getFilteredAnimalsListView().setItems((ObservableList) listViewAnimals);
+            view.getFilteredAnimalsListView().setEditable(false);
+            view.getVetListView().setItems((ObservableList) listViewVets);
+        }
+
+        view.getApptDatePicker().setDayCellFactory(getCustomDayCellFactory(AppointmentCalendar.startDate, AppointmentCalendar.endDate));
+    }
+
 
     public AppointmentCalendar getCalendar() {
         return calendar;
@@ -222,17 +233,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
-    @Override
-    protected final void dataToView() {
-        if (listViewAnimals != null) {
-            view.getFilteredAnimalsListView().setItems((ObservableList) listViewAnimals);
-            view.getFilteredAnimalsListView().setEditable(false); // test if this is needed
-            view.getVetListView().setItems((ObservableList) listViewVets);
-        }
-
-        view.getApptDatePicker().setDayCellFactory(getCustomDayCellFactory(AppointmentCalendar.startDate, AppointmentCalendar.endDate));
-    }
-
+    
     private Callback<DatePicker, DateCell> getCustomDayCellFactory(LocalDate startDate, LocalDate endDate) {
         return (final DatePicker datePicker) -> new DateCell() {
             @Override
@@ -350,19 +351,21 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         selectedTime = (String) view.getTimeCbox().getValue();
     }
 
-    private void saveAppointment(ActionEvent event) {
-
+    private Validate checkUnsetValues() {
+        Validate result = Validate.OK;
         if (selectedAnimal == null
                 || selectedVet == null
                 || selectedDate == null
                 || selectedTime == null) {
 
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Incomplete information");
-            alert.setContentText("Please select an animal, vet, date, appointment type and time");
-            alert.show();
-        } else {
+            result = Validate.FAIL;
+        }
+        return result;
+    }
+
+    private void saveAppointment(ActionEvent event) {
+
+        if (checkUnsetValues() == Validate.OK) {
             Appointment appointment = new Appointment(selectedDate,
                     selectedTime,
                     selectedAnimal,
@@ -377,6 +380,10 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
             alert.show();
             view.close();
 
+        } else {
+
+            Alert alert = missingInfoAlert("Please select an animal, vet, date, appointment type and time");
+            alert.show();
         }
     }
 
@@ -405,6 +412,5 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     private void resetView(ActionEvent event) {
         resetView();
     }
-
 
 }

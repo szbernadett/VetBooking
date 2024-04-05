@@ -67,7 +67,6 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
         view.getCancelBtn().addEventHandler(ActionEvent.ACTION, this::closeWithoutSave);
         view.getPaidCheckBox().addEventHandler(ActionEvent.ACTION, this::paidCheckboxSelected);
         view.getTimeCbox().addEventHandler(ActionEvent.ACTION, this::timeSelected);
-        view.setOnCloseRequest(this::closeWithoutSave);
         view.getVetListView()
                 .getSelectionModel()
                 .selectedItemProperty()
@@ -333,19 +332,20 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
         selectedTime = (String) view.getTimeCbox().getValue();
     }
 
-    private void saveAppointment(ActionEvent event) {
+    private Validate checkUnsetValues() {
+        Validate result = Validate.OK;
         if (selectedVet == null
                 || selectedAppointmentType == null
                 || selectedDate == null
                 || selectedTime == null) {
 
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Incomplete information");
-            alert.setContentText("Please select a vet, date, appointment type and time");
-            alert.showAndWait();
+            result = Validate.FAIL;
+        }
+        return result;
+    }
 
-        } else {
+    private void saveAppointment(ActionEvent event) {
+        if (checkUnsetValues() == Validate.OK) {
             appointment.setVet(selectedVet);
             appointment.setDate(selectedDate);
             appointment.setTime(selectedTime);
@@ -356,7 +356,13 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
             Alert alert = saveSuccessAlert(POJOName.APPOINTMENT);
             alert.show();
             view.close();
+
+        } else {
+
+            Alert alert = missingInfoAlert("Please select a vet, date, "
+                    + "appointment type and time");
+            alert.show();
         }
     }
-    
+
 }

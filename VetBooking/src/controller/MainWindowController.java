@@ -144,6 +144,8 @@ public class MainWindowController extends Controller<MainWindow> {
 
     private void openRegisterAnimalWindow(ActionEvent event) {
         RegisterAnimalWindow registerAnimalWin = new RegisterAnimalWindow();
+        RegisterAnimalWindowController raWinController = 
+                new RegisterAnimalWindowController(registerAnimalWin, model);
         registerAnimalWin.show();
     }
 

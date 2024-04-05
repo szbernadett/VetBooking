@@ -51,8 +51,6 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
         view.getClearAllBtn().addEventHandler(ActionEvent.ACTION, this::clearView);
         view.getSaveBtn().addEventHandler(ActionEvent.ACTION, this::saveAnimalType);
         view.getMaxAgeCBox().addEventHandler(ActionEvent.ACTION, this::maxAgeSelected);
-        view.setOnCloseRequest(this::closeWithoutSave);
-
     }
 
     @Override
@@ -101,10 +99,29 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
         }
     }
 
-    private void saveAnimalType(ActionEvent event) {
-        if (animalTypeName == null
-                || selectedMaxAge == null) {
+    private Validate checkUnsetValues() {
+        Validate result = Validate.OK;
+        if (animalTypeName.isBlank()) {
+            result = Validate.FAIL;
+        }
 
+        if (selectedMaxAge == null) {
+            result = Validate.FAIL;
+        }
+
+        return result;
+    }
+
+    private void saveAnimalType(ActionEvent event) {
+        animalTypeName = prepareString(view.getTypeNameValueTField().getText());
+        Validate fieldsComplete = checkUnsetValues();
+        if (fieldsComplete == Validate.FAIL) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Missing information");
+            alert.setContentText("Please enter a name and select a maximum "
+                    + "expected age to continue.");
+            alert.show();
         } else {
             if (checkExistingNames() == Validate.OK) {
                 AnimalType animalType = new AnimalType(animalTypeName,
@@ -114,6 +131,13 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
                 Alert alert = saveSuccessAlert(POJOName.ANIMAL_TYPE);
                 alert.show();
                 view.close();
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Duplicate data");
+                alert.setContentText("The selected name already exists. Please "
+                        + "enter a different name to continue");
+                alert.show();
             }
         }
     }
@@ -127,23 +151,14 @@ public class AddNewAnimalTypeWindowController extends Controller<AddNewAnimalTyp
 
     }
 
-
     private Validate checkExistingNames() {
-        Validate result = Validate.FAIL;
-        String name = prepareString(view.getTypeNameValueTField().getText());
+        Validate result = Validate.OK;
         if (!existingNames.isEmpty()) {
-            if (!existingNames.contains(name)) {
-                animalTypeName = name;
-                result = Validate.OK;
-            } else {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Duplicate data");
-                alert.setContentText("Animal type " + name + "already exists. "
-                        + "Please choose a different name.");
-                alert.show();
+            if (existingNames.contains(animalTypeName)) {
+                result = Validate.FAIL;
             }
         } else {
+            result = Validate.FAIL;
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Missing data");

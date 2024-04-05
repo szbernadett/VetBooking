@@ -95,6 +95,7 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
         currentRecord = previousRecord;
         currentRecordNum = currentList.indexOf(currentRecord) + 1;
     }
+   
 
     private List<Record> fetchSearchResults(String keyword) {
         List<Record> searchResults;
@@ -112,7 +113,6 @@ public class ViewAndSearchController extends Controller<ViewAndSearchAnimalsWind
     private void displaySearchResults(ActionEvent event) {
         String keyword = view.getSearchTextField().getText();
         List<Record> searchResults = fetchSearchResults(keyword);
-        System.out.println(searchResults);
         currentRecordCount = searchResults.size();
 
         if (!searchResults.isEmpty()) {

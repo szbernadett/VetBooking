@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.time.LocalDate;
@@ -74,25 +71,27 @@ public class AppointmentCalendar {
     }
 
     public  List<String> getFreeTimeSlots(Vet vet, LocalDate date, AppointmentType apptType) {
-        List<String> allTimesForSlot;
+        List<String> allTimes;
         if (vet != null && date != null && apptType != null) {
             TimeSlot timeSlotType = Appointment.timeSlotByApptType(apptType);
-            allTimesForSlot = new ArrayList<>(timeSlotType.getTimes());
+            allTimes = new ArrayList<>(timeSlotType.getTimes());
             Map<LocalDate, Map<TimeSlot, List<String>>> apptsByDate = bookedVetAppointmentsMap.get(vet);
             if (apptsByDate != null) {
                 Map<TimeSlot, List<String>> apptsByTimeSlot = apptsByDate.get(date);
                 if (apptsByTimeSlot != null) {
                     List<String> bookedTimes = apptsByTimeSlot.get(timeSlotType);
-                    allTimesForSlot.removeAll(bookedTimes);
+                    System.out.println("bookedTimes " + bookedTimes);
+                    System.out.println("allTimes " + allTimes);
+                    allTimes.removeAll(bookedTimes);
                 }
             }
         } else {
-            allTimesForSlot = new ArrayList<>();
+            allTimes = new ArrayList<>();
         }
-        if(!allTimesForSlot.isEmpty()){
-            Collections.sort(allTimesForSlot);
-        }
-        return allTimesForSlot;
+        if(!allTimes.isEmpty()){
+            Collections.sort(allTimes);
+        } 
+        return allTimes;
     }
     
     public enum TimeConstraint{

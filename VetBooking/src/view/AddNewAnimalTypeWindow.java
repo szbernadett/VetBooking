@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package view;
 
 import javafx.collections.FXCollections;
@@ -50,11 +47,19 @@ public class AddNewAnimalTypeWindow extends CustomStage {
     protected final void initWindow() {
         root = new BorderPane();
         mainScene = new Scene(root);
+        mainScene.getStylesheets().add(getClass().getResource("/resources/style.css").toExternalForm());
         mainPane = new GridPane();
+        mainPane.setVgap(20);
+        mainPane.setHgap(10);
+        mainPane.setPadding(new Insets(20, 20, 10, 20));
+        mainPane.getColumnConstraints().add(getRightAlignCol());
         typeNameLabel = new Label("Name of type:");
+        typeNameLabel.getStyleClass().add("label-bold");
         typeNameValueTField = new TextField();
         specialistCategoryLabel = new Label("Specialist categories:");
+        specialistCategoryLabel.getStyleClass().add("label-bold");
         checkboxGroup = new HBox();
+        checkboxGroup.setSpacing(10);
         largeCheckBox = new CheckBox(SpecialistCategory.LARGE.toString());
         venomousCheckBox = new CheckBox(SpecialistCategory.VENOMOUS.toString());
         exoticCheckBox = new CheckBox(SpecialistCategory.EXOTIC.toString());
@@ -62,6 +67,7 @@ public class AddNewAnimalTypeWindow extends CustomStage {
         checkboxGroup.getChildren().addAll(largeCheckBox, venomousCheckBox,
                 exoticCheckBox, aquaticCheckBox);
         maxAgeLabel = new Label("Maximum expeted age (years):");
+        maxAgeLabel.getStyleClass().add("label-bold");
         maxAgeCBox = new ComboBox(FXCollections.observableArrayList());
 
         mainPane.add(typeNameLabel, 0, 0);
@@ -72,10 +78,13 @@ public class AddNewAnimalTypeWindow extends CustomStage {
         mainPane.add(maxAgeCBox, 1, 2);
 
         buttonBar = new ButtonBar();
-        buttonBar.setPadding(new Insets(10));
+        buttonBar.setPadding(new Insets(20));
         clearAllBtn = new Button("Clear All");
+        clearAllBtn.getStyleClass().add("button");
         cancelBtn = new Button("Cancel");
+        cancelBtn.getStyleClass().add("button");
         saveBtn = new Button("Save");
+        saveBtn.getStyleClass().add("button");
         buttonBar.getButtons().addAll(clearAllBtn, cancelBtn, saveBtn);
 
         root.setCenter(mainPane);

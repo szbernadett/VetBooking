@@ -1,14 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package view;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -55,18 +55,24 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
 
     @Override
     protected final void initWindow() {
+
         root = new BorderPane();
         scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/resources/style.css").toExternalForm());
+
         searchPane = new GridPane();
+        searchPane.setHgap(10);
+        searchPane.setVgap(20);
+        searchPane.setPadding(new Insets(10, 10, 10, 10));
+        searchPane.setAlignment(Pos.CENTER);
         searchLabel = new Label("Search:");
         searchTextField = new TextField();
+        searchTextField.setPrefWidth(300);
         searchButton = new Button("Go");
+        searchButton.getStyleClass().add("button-small");
         searchInstructionLabel = new Label("""
-                                           Search records by animal name, 
-                                           location type(zoo, farm, domestic),
-                                           owner / caretaker name or animal type.
-                                           Single word only. Exact match only.""");
+                                           Search records by animal name, location type(zoo, farm, domestic),
+                                           owner / caretaker name or animal type. Single word only. Exact match only.""");
         searchInstructionLabel.getStyleClass().add("label-italic");
         recordNavigationLabel = new Label();
 
@@ -76,8 +82,11 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
         searchPane.add(searchInstructionLabel, 1, 1);
         searchPane.add(recordNavigationLabel, 1, 2);
 
-        // disable search button and set search instruction label in controller if there are no records 
         mainPane = new GridPane();
+        mainPane.setHgap(10);
+        mainPane.setVgap(20);
+        mainPane.setPadding(new Insets(10, 10, 10, 10));
+        mainPane.getColumnConstraints().addAll(getRightAlignCol(), getEmptyConstraint(), getRightAlignCol());
         nameLabel = new Label("Name:");
         nameLabel.getStyleClass().add("label-bold");
         nameValueLabel = new Label("");
@@ -119,16 +128,26 @@ public class ViewAndSearchAnimalsWindow extends CustomStage {
         mainPane.add(dateRegisteredValueLabel, 3, 1);
         mainPane.add(medicalHistoryLabel, 2, 2);
         mainPane.add(medicalHistoryValueLabel, 3, 2);
-       
+        GridPane.setRowSpan(medicalHistoryValueLabel, 3);
+
         bottomButtonPane = new GridPane();
+        bottomButtonPane.setHgap(20);
+        bottomButtonPane.setPadding(new Insets(20, 10, 20, 10));
+        bottomButtonPane.setAlignment(Pos.CENTER);
         previousButton = new Button("< Previous");
+        previousButton.getStyleClass().add("button");
         nextButton = new Button("Next >");
+        nextButton.getStyleClass().add("button");
         bottomButtonPane.add(previousButton, 0, 0);
         bottomButtonPane.add(nextButton, 1, 0);
 
         rightButtonPane = new GridPane();
+        rightButtonPane.setVgap(20);
+        rightButtonPane.setPadding(new Insets(10, 10, 10, 20));
         viewAllButton = new Button("View All");
+        viewAllButton.getStyleClass().add("button");
         exitButton = new Button("Exit");
+        exitButton.getStyleClass().add("button");
         rightButtonPane.add(viewAllButton, 0, 0);
         rightButtonPane.add(exitButton, 0, 1);
 

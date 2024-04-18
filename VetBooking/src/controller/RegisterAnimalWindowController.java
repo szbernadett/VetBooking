@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package controller;
 
 import java.io.IOException;
@@ -337,10 +334,12 @@ public class RegisterAnimalWindowController extends Controller<RegisterAnimalWin
 
     private void clearView(ActionEvent event) {
         view.getIdValueTField().setText("");
+        view.getGenderToggleGroup().selectToggle(view.getFemaleRBtn());
         view.getTypeValueCBox().setValue(null);
         view.getCaretakerValueCBox().setValue(null);
         view.getAddressValueCBox().setValue(null);
         view.getDobToggleGroup().selectToggle(view.getPickDateRBtn());
+        view.getMedHistoryTextArea().setText("");
     }
 
 }

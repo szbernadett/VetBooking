@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package view;
 
 import javafx.geometry.Insets;
@@ -68,14 +65,35 @@ public class AddAppointmentWindow extends CustomStage {
     protected final void initWindow() {
         root = new BorderPane();
         mainScene = new Scene(root);
+        mainScene.getStylesheets().add(getClass().getResource("/resources/style.css").toExternalForm());
         mainPane = new GridPane();
+        mainPane.setPadding(new Insets(20));
+        
         topGridPane = new GridPane();
+        topGridPane.setVgap(10);
+        topGridPane.setHgap(10);
+        topGridPane.setPadding(new Insets(10));
+        
         bottomGridPane = new GridPane();
+        bottomGridPane.setVgap(10);
+        bottomGridPane.setHgap(10);
+        bottomGridPane.setPadding(new Insets(10));
+        
         animalLabel = new Label("Animal:");
+        animalLabel.getStyleClass().add("label-bold");
         animalSearchTextField = new TextField();
         filteredAnimalsListView = new ListView();
+        
+        vetLabel = new Label("Vet:");
+        vetLabel.getStyleClass().add("label-bold");
+        vetListView = new ListView();
+        
         appointmentTypeLabel = new Label("Appointment Type:");
+        appointmentTypeLabel.getStyleClass().add("label-bold");
         apptTypeGridPane = new GridPane();
+        apptTypeGridPane.setVgap(10);
+        apptTypeGridPane.setHgap(10);
+        apptTypeGridPane.setPadding(new Insets(10, 0, 10, 0));
         apptTypeToggleGroup = new ToggleGroup();
         standardRBtn = new RadioButton(AppointmentType.STANDARD.toString());
         emergencyRBtn = new RadioButton(AppointmentType.EMERGENCY.toString());
@@ -95,19 +113,24 @@ public class AddAppointmentWindow extends CustomStage {
         apptTypeGridPane.add(checkupRBtn, 0, 1);
         apptTypeGridPane.add(vaccinationRBtn, 1, 1);
         apptTypeGridPane.add(prescriptionRBtn, 2, 1);
+        
         selectedAnimalLbl = new Label("Animal:");
+        selectedAnimalLbl.getStyleClass().add("label-bold");
         selectedAnimalNameLbl = new Label();
         selectedVetLbl = new Label("Vet:");
+        selectedVetLbl.getStyleClass().add("label-bold");
         selectedVetNameLbl = new Label();
         locationLabel = new Label("Location:");
+        locationLabel.getStyleClass().add("label-bold");
         locationValueLabel = new Label("");
-        vetLabel = new Label("Vet:");
-        vetListView = new ListView();
+        
 
         dateLabel = new Label("Date:");
+        dateLabel.getStyleClass().add("label-bold");
         apptDatePicker = new DatePicker();
 
         timeLabel = new Label("Time:");
+        timeLabel.getStyleClass().add("label-bold");
         timeCbox = new ComboBox();
 
         topGridPane.add(animalLabel, 0, 0);
@@ -115,6 +138,7 @@ public class AddAppointmentWindow extends CustomStage {
         topGridPane.add(filteredAnimalsListView, 1, 1);
         topGridPane.add(vetLabel, 2, 0);
         topGridPane.add(vetListView, 3, 1);
+        
         bottomGridPane.add(selectedAnimalLbl, 0, 0);
         bottomGridPane.add(selectedAnimalNameLbl, 1, 0);
         bottomGridPane.add(selectedVetLbl, 0, 1);

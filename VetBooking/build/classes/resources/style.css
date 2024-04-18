@@ -19,3 +19,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-weight: bold;
     -fx-font-style: italic;
 }
+
+.button{
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+}
+
+.button-med{
+    -fx-pref-width: 60;
+    -fx-pref-height: 30;
+}
+
+.button-small{
+    -fx-pref-width: 40;
+    -fx-pref-height: 30;
+}

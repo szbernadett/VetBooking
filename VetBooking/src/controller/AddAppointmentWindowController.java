@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-import controller.Controller.Validate;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -54,7 +49,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     private LocalDate selectedDate;
     private String selectedTime;
 
-    public AddAppointmentWindowController(AddAppointmentWindow view, DAO model, AppointmentCalendar calendar){
+    public AddAppointmentWindowController(AddAppointmentWindow view, DAO model, AppointmentCalendar calendar) {
         super(view, model);
         this.calendar = calendar;
         initLists();
@@ -63,6 +58,9 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         setDataChangeHandlers();
     }
 
+    /**
+     * Method to set the event handlers for the view components
+     */
     @Override
     protected final void setDataChangeHandlers() {
         view.getAnimalSearchTextField().addEventHandler(KeyEvent.KEY_RELEASED, this::filterAnimals);
@@ -86,7 +84,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
                 .addListener(this::dateSelected);
 
     }
-    
+
     @Override
     protected final void dataToView() {
         if (listViewAnimals != null) {
@@ -97,7 +95,6 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
 
         view.getApptDatePicker().setDayCellFactory(getCustomDayCellFactory(AppointmentCalendar.startDate, AppointmentCalendar.endDate));
     }
-
 
     public AppointmentCalendar getCalendar() {
         return calendar;
@@ -233,7 +230,6 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
-    
     private Callback<DatePicker, DateCell> getCustomDayCellFactory(LocalDate startDate, LocalDate endDate) {
         return (final DatePicker datePicker) -> new DateCell() {
             @Override
@@ -279,29 +275,10 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     }
 
     private void filterTimeSlots() {
-        RadioButton rb = (RadioButton) view.getApptTypeToggleGroup().getSelectedToggle();
-        if (rb != null) {
-            String buttonText = rb.getText();
-            selectedAppointmentType = AppointmentType.fromStringValue(buttonText);
-            switch (selectedAppointmentType) {
-                case AppointmentType.SURGERY -> {
-                    cBoxTimeSlots = FXCollections
-                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
-                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
-                }
-                case AppointmentType.EMERGENCY -> {
-                    cBoxTimeSlots = FXCollections
-                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
-                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
-                }
-                default -> {
-                    cBoxTimeSlots = FXCollections
-                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
-                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
-                }
-
-            }
-        }
+        view.getTimeCbox().setValue(null);
+        cBoxTimeSlots = FXCollections
+                .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
+        view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
     }
 
     private void animalSelected(ObservableValue<? extends Object> observable,
@@ -336,7 +313,10 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
             ObservableValue<? extends Object> observable,
             Object oldValue,
             Object newValue) {
-        if (newValue != null) {
+        RadioButton rb = (RadioButton) newValue;
+        if (rb != null) {
+            String buttonText = rb.getText();
+            selectedAppointmentType = AppointmentType.fromStringValue(buttonText);
             filterTimeSlots();
         }
     }
@@ -344,7 +324,9 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     private void dateSelected(ObservableValue<? extends Object> observable,
             Object oldValue, Object newValue) {
         selectedDate = (LocalDate) newValue;
-        filterTimeSlots();
+        if (selectedDate != null) {
+            filterTimeSlots();
+        }
     }
 
     private void timeSelected(ActionEvent event) {

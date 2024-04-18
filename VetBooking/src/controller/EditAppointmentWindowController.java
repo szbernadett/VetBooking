@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import java.io.IOException;
@@ -88,8 +84,8 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
         filterVets();
         view.getVetListView().setItems((ObservableList) listViewVets);
         view.getVetListView().getSelectionModel().select(selectedVet);
-        view.getSelectedAnimalNameLbl().setText(appointment.getAnimal().toString());
-        view.getSelectedVetNameLbl().setText(appointment.getVet().toString());
+        view.getSelectedAnimalNameLbl().setText(selectedAnimal.toString());
+        view.getSelectedVetNameLbl().setText(selectedVet.toString());
         view.getLocationValueLabel().setText(appointment.getLocation());
         findToggle(selectedAppointmentType);
         view.getApptDatePicker().setDayCellFactory(getCustomDayCellFactory(AppointmentCalendar.startDate, AppointmentCalendar.endDate));
@@ -248,29 +244,11 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
     }
 
     private void filterTimeSlots() {
-        RadioButton rb = (RadioButton) view.getApptTypeToggleGroup().getSelectedToggle();
-        if (rb != null) {
-            String buttonText = rb.getText();
-            selectedAppointmentType = AppointmentType.fromStringValue(buttonText);
-            switch (selectedAppointmentType) {
-                case AppointmentType.SURGERY -> {
-                    cBoxTimeSlots = FXCollections
-                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
-                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
-                }
-                case AppointmentType.EMERGENCY -> {
-                    cBoxTimeSlots = FXCollections
-                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
-                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
-                }
-                default -> {
-                    cBoxTimeSlots = FXCollections
-                            .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
-                    view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
-                }
+        view.getTimeCbox().setValue(null);
+        cBoxTimeSlots = FXCollections
+                .observableArrayList(calendar.getFreeTimeSlots(selectedVet, selectedDate, selectedAppointmentType));
+        view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
 
-            }
-        }
     }
 
     private void initLists() {
@@ -317,7 +295,10 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
             ObservableValue<? extends Object> observable,
             Object oldValue,
             Object newValue) {
-        if (newValue != null) {
+        RadioButton rb = (RadioButton) newValue;
+        if (rb != null) {
+            String buttonText = rb.getText();
+            selectedAppointmentType = AppointmentType.fromStringValue(buttonText);
             filterTimeSlots();
         }
     }
@@ -325,6 +306,9 @@ public class EditAppointmentWindowController extends Controller<EditAppointmentW
     private void dateSelected(ObservableValue<? extends Object> observable,
             Object oldValue, Object newValue) {
         selectedDate = (LocalDate) newValue;
+        if (selectedDate != null) {
+            filterTimeSlots();
+        }
 
     }
 

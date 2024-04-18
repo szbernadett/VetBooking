@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package view;
 
 import javafx.geometry.Insets;
@@ -67,10 +64,18 @@ public class RegisterAnimalWindow extends CustomStage {
     protected final void initWindow() {
         root = new BorderPane();
         mainScene = new Scene(root);
+        mainScene.getStylesheets().add(getClass().getResource("/resources/style.css").toExternalForm());
         mainPane = new GridPane();
+        mainPane.setVgap(20);
+        mainPane.setHgap(10);
+        mainPane.setPadding(new Insets(40, 20, 10, 20));
+        mainPane.getColumnConstraints().add(getRightAlignCol());
+        
         idLabel = new Label("Identifier / Name:");
+        idLabel.getStyleClass().add("label-bold");
         idValueTField = new TextField();
         genderLabel = new Label("Gender");
+        genderLabel.getStyleClass().add("label-bold");
         genderRadioPane = new HBox();
         genderToggleGroup = new ToggleGroup();
         femaleRBtn = new RadioButton(Gender.FEMALE.getStringValue());
@@ -81,12 +86,16 @@ public class RegisterAnimalWindow extends CustomStage {
         naRBtn.setToggleGroup(genderToggleGroup);
         genderRadioPane.getChildren().addAll(femaleRBtn, maleRBtn, naRBtn);
         typeLabel = new Label("Animal type:");
+        typeLabel.getStyleClass().add("label-bold");
         typeValueCBox = new ComboBox();
         caretakerLabel = new Label("Caretaker / Owner:");
+        caretakerLabel.getStyleClass().add("label-bold");
         caretakerValueCBox = new ComboBox();
         addressLabel = new Label("Address:");
+        addressLabel.getStyleClass().add("label-bold");
         addressValueCBox = new ComboBox();
         dateOfBirthLabel = new Label("Date of Birth:");
+        dateOfBirthLabel.getStyleClass().add("label-bold");
         dobRadioPane = new HBox();
         dobToggleGroup = new ToggleGroup();
         pickDateRBtn = new RadioButton(DoBRadioLabel.DATE.getStringValue());
@@ -96,6 +105,7 @@ public class RegisterAnimalWindow extends CustomStage {
         dobRadioPane.getChildren().addAll(pickDateRBtn, notApplicableRBtn);
         dobDatePicker = new DatePicker();
         medHistoryLabel = new Label("Medical History: ");
+        medHistoryLabel.getStyleClass().add("label-bold");
         medHistoryTextArea = new TextArea();
         medHistoryTextArea.setPrefWidth(300);
         medHistoryTextArea.setPrefHeight(100);
@@ -117,10 +127,13 @@ public class RegisterAnimalWindow extends CustomStage {
         mainPane.add(medHistoryTextArea, 1, 7);
 
         buttonBar = new ButtonBar();
-        buttonBar.setPadding(new Insets(10));
+        buttonBar.setPadding(new Insets(10, 20, 20, 20));
         clearAllBtn = new Button("Clear All");
+        clearAllBtn.getStyleClass().add("button");
         cancelBtn = new Button("Cancel");
+        cancelBtn.getStyleClass().add("button");
         saveBtn = new Button("Save");
+        saveBtn.getStyleClass().add("button");
         buttonBar.getButtons().addAll(clearAllBtn, cancelBtn, saveBtn);
 
         root.setCenter(mainPane);

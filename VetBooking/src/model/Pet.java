@@ -1,14 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
-import java.time.LocalDate;
 
 /**
  *
- * @author igbin
+ * Pet class: Represents an animal that is kept as a pet at a domestic address. The location value of the animal is
+ *            held by the Address object's LocationType field, which in this case would be
+ *            LocationType.DOMESTIC.
  */
 public class Pet extends Animal {
 

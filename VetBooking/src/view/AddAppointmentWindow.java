@@ -100,7 +100,7 @@ public class AddAppointmentWindow extends CustomStage {
         prescriptionRBtn = new RadioButton(AppointmentType.PRESCRIPTION.toString());
         vaccinationRBtn = new RadioButton(AppointmentType.VACCINATION.toString());
         checkupRBtn = new RadioButton(AppointmentType.CHECKUP.toString());
-        surgeryRBtn = new RadioButton(AppointmentType.SURGERY.toString());
+        surgeryRBtn = new RadioButton(AppointmentType.OPERATION.toString());
         standardRBtn.setToggleGroup(apptTypeToggleGroup);
         emergencyRBtn.setToggleGroup(apptTypeToggleGroup);
         prescriptionRBtn.setToggleGroup(apptTypeToggleGroup);

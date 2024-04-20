@@ -25,7 +25,7 @@ public class Appointment implements Serializable {
     static{
         apptTypeToTimeSlotMap = new HashMap<>();
         apptTypeToTimeSlotMap.put(AppointmentType.STANDARD, TimeSlot.STANDARD);
-        apptTypeToTimeSlotMap.put(AppointmentType.SURGERY, TimeSlot.SURGERY);
+        apptTypeToTimeSlotMap.put(AppointmentType.OPERATION, TimeSlot.SURGERY);
         apptTypeToTimeSlotMap.put(AppointmentType.EMERGENCY, TimeSlot.EMERGENCY);
         apptTypeToTimeSlotMap.put(AppointmentType.CHECKUP, TimeSlot.STANDARD);
         apptTypeToTimeSlotMap.put(AppointmentType.PRESCRIPTION, TimeSlot.STANDARD);
@@ -112,7 +112,7 @@ public class Appointment implements Serializable {
         PRESCRIPTION("prescription"),
         EMERGENCY("emergency"),
         VACCINATION("vaccination"),
-        SURGERY("surgery");
+        OPERATION("operation");
 
         private final String stringValue;
 

@@ -1,14 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
-import java.time.LocalDate;
+
 
 /**
- *
- * @author igbin
+ * FarmAnimal class: Represents an animal that is kept on a farm. The location value of the animal is
+ *                   held by the Address object's LocationType field, which in this case would be
+ *                  LocationType.FARM.
+ * 
  */
 public class FarmAnimal extends Animal {
 

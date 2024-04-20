@@ -1,14 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.Serializable;
 
 /**
- *
- * @author igbin
+ * Postcode class: Represents a postcode within an address
+ * - postcode: String The acutal postcode (e.g. M94ED)
+ * - city: City The City object that the postcode belongs to
+ *      
+ * 
  */
 public class Postcode implements Serializable {
     

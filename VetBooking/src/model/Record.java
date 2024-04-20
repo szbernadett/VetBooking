@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.Serializable;
@@ -9,9 +6,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- *
- * @author igbin
+ *  Record class: Represents the information held about an animal in the veterinary administration 
+ *                system.
+ * 
+ * - dateRegistered: LocalDate The date the animal was registered in the system.
+ * - animal: Animal The Animal object that the record is about.
+ * - medicalHistory: String The short medical history of the animal.
+ * - appointmentNotes: ArrayList<AppointmentNote> The list of appointment notes for the animal.
  */
+
 public class Record implements Serializable {
     
     private LocalDate dateRegistered;

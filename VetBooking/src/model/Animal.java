@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.Serializable;
@@ -9,7 +6,16 @@ import java.time.LocalDate;
 
 /**
  *
- * @author igbin
+ * Animal class: An abstract class that defines what mutual fields classes extending this class should have
+ * - identifier: String An alphanumeric value that uniquely identifies the animal. Can be a name (e.g. Spot) or numeric string.
+ * - caretaker: Caretaker The Caretaker object that is responsible for the animal
+ * - address: Address The Address object that the animal is located at
+ * - dateOfBirth: DateOfBirth The DateOfBirth object that represents the animal's date of birth. Can have a LocalDate value 
+ *                or N/A if this field is not applicable, not known or not relevant to the animal's care.
+ * - animalType: AnimalType Represents a group of animals. Can be very specific (e.g. Siamese cat) or general (e.g spicer). 
+ *               Holds further information about the specific group of animals.
+ * - gender: Gender An enum representing the gender of the animal. Can be male, female or N/A if this
+ *           field is not applicable, not known or not relevant to the animal's care. 
  */
 public abstract class Animal implements Serializable {
 

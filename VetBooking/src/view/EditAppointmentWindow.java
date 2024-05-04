@@ -6,8 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
- *
- * @author igbin
+ * EditAppointmentWindow class: Represents a window for editing an appointment in the veterinary administration system.
+ *                              Holds the same graphical components in the same arrangement as its superclass
+ *                              AddAppointmentWindow with the addition of a CheckBox for marking the 
+ *                              appointment as paid. 
+ * 
+ * @see AddAppointmentWindow
+ * @see CustomStage
+ * @see EditAppointmentWindowController
  */
 public class EditAppointmentWindow extends AddAppointmentWindow {
 
@@ -27,7 +33,8 @@ public class EditAppointmentWindow extends AddAppointmentWindow {
         bGridPane.add(paidLabel, 4, 4);
         bGridPane.add(paidCheckBox, 5, 4);
         bGridPane.getChildren().remove(super.getClearAllBtn());
-        super.getTopGridPane().getChildren().remove(super.getAnimalSearchTextField());      
+        super.getTopGridPane().getChildren().remove(super.getAnimalSearchTextField());  
+        setTitle("Edit Appointment");
     }
 
     public Label getPaidLabel() {

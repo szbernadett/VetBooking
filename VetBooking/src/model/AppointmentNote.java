@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.Serializable;
@@ -9,8 +6,16 @@ import java.time.LocalDate;
 import model.Appointment.AppointmentFee;
 
 /**
- *
- * @author igbin
+ * AppointmentNote class: Represents a note for an appointment in the veterinary administration system.
+ *  - appointment: Appointment The appointment that the note is for.
+ * - notes: String The notes for the appointment.
+ * - lastEdited: LocalDate The date the notes were last edited.
+ * - lastEditedBy: Person The person who last edited the notes.
+ * - AppointmentFee: AppointmentFee The fee for the appointment.
+ * 
+ * @see AppoinementFee
+ * @see Appointment
+ * 
  */
 public class AppointmentNote implements Serializable {
     
@@ -19,20 +24,18 @@ public class AppointmentNote implements Serializable {
     private LocalDate lastEdited;
     private Person lastEditedBy;
     private AppointmentFee AppointmentFee;
-    private boolean feePaid;
 
     public AppointmentNote() {
     }
 
     public AppointmentNote(Appointment appointment, String notes, 
                            LocalDate lastModified, Person lastEdited, 
-                           AppointmentFee AppointmentFee, boolean feePaid) {
+                           AppointmentFee AppointmentFeed) {
         this.appointment = appointment;
         this.notes = notes;
         this.lastEdited = lastModified;
         this.lastEditedBy = lastEdited;
         this.AppointmentFee = AppointmentFee;
-        this.feePaid = feePaid;
     }
 
     public Appointment getAppointment() {
@@ -77,13 +80,11 @@ public class AppointmentNote implements Serializable {
         this.AppointmentFee = AppointmentFee;
     }
 
-    public boolean isFeePaid() {
-        return feePaid;
-    }
-
-    public void setFeePaid(boolean feePaid) {
-        this.feePaid = feePaid;
-    }
+    /**
+     * Sets the text content, the date edited and the person editing the appointment note.
+     * @param notes The new notes for the appointment.
+     * @param person The person who is editing the notes.
+     */
     
     public void editNotes(String notes, Person person){
         setNotes(notes);

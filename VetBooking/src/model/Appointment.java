@@ -8,8 +8,18 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
- * @author igbin
+ * Appointment class: Represents an appointment in the veterinary administration system.
+ * - date: LocalDate The date of the appointment.
+ * - time: String The time of the appointment.
+ * - animal: Animal The animal that the appointment is for.
+ * - location: String The location of the appointment.
+ * - vet: Vet The vet that the appointment is with.
+ * - appointmentType: AppointmentType Enum representing the type of appointment (standard, emergency, etc.).
+ * - paid: boolean Whether the appointment has been paid for.
+ * - appointmentTypeToTimeSlotMap: Map<AppointmentType, TimeSlot>  A map that maps
+ *                                                                 AppointmentType enums to 
+ *                                                                 TimeSlot enums.
+ *  * 
  */
 public class Appointment implements Serializable {
 
@@ -22,10 +32,18 @@ public class Appointment implements Serializable {
     private boolean paid;
     private static transient final Map<AppointmentType, TimeSlot> apptTypeToTimeSlotMap;
     
+    /**
+     * Static block that initialises the apptTypeToTimeSlotMap.
+     * The map maps AppointmentType enums to TimeSlot enums.
+     * Operations and emergency appointments have designated time slots,
+     * all other appointment types are allocated appoiment times from the standard
+     * time slots.
+     * 
+     */
     static{
         apptTypeToTimeSlotMap = new HashMap<>();
         apptTypeToTimeSlotMap.put(AppointmentType.STANDARD, TimeSlot.STANDARD);
-        apptTypeToTimeSlotMap.put(AppointmentType.OPERATION, TimeSlot.SURGERY);
+        apptTypeToTimeSlotMap.put(AppointmentType.OPERATION, TimeSlot.OPERATION);
         apptTypeToTimeSlotMap.put(AppointmentType.EMERGENCY, TimeSlot.EMERGENCY);
         apptTypeToTimeSlotMap.put(AppointmentType.CHECKUP, TimeSlot.STANDARD);
         apptTypeToTimeSlotMap.put(AppointmentType.PRESCRIPTION, TimeSlot.STANDARD);
@@ -138,6 +156,16 @@ public class Appointment implements Serializable {
 
     }
     
+    /**
+     * TimeSlot enum: Represents the time slots available for appointments. Certain appointment types
+     *                have designated time slots, so they are grouped accordingly. AppointmentTypes are
+     *                mapped to TimeSlots in the apptTypeToTimeSlotMap.  
+     * - ALL: Set<String> All time slots available.
+     * - STANDARD: Set<String> Time slots for standard and other appointent types (see: apptTypeToTimeSlotMap)
+     * - EMERGENCY: Set<String> Time slots for emergency appointments.
+     * - SURGERY: Set<String> Time slots for operations. 
+     * 
+     */
     public enum TimeSlot{
         ALL(Set.of("08:30","08:45",
                    "09:00", "09:15", "09:30", "09:45", 
@@ -156,7 +184,7 @@ public class Appointment implements Serializable {
                 "15:00", "15:15", "15:30", "15:45",
                 "18:00", "18:15", "18:30", "18:45")),
         EMERGENCY(Set.of("08:30","08:45", "19:00", "19:15")),
-        SURGERY(Set.of("10:00"));
+        OPERATION(Set.of("10:00"));
         
         private final Set<String> times;
 
@@ -171,6 +199,14 @@ public class Appointment implements Serializable {
         
     }
 
+    /**
+     * AppointmentFee enum: Represents the fees associated with different types of appointments.
+     *                      Is an instance variable of the AppointmentNote class, but not currently 
+     *                      used in the code otherwise. Could be rewritten as a class to support
+     *                      more complex fee calculations and flexibility for future changes.
+     * @see AppointmentNote
+     * 
+     */
     public enum AppointmentFee {
 
         PRESCRIPTION(10),
@@ -191,6 +227,12 @@ public class Appointment implements Serializable {
         }
 
     }
+
+    /**
+     * MedicationFee enum: Represents the fees associated with different types of medication. 
+     *                     Not currently used in the code. Could be rewritten as a class to support
+     *                     more complex fee calculations and flexibility for future changes.
+     */
 
     public enum MedicationFee {
         ANESTH_GENERAL(200),

@@ -11,8 +11,11 @@ import model.Appointment.AppointmentType;
 import model.Appointment.TimeSlot;
 
 /**
- *
- * @author igbin
+ * AppointmentCalendar class: Represents the calendar of appointments in the veterinary administration system.
+ * - bookedVetAppointmentsMap: Map<Vet, Map<LocalDate, Map<TimeSlot, List<String>>>> 
+ *   A nested map structure that organises all booked appointments first by vet, then by date and 
+ *   finally by time slot type. The time slot type key maps to a list of booked appointment times 
+ *   (time slot string values).
  */
 public class AppointmentCalendar {
 
@@ -37,6 +40,22 @@ public class AppointmentCalendar {
         return bookedVetAppointmentsMap;
     } 
 
+    /**
+     *  Populates the bookedVetAppointmentsMap with the appointments in the list. 
+     *  The map is organised first by vet, then by date and finally by time slot type.
+     *  The time slot type key maps to a list of booked appointment times (time slot string values).
+     * 
+     *  @param appointments List<Appointment> The list of appointments to populate the map with. 
+     *  @return void                              
+     *  @see Appointment
+     *  @see Vet
+     *  @see LocalDate
+     *  @see TimeSlot
+     *  @see AppointmentType
+     *  @see AppointmentCalendar
+     *  
+     */
+
     private  void populateMap(List<Appointment> appointments) {
         for (Appointment appt : appointments) {
             LocalDate date = appt.getDate();
@@ -53,6 +72,18 @@ public class AppointmentCalendar {
             times.add(time);
         }
     }
+
+    /**
+     * Adds an appointment to the bookedVetAppointmentsMap.
+     * @param appointment Appointment The appointment to add to the map.
+     * @return void
+     * @see Appointment
+     * @see Vet
+     * @see LocalDate
+     * @see TimeSlot
+     * @see AppointmentType
+     * @see AppointmentCalendar
+     */
     
     public void addAppointmentToMap(Appointment appointment){
         Vet vet = appointment.getVet();
@@ -69,6 +100,21 @@ public class AppointmentCalendar {
                                 .putIfAbsent(timeSlot, new ArrayList<>());
         bookedVetAppointmentsMap.get(vet).get(date).get(timeSlot).add(time);
     }
+    /**
+     * Finds free time slots for a specific vet on a specific date for a specific appointment type.
+     * 
+     * @param vet The selected vet
+     * @param date The selected date
+     * @param apptType The selected appointment type
+     * @return The sorted list of free time slots for the vet on the date and appointment type.
+     * @see Vet
+     * @see LocalDate
+     * @see AppointmentType
+     * @see AppointmentCalendar
+     * @see TimeSlot
+     * @see Appointment
+     * 
+     */
 
     public  List<String> getFreeTimeSlots(Vet vet, LocalDate date, AppointmentType apptType) {
         List<String> allTimes;
@@ -94,6 +140,16 @@ public class AppointmentCalendar {
         return allTimes;
     }
     
+    /**
+     * Represents time constraints related to appointment booking. 
+     * - MAX_MONTHS_AHEAD: The maximum number of months ahead that an appointment can be booked.
+     *                     Appoinments can be booked in a time frame from and including the current 
+     *                     date to as many months ahead as this value allows. It is used to set the
+     *                     end date for the appointment booking period.
+     * 
+     * @see AddNewAppointmentController
+     * @see EditaAppointmentController
+     */
     public enum TimeConstraint{
         MAX_MONTHS_AHEAD(1);
         

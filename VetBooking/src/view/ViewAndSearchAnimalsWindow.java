@@ -1,6 +1,5 @@
 package view;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,12 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 /**
- *
- * @author igbin
+ * ViewAndSearchAnimalsWindow class: Represents a window for viewing and searching animal records in the veterinary administration system.
+ *                                   Records can be viewed one by one either by viewing all or after
+ *                                   filtering records by search term entered in the search bar.
+ *                                   
+ * @see CustomStage
+ * @see ViewAndSearchAnimalsWindowController
+ * 
  */
 public class ViewAndSearchAnimalsWindow extends CustomStage {
 

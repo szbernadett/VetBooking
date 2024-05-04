@@ -1,15 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package model;
 
 import java.io.IOException;
 import java.util.List;
 
 /**
+ * DAO interface: Defines the methods to be implemented by the actual data access object.
  *
- * @author igbin
+ * @see SerialisationDAO
+ * @see IOEXception
+ * @see ClassNotFoundException
  */
 public interface DAO {
     

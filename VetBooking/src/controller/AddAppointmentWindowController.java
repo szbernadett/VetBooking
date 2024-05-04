@@ -30,7 +30,7 @@ import view.AddAppointmentWindow;
 
 /**
  *
- * @author igbin
+ * 
  */
 public class AddAppointmentWindowController extends Controller<AddAppointmentWindow> {
 
@@ -208,6 +208,11 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         this.selectedTime = selectedTime;
     }
 
+    /**
+     * Initialise the lists of animals, vets and time slots. Only the listview holding the animals is
+     * populated in this method, the other elements are initialised with empty observable arraylists
+     * to be populated based on selections made by the user.
+     */
     private void initLists() {
         try {
             animals = model.getAllAnimals();
@@ -220,6 +225,14 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
+    /**
+     * Collect all animal names from the animals list previously fetched from the data source.
+     * Create and populate a map whose keys are the animal identifier (name or numerical value)
+     * and values are the object references of the animals themselves.
+     * When the user selects an animal name from the listview, the corresponding object reference
+     * from the map will be assigned to the selectedAnimal field.
+     * 
+     */
     private void setupNameSearch() {
         if (animals != null) {
             animalNames = animals.stream().map(Animal::getIdentifier).collect(Collectors.toSet());
@@ -229,6 +242,14 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
             }
         }
     }
+
+    /**
+     * Create a custom day cell factory for the date picker. The factory creates a DateCell which is disabled
+     * if it is outside the range of the start and end dates passed as arguments or if it falls on a weekend.
+     * @param startDate The start of the allowed date range
+     * @param endDate The end of the allowed date range
+     * @return Callback<DatePicker, DateCell> A callback that creates a DateCell 
+     */
 
     private Callback<DatePicker, DateCell> getCustomDayCellFactory(LocalDate startDate, LocalDate endDate) {
         return (final DatePicker datePicker) -> new DateCell() {
@@ -247,13 +268,20 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         };
     }
 
+    /**
+     * Filter the list of animal names based on the text entered in the search textfield. 
+     * Animal names that do not match the search text are removed from the observable list of the listview.
+     * If the backspace key is pressed, the list is cleared and all animals are added back to the
+     * observable list of the listview.
+     * @param event The key event that triggers the filtering
+     */
     private void filterAnimals(KeyEvent event) {
 
         if (event.getCode() == KeyCode.BACK_SPACE) {
             listViewAnimals.clear();
             listViewAnimals.addAll(animals);
         } else {
-            String text = view.getAnimalSearchTextField().getText().toLowerCase();
+            String text = view.getAnimalSearchTextField().getText().toLowerCase(); // prepare string
 
             for (String name : animalNames) {
                 if (!name.toLowerCase().contains(text)) {
@@ -263,6 +291,12 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
+    /**
+     * Filter the list of vets based on the selected animal's specialist categories. Only vets who
+     * specialise in all the categories of the selected animal are added to the observable list of the
+     * vet listview.
+     *
+     */
     private void filterVets() {
         listViewVets.clear();
         for (Vet vet : vets) {
@@ -274,6 +308,10 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
+    /**
+     * Find available time slots and populate the time slots combobox with them. 
+     * Available time slots are identified based on the selected vet, date and appointment type.
+     */
     private void filterTimeSlots() {
         view.getTimeCbox().setValue(null);
         cBoxTimeSlots = FXCollections
@@ -281,7 +319,17 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         view.getTimeCbox().setItems((ObservableList) cBoxTimeSlots);
     }
 
-    private void animalSelected(ObservableValue<? extends Object> observable,
+    /**
+     * Assign the selected animal to the selectedAnimal field, display the selected animal name and appointment location in the view.
+     * The location of the appointment is determined by the selected animal's address. If the LocationType
+     * of the address LocationType.DOMESTIC, the location of the appointment will be the vet surgery. Otherwise,
+     * the location will be the address of the selected animal.
+     * @param observable the object that wraps the currently selected animal through which other objects can listen to changes
+     * @param oldValue the previously selected animal
+     * @param newValue the currently selected animal 
+     */
+
+    private void animalSelected(ObservableValue<? extends Animal> observable,
             Object oldValue,
             Object newValue) {
         if (newValue != null) {
@@ -289,13 +337,15 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
             view.getSelectedAnimalNameLbl().setText(selectedAnimal.toString());
             filterVets();
             if (selectedAnimal.getAddress().getLocationType() == LocationType.DOMESTIC) {
-                location = LocationType.VET_OFFICE.toString();
+                location = LocationType.VET_SURGERY.toString();
             } else {
                 location = selectedAnimal.getAddress().toString();
             }
             view.getLocationValueLabel().setText(location);
         }
     }
+
+
 
     private void vetSelected(ObservableValue<? extends Object> observable,
             Object oldValue,

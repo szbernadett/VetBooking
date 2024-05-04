@@ -16,8 +16,10 @@ import javafx.scene.layout.HBox;
 import model.AnimalType.SpecialistCategory;
 
 /**
- *
- * @author igbin
+ * AddNewAnimalTypeWindow class: Represents a window for adding a new animal type to the veterinary administration system.
+ *                               Details of the animal type can be entered / selected, then cleared from the screen or saved.
+ * @see CustomStage
+ * @see AddNewAnimalTypeWindowController
  */
 public class AddNewAnimalTypeWindow extends CustomStage {
 

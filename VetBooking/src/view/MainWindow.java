@@ -22,8 +22,14 @@ import model.Appointment.AppointmentType;
 import model.Vet;
 
 /**
- *
- * @author igbin
+ * MainWindow class: Represents the main window of the veterinary administration system.
+ *                   The main window display a table of booked appointments and provides
+ *                   access to other windows via buttons and menus where data can be 
+ *                   manipulated and viewed.
+ * 
+ * @see CustomStage
+ * @see MainWindowController
+ * 
  */
 public class MainWindow extends CustomStage {
 
@@ -89,8 +95,7 @@ public class MainWindow extends CustomStage {
         });
 
         appointmentTable.getColumns().addAll(dateCol, timeCol, animalCol, vetCol,
-                locationCol, apptTypeCol,
-                paymentCol);
+                locationCol, apptTypeCol, paymentCol);
         editBtn = new Button("Edit");
         editBtn.getStyleClass().add("button");
         deleteBtn = new Button("Delete");

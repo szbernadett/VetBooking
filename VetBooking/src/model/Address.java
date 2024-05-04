@@ -1,15 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.Serializable;
 
 
 /**
+ *  Address class: Represents the address of an animal in the veterinary administration system.
+ *  - addressLine1: String The first line of the address.
+ *  - addressLine2: String The second line of the address.
+ *  - postcode: Postcode The postcode of the address.
+ *  - locationType: LocationType An enum representing the location type: zoo, farm, vet surgery, domestic.
  *
- * @author igbin
+ *@see Postcode
+ *@see LocationType
  */
 public class Address implements Serializable {
     
@@ -63,7 +66,7 @@ public class Address implements Serializable {
     public enum LocationType{
     ZOO("zoo"), 
     FARM("farm"), 
-    VET_OFFICE("vet office"), 
+    VET_SURGERY("vet surgery"), 
     DOMESTIC("domestic");
     
         private final String stringValue;

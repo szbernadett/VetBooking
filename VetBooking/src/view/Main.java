@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package view;
 
 import controller.MainWindowController;
@@ -10,14 +7,20 @@ import javafx.stage.Stage;
 import model.SerialisationDAO;
 
 /**
- *
- * @author igbin
+ *  Main class: The entry point of the application. Extends javafx.application.Application 
+ *  which has an abstract method, start, that must be implemented in order to run the code. 
+ *  
+ * @see javafx.application.Application
+ * 
  */
 public class Main extends Application {
 
 
     
     /**
+     * Calls the Application class' launch method, which calls other methods including the start 
+     * method implemented by this class to start the application.
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {

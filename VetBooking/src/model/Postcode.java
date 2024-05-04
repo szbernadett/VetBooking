@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 /**
  * Postcode class: Represents a postcode within an address
- * - postcode: String The acutal postcode (e.g. M94ED)
- * - city: City The City object that the postcode belongs to
+ * @param postcode: String The acutal postcode (e.g. M94ED)
+ * @param city: City The City object that the postcode belongs to
  *      
  * 
  */

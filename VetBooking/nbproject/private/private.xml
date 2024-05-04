@@ -4,9 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/controller/RegisterAnimalWindowController.java</file>
+            <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/model/AnimalType.java</file>
             <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/controller/AddAppointmentWindowController.java</file>
             <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/view/CustomStage.java</file>
             <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/view/RegisterAnimalWindow.java</file>
+            <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/model/CreateObjects.java</file>
             <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/view/MainWindow.java</file>
             <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/controller/EditAppointmentWindowController.java</file>
             <file>file:/C:/Users/igbin/OneDrive/Documents/NetBeansProjects/VetBooking/src/view/EditAppointmentWindow.java</file>

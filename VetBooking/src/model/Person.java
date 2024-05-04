@@ -1,14 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.Serializable;
 
 /**
- *
- * @author igbin
+ * Person class: An abstract class to be extended by classes representing human entities of
+ *               the veterinary adiminstration system.
+ * - title: Title An enum representing the title of the person.
+ * - firstName: String The first name of the person.
+ * - lastName: String The last name of the person.
+ * - email: String The email address of the person.
+ * - phoneNumber: String The phone number of the person.
+ * 
+ * @see Title
  */
 public abstract class Person implements Serializable {
     
@@ -91,8 +95,10 @@ public abstract class Person implements Serializable {
     }
 
  
-
-    
+    /**
+     * Title enum: Represents the title of a person.
+     */
+   
     public enum Title{
         MR("Mr"),
         MS("Ms"),

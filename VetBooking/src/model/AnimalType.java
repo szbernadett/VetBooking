@@ -1,15 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
 import java.io.Serializable;
 import java.util.Set;
 
 /**
- *
- * @author igbin
+ * AnimalType class: Represents the type of animal that can be registered in the veterinary administration system.
+ *  - typeName: String The name of the animal type.
+ * - maxAge: int The maximum age of the animal type.
+ * - specialistCategories: Set<SpecialistCategory> The set of SpecialistCategory enums that the animal type belongs to.
+ * 
+ *@see SpecialistCategory
  */
 public class AnimalType implements Serializable {
 
@@ -52,7 +53,11 @@ public class AnimalType implements Serializable {
         this.specialistCategories = specialistCategories;
     }
 
-
+ /**
+  * SpecialistCategory enum: Represents special characteristicts of animals that define their 
+                             care. Also used to denote the type of specialist care that a vet 
+                             can provide.
+  */
     public enum SpecialistCategory {
         LARGE("large"),
         EXOTIC("exotic"),

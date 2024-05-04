@@ -6,8 +6,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.stage.Stage;
 
 /**
- *
- * @author igbin
+ * CustomStage class: Represents a Stage with heritable properties that help to avoid 
+ *                    code duplication and enforce consistency and hierarchy in the application.
+ * 
  */
 public abstract class CustomStage extends Stage {
     

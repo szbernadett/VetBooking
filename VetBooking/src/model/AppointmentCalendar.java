@@ -127,8 +127,6 @@ public class AppointmentCalendar {
                 Map<TimeSlot, List<String>> apptsByTimeSlot = apptsByDate.get(date);
                 if (apptsByTimeSlot != null) {
                     List<String> bookedTimes = apptsByTimeSlot.get(timeSlotType);
-                    System.out.println("bookedTimes " + bookedTimes);
-                    System.out.println("allTimes " + allTimes);
                     allTimes.removeAll(bookedTimes);
                 }
             }

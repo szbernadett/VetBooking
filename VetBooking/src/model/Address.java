@@ -1,6 +1,7 @@
 
 package model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 
@@ -63,6 +64,10 @@ public class Address implements Serializable {
         this.locationType = locationType;
     }
 
+    /**
+     * LocationType enum: Represents the location type of the address. Used to determine the location
+     *                    of vet appointments and display location information in the view.
+     */
     public enum LocationType{
     ZOO("zoo"), 
     FARM("farm"), 

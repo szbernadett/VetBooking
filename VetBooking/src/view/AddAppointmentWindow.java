@@ -17,8 +17,10 @@ import javafx.scene.layout.GridPane;
 import model.Appointment.AppointmentType;
 
 /**
- *
- * @author igbin
+ * AddAppointmentWindow class: Represents a window for adding an appointment in the veterinary administration system.
+ * 
+ * @see CustomStage
+ * @see AddAppointmentWindowController
  */
 public class AddAppointmentWindow extends CustomStage {
 

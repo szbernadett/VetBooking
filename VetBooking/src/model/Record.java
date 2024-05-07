@@ -13,6 +13,10 @@ import java.util.ArrayList;
  * - animal: Animal The Animal object that the record is about.
  * - medicalHistory: String The short medical history of the animal.
  * - appointmentNotes: ArrayList<AppointmentNote> The list of appointment notes for the animal.
+ * 
+ * @see Animal
+ * @see AppointmentNote
+ * 
  */
 
 public class Record implements Serializable {

@@ -13,7 +13,12 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 
 /**
- *
+ * SerialisationDAO class: Implements the DAO interface to provide serialisation
+ * based data access to the veterinary administration system.
+ * Once retrieved from the files, the data is accessible via the instance variables
+ * of the class. 
+ * 
+ * @see DAO
  * 
  */
 public class SerialisationDAO implements DAO {
@@ -30,6 +35,18 @@ public class SerialisationDAO implements DAO {
     public SerialisationDAO() {
     }
 
+    /**
+     * Save the list of animals to a file. Find the file name associated with the Animal class.
+     * Create a file output stream using the file name to create a connection stream for writing
+     * bytes to the specified file. Create an array list and copy the elements of the animals list
+     * into it, in case the list was not received as a serializable implementation. Create an object output stream
+     * to convert the list to a byte stream and write it to the file using the file output stream. he 
+     * object output stream's flush method, which ensures that buffered bytes are written to the file
+     *  is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @param animals the list of animals to be saved
+     * @return void
+     */
     @Override
     public void saveAnimals(List<Animal> animals) throws IOException {
         if (animals != null) {
@@ -43,11 +60,31 @@ public class SerialisationDAO implements DAO {
         }
     }
 
-    @Override
-    public void saveAnimals() throws IOException {
-        saveAnimals(animals);
-    }
+    /**
+     * Save the list of animal types to a file. Find the file name associated with the AnimalType class.
+     * Create a file output stream using the file name to create a connection stream for writing
+     * bytes to the specified file. Create an array list and copy the elements of the animals list
+     * into it, in case the list was not received as a serializable implementation. Create an object output stream
+     * to convert the list to a byte stream and write it to the file using the file output stream. The 
+     * object output stream's flush method, which ensures that buffered bytes are written to the file
+     * is automatically called when closing the stream, handled by the try-with-resources branch. 
+     * Exceptions are caught and handled by the calling method. 
+     * @param animalTypes the list of animal types to be saved
+     * @return void
+     */
 
+     /**
+      * Save the list of animal types to a file. Find the file name associated with the AnimalType class.
+      * Create a file output stream using the file name to create a connection stream for writing
+      * bytes to the specified file. Create an array list and copy the elements of the animals list
+     * into it, in case the list was not received as a serializable implementation. Create an object output stream
+      * to convert the list to a byte stream and write it to the file using the file output stream. The
+      * object output stream's flush method, which ensures that buffered bytes are written to the file
+      * is automatically called when closing the stream, handled by the try-with-resources branch.
+      * Exceptions are caught and handled by the calling method.
+      * @param animalTypes the list of animal types to be saved
+      * @return void
+      */
     @Override
     public void saveAnimalTypes(List<AnimalType> animalTypes) throws IOException {
         if (animalTypes != null) {
@@ -56,17 +93,22 @@ public class SerialisationDAO implements DAO {
             animalTypes = new ArrayList<>(animalTypes);
             try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
                 oos.writeObject(animalTypes);
-                oos.flush();
             }
         }
     }
 
-    @Override
-    public void saveAnimalTypes() throws IOException {
-        saveAnimalTypes(animalTypes);
-
-    }
-
+    /**
+     * Save the list of vets to a file. Find the file name associated with the Vet class.
+     * Create a file output stream using the file name to create a connection stream for writing
+     * bytes to the specified file. Create an array list and copy the elements of the animals list
+     * into it, in case the list was not received as a serializable implementation. Create an object output stream
+     * to convert the list to a byte stream and write it to the file using the file output stream. The
+     * object output stream's flush method, which ensures that buffered bytes are written to the file
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @param vets the list of vets to be saved
+     * @return void
+     */
     @Override
     public void saveVets(List<Vet> vets) throws IOException {
         if (vets != null) {
@@ -80,6 +122,18 @@ public class SerialisationDAO implements DAO {
         }
     }
 
+    /**
+     * Save the list of administrators to a file. Find the file name associated with the Administrator class.
+     * Create a file output stream using the file name to create a connection stream for writing
+     * bytes to the specified file. Create an array list and copy the elements of the animals list
+     * into it, in case the list was not received as a serializable implementation. Create an object output stream
+     * to convert the list to a byte stream and write it to the file using the file output stream. The
+     * object output stream's flush method, which ensures that buffered bytes are written to the file
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @param administrators the list of administrators to be saved
+     * @return void
+     */
     @Override
     public void saveAdministrators(List<Administrator> administrators) throws IOException {
         if (administrators != null) {
@@ -93,6 +147,18 @@ public class SerialisationDAO implements DAO {
         }
     }
 
+    /**
+     * Save the list of caretakers to a file. Find the file name associated with the Caretaker class.
+     * Create a file output stream using the file name to create a connection stream for writing
+     * bytes to the specified file. Cast the caretakers list to an array list, in case the list
+     * was received as a serializable implementation. Create an object output stream
+     * to convert the list to a byte stream and write it to the file using the file output stream. The
+     * object output stream's flush method, which ensures that buffered bytes are written to the file
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @param caretakers the list of caretakers to be saved
+     * @return void
+     */
     @Override
     public void saveCaretakers(List<Caretaker> caretakers) throws IOException {
         if (caretakers != null) {
@@ -106,6 +172,18 @@ public class SerialisationDAO implements DAO {
         }
     }
 
+    /**
+     * Save the list of records to a file. Find the file name associated with the Record class.
+     * Create a file output stream using the file name to create a connection stream for writing
+     * bytes to the specified file. Cast the records list to an array list, in case the list
+     * was received as a serializable implementation. Create an object output stream
+     * to convert the list to a byte stream and write it to the file using the file output stream. The
+     * object output stream's flush method, which ensures that buffered bytes are written to the file
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @param records the list of records to be saved
+     * @return void
+     */
     @Override
     public void saveRecords(List<Record> records) throws IOException {
         if (records != null) {
@@ -119,11 +197,19 @@ public class SerialisationDAO implements DAO {
         }
     }
 
-    @Override
-    public void saveRecords() throws IOException {
-        saveRecords(records);
-    }
 
+    /**
+     * Save the list of appointments to a file. Find the file name associated with the Appointment class.
+     * Create a file output stream using the file name to create a connection stream for writing
+     * bytes to the specified file. Create an array list and copy the elements of the animals list
+     * into it, in case the list was not received as a serializable implementation. Create an object output stream
+     * to convert the list to a byte stream and write it to the file using the file output stream. The
+     * object output stream's flush method, which ensures that buffered bytes are written to the file
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @param appointments the list of appointments to be saved
+     * @return void
+     */
     @Override
     public void saveAppointments(List<Appointment> appointments) throws IOException {
         if (appointments != null) {
@@ -137,11 +223,18 @@ public class SerialisationDAO implements DAO {
         }
     }
 
-    @Override
-    public void saveAppointments() throws IOException {
-        saveAppointments(appointments);
-    }
-
+    /**
+     * Save the list of addresses to a file. Find the file name associated with the Address class.
+     * Create a file output stream using the file name to create a connection stream for writing
+     * bytes to the specified file. Create an array list and copy the elements of the animals list
+     * into it, in case the list was not received as a serializable implementation. Create an object output stream
+     * to convert the list to a byte stream and write it to the file using the file output stream. The
+     * object output stream's flush method, which ensures that buffered bytes are written to the file
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @param addresses the list of addresses to be saved
+     * @return void
+     */
     @Override
     public void saveAddresses(List<Address> addresses) throws IOException {
         if (addresses != null) {
@@ -155,6 +248,17 @@ public class SerialisationDAO implements DAO {
         }
     }
 
+    /**
+     * Load the list of animals from a file. Find the file name associated with the Animal class.
+     * Create a file input stream using the file name to create a connection stream for reading
+     * bytes from the specified file. Create an object input stream to convert the byte stream
+     * to a list of animals and read it from the file using the file input stream. The object input
+     * stream's readObject method is used to read the object from the file and cast it to an array list
+     * of animals. The object input stream's close method, which ensures that the stream is closed
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @return the list of animals
+     */
     @Override
     public List<Animal> getAllAnimals() throws ClassNotFoundException, IOException {
         if (animals == null) {
@@ -168,6 +272,17 @@ public class SerialisationDAO implements DAO {
         return animals;
     }
 
+    /**
+     * Load the list of records from a file. Find the file name associated with the Record class.
+     * Create a file input stream using the file name to create a connection stream for reading
+     * bytes from the specified file. Create an object input stream to convert the byte stream
+     * to a list of records and read it from the file using the file input stream. The object 
+     * input stream's readObject method is used to read the object from the file and cast it to 
+     * an array list of records. The object input stream's close method, which ensures that the
+     * stream is closed is automatically called when closing the stream, handled by the 
+     * try-with-resources branch. Exceptions are caught and handled by the calling method.
+     * @return the list of records
+     */
     @Override
     public List<Record> getAllRecords() throws ClassNotFoundException, IOException {
         if (records == null) {
@@ -180,7 +295,17 @@ public class SerialisationDAO implements DAO {
         }
         return records;
     }
-
+    /** 
+    * Load the list of caretakers from a file. Find the file name associated with the Caretaker class.
+    * Create a file input stream using the file name to create a connection stream for reading
+    * bytes from the specified file. Create an object input stream to convert the byte stream
+    * to a list of caretakers and read it from the file using the file input stream. The object input
+    * stream's readObject method is used to read the object from the file and cast it to an array list
+    * of caretakers. The object input stream's close method, which ensures that the stream is closed
+    * is automatically called when closing the stream, handled by the try-with-resources branch.
+    * Exceptions are caught and handled by the calling method.
+    * @return the list of caretakers
+    */
     @Override
     public List<Caretaker> getAllCaretakers() throws ClassNotFoundException, IOException {
         if (caretakers == null) {
@@ -194,6 +319,17 @@ public class SerialisationDAO implements DAO {
         return caretakers;
     }
 
+    /**
+     * Load the list of vets from a file. Find the file name associated with the Vet class.
+     * Create a file input stream using the file name to create a connection stream for reading
+     * bytes from the specified file. Create an object input stream to convert the byte stream
+     * to a list of vets and read it from the file using the file input stream. The object input
+     * stream's readObject method is used to read the object from the file and cast it to an array list
+     * of vets. The object input stream's close method, which ensures that the stream is closed
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @return the list of vets
+     */
     @Override
     public List<Vet> getAllVets() throws ClassNotFoundException, IOException {
         if (vets == null) {
@@ -208,6 +344,17 @@ public class SerialisationDAO implements DAO {
         return vets;
     }
 
+    /**
+     * Load the list of administrators from a file. Find the file name associated with the Administrator class.
+     * Create a file input stream using the file name to create a connection stream for reading
+     * bytes from the specified file. Create an object input stream to convert the byte stream
+     * to a list of administrators and read it from the file using the file input stream. The object input
+     * stream's readObject method is used to read the object from the file and cast it to an array list
+     * of administrators. The object input stream's close method, which ensures that the stream is closed
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @return the list of administrators
+     */
     @Override
     public List<Administrator> getAllAdministrators() throws ClassNotFoundException, IOException {
         if (administrators == null) {
@@ -222,6 +369,17 @@ public class SerialisationDAO implements DAO {
         return administrators;
     }
 
+    /**
+     * Load the list of addresses from a file. Find the file name associated with the Address class.
+     * Create a file input stream using the file name to create a connection stream for reading
+     * bytes from the specified file. Create an object input stream to convert the byte stream
+     * to a list of addresses and read it from the file using the file input stream. The object input
+     * stream's readObject method is used to read the object from the file and cast it to an array list
+     * of addresses. The object input stream's close method, which ensures that the stream is closed
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @return the list of addresses
+     */
     @Override
     public List<Address> getAllAddresses() throws ClassNotFoundException, IOException {
         if (addresses == null) {
@@ -235,6 +393,17 @@ public class SerialisationDAO implements DAO {
         return addresses;
     }
 
+    /**
+     * Load the list of animal types from a file. Find the file name associated with the AnimalType class.
+     * Create a file input stream using the file name to create a connection stream for reading
+     * bytes from the specified file. Create an object input stream to convert the byte stream
+     * to a list of animal types and read it from the file using the file input stream. The object input
+     * stream's readObject method is used to read the object from the file and cast it to an array list
+     * of animal types. The object input stream's close method, which ensures that the stream is closed
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @return the list of animal types
+     */
     @Override
     public List<AnimalType> getAllAnimalTypes() throws ClassNotFoundException, IOException {
         if (animalTypes == null) {
@@ -249,6 +418,17 @@ public class SerialisationDAO implements DAO {
         return animalTypes;
     }
 
+    /**
+     * Load the list of appointments from a file. Find the file name associated with the Appointment class.
+     * Create a file input stream using the file name to create a connection stream for reading
+     * bytes from the specified file. Create an object input stream to convert the byte stream
+     * to a list of appointments and read it from the file using the file input stream. The object input
+     * stream's readObject method is used to read the object from the file and cast it to an array list
+     * of appointments. The object input stream's close method, which ensures that the stream is closed
+     * is automatically called when closing the stream, handled by the try-with-resources branch.
+     * Exceptions are caught and handled by the calling method.
+     * @return the list of appointments
+     */
     @Override
     public List<Appointment> getAllAppointments() throws ClassNotFoundException, IOException {
         if (appointments == null) {
@@ -262,6 +442,12 @@ public class SerialisationDAO implements DAO {
         return appointments;
     }
 
+    /**
+     * Add an appointment to the list of appointments in memory. The list will be saved to a file
+     * when the application is closed.
+     * @param appointment the appointment to be saved
+     * @return void
+     */
     @Override
     public void saveAppointment(Appointment appointment) {
         if (appointments != null) {
@@ -269,6 +455,12 @@ public class SerialisationDAO implements DAO {
         }
     }
 
+    /**
+     * Delete an appointment from the list of appointments in memory. The list will be saved to a file
+     * when the application is closed.
+     * @param appointment the appointment to be deleted
+     * @return void
+     */
     @Override
     public void deleteAppointment(Appointment appointment) {
         if (appointments != null) {
@@ -276,6 +468,12 @@ public class SerialisationDAO implements DAO {
         }
     }
 
+    /**
+     * Add an animal type to the list of animal types in memory. The list will be saved to a file
+     * when the application is closed.
+     * @param animalType the animal type to be saved
+     * @return void
+     */
     @Override
     public void saveAnimalType(AnimalType animalType) {
         if (animalTypes != null) {
@@ -283,6 +481,12 @@ public class SerialisationDAO implements DAO {
         }
     }
 
+    /**
+     * Add a record to the list of records in memory. The list will be saved to a file
+     * when the application is closed.
+     * @param record the record to be saved
+     * @return void
+     */
     @Override
     public void saveRecord(Record record) {
         if (records == null) {
@@ -292,6 +496,12 @@ public class SerialisationDAO implements DAO {
 
     }
 
+    /**
+     * Add an animal to the list of animals in memory. The list will be saved to a file
+     * when the application is closed.
+     * @param animal the animal to be saved
+     * @return void
+     */
     @Override
     public void saveAnimal(Animal animal) {
         if(animals == null){
@@ -300,8 +510,25 @@ public class SerialisationDAO implements DAO {
         animals.add(animal);
     }
 
+    /**
+     * Save lists of objects that may have been modified during the application's runtime to files.
+     * Exceptions are caught and handled by the calling method.
+     * @return void
+     */
+    @Override
+    public void save() throws IOException {
+        saveAnimals(animals);
+        saveAnimalTypes(animalTypes);
+        saveRecords(records);
+        saveAppointments(appointments);
+    }
+
 }
 
+/**
+ * Enum class that associates file names with classes. Uses a static hashmap to map classes to 
+ * string value of the FileName enums, which are then used to save and load data. 
+ */
 enum FileName {
     ANIMAL("animals.ser"),
     ANIMAL_TYPE("animal_types.ser"),
@@ -315,6 +542,9 @@ enum FileName {
     private final String stringValue;
     private static final Map<Class, FileName> classToFileNameMap = new HashMap<>();
 
+    /**
+     * Static block to initialise the classToFileNameMap
+     */
     static {
         classToFileNameMap.put(Animal.class, ANIMAL);
         classToFileNameMap.put(AnimalType.class, ANIMAL_TYPE);
@@ -331,6 +561,11 @@ enum FileName {
 
     }
 
+    /**
+     * Fetch the file name associated with a class
+     * @param clazz the class to be converted to a file name
+     * @return the file name associated with the class
+     */
     public static String classToFileName(Class clazz) {
         String fileName = classToFileNameMap.get(clazz).getStringValue();
 

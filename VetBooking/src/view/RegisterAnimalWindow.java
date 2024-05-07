@@ -21,8 +21,13 @@ import model.AnimalType;
 import model.Caretaker;
 
 /**
- *
- * @author igbin
+ * RegisterAnimalWindow class: Represents a window for registering a new animal in the veterinary administration system.
+ *                             The window contains fields for entering and selecting the animal's detils
+ *                             which can be cleared from the screen or saved to the data source.
+ * 
+ * @see CustomStage
+ * @see RegisterAnimalWindowController
+ * 
  */
 public class RegisterAnimalWindow extends CustomStage {
 
@@ -376,6 +381,12 @@ public class RegisterAnimalWindow extends CustomStage {
         this.saveBtn = saveBtn;
     }
 
+    /**
+     * DoBRadioLabel enum: Represents the labels for the radio buttons that allow
+     *                     the user to choose to either provide a date of birth for
+     *                     the animal being registered or mark it as not applicable.
+     */
+     
     public enum DoBRadioLabel {
         DATE("select date"),
         NA("not applicable");

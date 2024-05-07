@@ -124,6 +124,10 @@ public class Appointment implements Serializable {
         return apptTypeToTimeSlotMap.get(apptType);
     }
     
+    /**
+     * AppointmentType enum: Represents the type of appointment. Used to determine time slots. Could
+     *                       be mapped to appointment fees in future versions of the system.
+     */
     public enum AppointmentType {
         STANDARD("standard"),
         CHECKUP("checkup"),
@@ -200,7 +204,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * AppointmentFee enum: Represents the fees associated with different types of appointments.
+     * AppointmentFee enum: Represents the fees associated with different elements of care provided.
      *                      Is an instance variable of the AppointmentNote class, but not currently 
      *                      used in the code otherwise. Could be rewritten as a class to support
      *                      more complex fee calculations and flexibility for future changes.

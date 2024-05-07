@@ -123,11 +123,32 @@ public abstract class Animal implements Serializable {
 
     }
 
+    /**
+     * DateOfBirth class: A class that represents the date of birth of an animal. The class was
+     *                    created specifically to allow for a not applicable value to be set for
+     *                    the date of birth field of Animal subclasses if the date of birth is not
+     *                    known or not relevant to the animal's care. If there is a date of birth
+     *                    value, the date field will hold a LocalDate value and the isNotApplicable
+     *                    field will be false, otherwise the date field will be null and the 
+     *                    isNotApplicable field will be true.
+     */
     public static class DateOfBirth implements Serializable {
 
         private LocalDate date;
         private boolean isNotApplicable;
 
+        /**
+         * Private constructor to prevent direct instantiation of the class
+         */
+        private DateOfBirth() {
+        }
+
+        /**
+         * Creates a DateOfBirth instance with a LocalDate value and the isNotApplicable field set 
+         * to false.  
+         * @param date LocalDate The date of birth of the animal
+         * @return DateOfBirth The DateOfBirth instance with a LocalDate date value
+         */
         public static DateOfBirth of(LocalDate date) {
             DateOfBirth dob = new DateOfBirth();
             dob.date = date;
@@ -135,6 +156,11 @@ public abstract class Animal implements Serializable {
             return dob;
         }
 
+        /**
+         * Creates a DateOfBirth instance with the date field set to null and the isNotApplicable
+         * field set to true.
+         * @return DateOfBirth The DateOfBirth instance with a null date value
+         */
         public static DateOfBirth notApplicable() {
             DateOfBirth dob = new DateOfBirth();
             dob.date = null;

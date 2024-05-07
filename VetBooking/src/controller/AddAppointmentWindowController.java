@@ -29,7 +29,35 @@ import model.DAO;
 import view.AddAppointmentWindow;
 
 /**
+ * Controller class for the AddAppointmentWindow view.
+ * 
+ * -  view The view component of the AddAppointmentWindow
+ * -  model The data access object used to fetch and save data
+ * -  calendar The appointment calendar used to manage appointments
+ * -  animalNames A set of animal names fetched from the data source
+ * -  animals A list of all animals fetched from the data source
+ * -  listViewAnimals An observable list of animals to be displayed in the listview
+ * -  animalNamesMap A map of animal names and their corresponding animal objects
+ * -  selectedAnimal The animal selected by the user
+ * -  vets A list of all vets fetched from the data source
+ * -  listViewVets An observable list of vets to be displayed in the listview
+ * -  cBoxTimeSlots An observable list of time slots to be displayed in the combobox
+ * -  selectedVet The vet selected by the user
+ * -  location The location of the appointment
+ * -  selectedAppointmentType The appointment type selected by the user
+ * -  selectedDate The date selected by the user
+ * -  selectedTime The time slot selected by the user
+ * -  calendar The AppointmentCalendar used to manage appointments
+ * 
+ * @see Controller
+ * @see AddAppointmentWindow
+ * @see AppointmentCalendar
+ * @see Animal
+ * @see Vet
+ * @see Appointment
+ * @see DAO
  *
+ 
  * 
  */
 public class AddAppointmentWindowController extends Controller<AddAppointmentWindow> {
@@ -49,6 +77,15 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     private LocalDate selectedDate;
     private String selectedTime;
 
+    /**
+     * Constructor for the AddAppointmentWindowController class. Calls the superclass constructor 
+     * and initialises the lists of animals, vets and time slots. Sets up the animal name search 
+     * functionality and assigns data change handlers to the view components.
+     * 
+     * @param view The view component of the AddAppointmentWindow
+     * @param model The data access object used to fetch and save data
+     * @param calendar The appointment calendar used to manage appointments
+     */
     public AddAppointmentWindowController(AddAppointmentWindow view, DAO model, AppointmentCalendar calendar) {
         super(view, model);
         this.calendar = calendar;
@@ -58,9 +95,6 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         setDataChangeHandlers();
     }
 
-    /**
-     * Method to set the event handlers for the view components
-     */
     @Override
     protected final void setDataChangeHandlers() {
         view.getAnimalSearchTextField().addEventHandler(KeyEvent.KEY_RELEASED, this::filterAnimals);
@@ -212,6 +246,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
      * Initialise the lists of animals, vets and time slots. Only the listview holding the animals is
      * populated in this method, the other elements are initialised with empty observable arraylists
      * to be populated based on selections made by the user.
+     * @return void
      */
     private void initLists() {
         try {
@@ -231,7 +266,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
      * and values are the object references of the animals themselves.
      * When the user selects an animal name from the listview, the corresponding object reference
      * from the map will be assigned to the selectedAnimal field.
-     * 
+     * @return void
      */
     private void setupNameSearch() {
         if (animals != null) {
@@ -274,6 +309,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
      * If the backspace key is pressed, the list is cleared and all animals are added back to the
      * observable list of the listview.
      * @param event The key event that triggers the filtering
+     * @return void
      */
     private void filterAnimals(KeyEvent event) {
 
@@ -295,7 +331,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
      * Filter the list of vets based on the selected animal's specialist categories. Only vets who
      * specialise in all the categories of the selected animal are added to the observable list of the
      * vet listview.
-     *
+     * @return void
      */
     private void filterVets() {
         listViewVets.clear();
@@ -311,6 +347,7 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
     /**
      * Find available time slots and populate the time slots combobox with them. 
      * Available time slots are identified based on the selected vet, date and appointment type.
+     * @return void
      */
     private void filterTimeSlots() {
         view.getTimeCbox().setValue(null);
@@ -324,9 +361,11 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
      * The location of the appointment is determined by the selected animal's address. If the LocationType
      * of the address LocationType.DOMESTIC, the location of the appointment will be the vet surgery. Otherwise,
      * the location will be the address of the selected animal.
-     * @param observable the object that wraps the currently selected animal through which other objects can listen to changes
+     * @param observable the object that wraps the currently selected animal through which other 
+     *                   objects can listen to changes 
      * @param oldValue the previously selected animal
      * @param newValue the currently selected animal 
+     * @return void
      */
 
     private void animalSelected(ObservableValue<? extends Animal> observable,
@@ -345,8 +384,15 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
-
-
+    /**
+     * Assign the selected vet to the selectedVet field and display the selected vet's name in the view.
+     * Clear the appointment type selection, the date picker and the time slots combobox.
+     *
+     * @param observable the object that wraps the currently selected vet through which other objects can listen to changes
+     * @param oldValue the previously selected vet
+     * @param newValue the currently selected vet
+     * @return void
+     */
     private void vetSelected(ObservableValue<? extends Object> observable,
             Object oldValue,
             Object newValue) {
@@ -359,6 +405,14 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
+    /**
+     * Assign the selected appointment type to the selectedAppointmentType field and filter the time slots.
+     * 
+     * @param observable the object that wraps the currently selected appointment type through which other objects can listen to changes
+     * @param oldValue the previously selected appointment type
+     * @param newValue the currently selected appointment type
+     * @return void
+     */
     private void apptTypeSelected(
             ObservableValue<? extends Object> observable,
             Object oldValue,
@@ -371,6 +425,14 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
+    /**
+     * Assign the selected date to the selectedDate field and filter the time slots.
+     * 
+     * @param observable the object that wraps the currently selected date through which other objects can listen to changes
+     * @param oldValue the previously selected date
+     * @param newValue the currently selected date
+     */
+
     private void dateSelected(ObservableValue<? extends Object> observable,
             Object oldValue, Object newValue) {
         selectedDate = (LocalDate) newValue;
@@ -379,10 +441,23 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
+    /**
+     * Assign the selected tim slot value to the selectedTime field.
+     * 
+     * @param event The event of the user selecting an item form the time slots combobox
+     * @return void
+     */
     private void timeSelected(ActionEvent event) {
         selectedTime = (String) view.getTimeCbox().getValue();
     }
 
+    /**
+     * Check if all required fields are set before saving the appointment. 
+     * If any of the required fields are not set, an alert is shown to the user.
+     * 
+     * @return Validate.OK if all required fields are set, Validate.FAIL otherwise
+     * @see Validate    
+     */
     private Validate checkUnsetValues() {
         Validate result = Validate.OK;
         if (selectedAnimal == null
@@ -395,6 +470,18 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         return result;
     }
 
+    /**
+     * Check if all required fields are set before saving the appointment. If all required fields
+     * are set, create a new Appoitment object and call the model's appropriate method to save the 
+     * appointment. Add the appointment to the calendar's map of appointments and show an alert to 
+     * the user to confirm that the appointment has been saved successfully.
+     * If not all required fields are set, show an alert to the user to inform them that they need to
+     * select an animal, vet, date, appointment type and time to save the create and save the 
+     * appointment.
+     * 
+     * @param event the event created by the user clicking the Save button
+     * @return void
+     */
     private void saveAppointment(ActionEvent event) {
 
         if (checkUnsetValues() == Validate.OK) {
@@ -407,7 +494,6 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
                     false);
             model.saveAppointment(appointment);
             calendar.addAppointmentToMap(appointment);
-            resetView();
             Alert alert = saveSuccessAlert(POJOName.APPOINTMENT);
             alert.show();
             view.close();
@@ -419,16 +505,15 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         }
     }
 
-    private void resetSelectedValues() {
-        selectedAnimal = null;
-        selectedDate = null;
-        selectedDate = null;
-        selectedVet = null;
-        selectedAppointmentType = null;
-    }
 
-    private void resetView() {
-        resetSelectedValues();
+
+    /**
+     *  Reset view components to their initial state. Clears all user selected values from the
+     *  view. Fileds that hold user input whose values are not set by listeners or event handlers 
+     *  are explicitly set back to their initial values.
+     *  @return void
+     */
+    private void resetView(ActionEvent event) {
         view.getAnimalSearchTextField().setText("");
         listViewAnimals.clear();
         listViewAnimals.addAll(animals);
@@ -438,11 +523,10 @@ public class AddAppointmentWindowController extends Controller<AddAppointmentWin
         view.getApptTypeToggleGroup().selectToggle(null);
         view.getApptDatePicker().setValue(null);
         cBoxTimeSlots.clear();
+        selectedAnimal = null;
+        selectedVet = null;
+        selectedTime = "";
 
-    }
-
-    private void resetView(ActionEvent event) {
-        resetView();
     }
 
 }

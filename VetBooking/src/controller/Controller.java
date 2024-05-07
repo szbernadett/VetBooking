@@ -21,6 +21,8 @@ import model.SerialisationDAO;
  *            source
  * 
  * @see CustomStage
+ * @see DAO
+ * @see SerialisationDAO
  */
 public abstract class Controller<T extends CustomStage> {
 

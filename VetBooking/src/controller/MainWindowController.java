@@ -24,8 +24,19 @@ import view.ViewAndSearchAnimalsWindow;
 import model.Record;
 
 /**
- *
- * @author igbin
+ * A controller class for the MainWindow component of the veterinary administration system.
+ * 
+ * - view the MainWindow view to be controlled
+ * - model the DAO implementation that communicates with the data source
+ * - selectedAppointment the currently selected appointment
+ * - allAppointments a list of all currently saved appointments
+ * - allRecords a list of all currently saved records
+ * 
+ * @see MainWindow
+ * @see DAO
+ * @see Appointment
+ * @see Record
+ * 
  */
 public class MainWindowController extends Controller<MainWindow> {
 
@@ -33,6 +44,14 @@ public class MainWindowController extends Controller<MainWindow> {
     private List<Appointment> allAppointments;
     private List<Record> allRecords;
 
+    /**
+     * Constructor for the MainWindowController class. Calls the superclass constructor,
+     * initialises the view components with data retrieved from the model and 
+     * sets the event handlers for the view elements that accept user interaction.
+     * 
+     * @param view the MainWindow view to be controlled
+     * @param model the DAO implementation that communicates with the data source
+     */
     public MainWindowController(MainWindow view, DAO model) {
         super(view, model);
         dataToView();
@@ -67,25 +86,6 @@ public class MainWindowController extends Controller<MainWindow> {
         }
     }
 
-    private void exitWindow(Event event) {
-        try {
-            model.saveAppointments();
-            model.saveAnimals();
-            model.saveAnimalTypes();
-            model.saveRecords();
-            view.close();
-        } catch (IOException ex) {
-            System.out.println(ex);
-            Alert alert = saveInterruptedAlert();
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.YES) {
-                view.close();
-            }
-
-        }
-
-    }
-
     public Appointment getSelectedAppointment() {
         return selectedAppointment;
     }
@@ -111,11 +111,51 @@ public class MainWindowController extends Controller<MainWindow> {
     }
 
     
+    /**
+     * Save all appointments, animals, animal types and records to the data source. If there is
+     * an exception preventing the model to persist data, an alert is shown to the user with an option to
+     * close the application without saving the data.
+     * 
+     * @param event the event created from the user pressing the Exit button or closing the window
+     * @return void
+     */
+    private void exitWindow(Event event) {
+        try {
+            model.save();
+            view.close();
+        } catch (IOException ex) {
+            System.out.println(ex);
+            Alert alert = saveInterruptedAlert();
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                view.close();
+            }
+
+        }
+
+    }
+
+    /**
+     * Set the selectedAppointment field to the value of the newly selected appointment in the table.
+     * 
+     * @param observable the observable value of the table
+     * @param oldValue the previously selected appointment
+     * @param newValue the newly selected appointment
+     * @return void
+     */
+
     private void appointmentSelected(ObservableValue<? extends Object> observable,
             Object oldValue, Object newValue) {
         selectedAppointment = (Appointment) newValue;
     }
 
+    /**
+     * Create and show and instance of the AddNewAnimalTypeWindow and its controller.
+     * @param event the event created from the user selecting the Add New Animal Type menu item
+     * @see AddNewAnimalTypeWindow
+     * @see AddNewAnimalTypeWindowController
+     * @return void
+     */
     private void openAddNewAnimalTypeWindow(ActionEvent event) {
         AddNewAnimalTypeWindow addNewAnimalTypeWin = new AddNewAnimalTypeWindow();
         AddNewAnimalTypeWindowController anatWinController
@@ -123,6 +163,14 @@ public class MainWindowController extends Controller<MainWindow> {
         addNewAnimalTypeWin.show();
     }
 
+    /**
+     * Create and show an instance of the AddAppointmentWindow and its controller.
+     * @param event the event created from the user pressing the Book button
+     * @see AddAppointmentWindow
+     * @see AddAppointmentWindowController
+     * @return void
+     * 
+     */
     private void openAddAppointmentWindow(ActionEvent event) {
         AddAppointmentWindow addAppointmentWin = new AddAppointmentWindow();
         AddAppointmentWindowController aawController = new AddAppointmentWindowController(
@@ -132,6 +180,13 @@ public class MainWindowController extends Controller<MainWindow> {
         addAppointmentWin.show();
     }
 
+    /**
+     * Create and show an instance of the ViewAndSearchAnimalsWindow and its controller.
+     * @param event the event created from the user selecting the View and Search Animals menu item
+     * @see ViewAndSearchAnimalsWindow
+     * @see ViewAndSearchController
+     * @return void
+     */
     private void openViewAndSearchAnimalsWindow(ActionEvent event) {
         ViewAndSearchAnimalsWindow viewAndSearchWin = new ViewAndSearchAnimalsWindow();
         ViewAndSearchController vasWinController = new ViewAndSearchController(
@@ -139,6 +194,13 @@ public class MainWindowController extends Controller<MainWindow> {
         viewAndSearchWin.show();
     }
 
+    /**
+     * Create and show an instance of the RegisterAnimalWindow and its controller.
+     * @param event the event created from the user selecting the Register Animal menu item
+     * @see RegisterAnimalWindow
+     * @see RegisterAnimalWindowController
+     * @return void
+     */
     private void openRegisterAnimalWindow(ActionEvent event) {
         RegisterAnimalWindow registerAnimalWin = new RegisterAnimalWindow();
         RegisterAnimalWindowController raWinController = 
@@ -146,6 +208,15 @@ public class MainWindowController extends Controller<MainWindow> {
         registerAnimalWin.show();
     }
 
+    /**
+     * Delete the selected appointment from the data source and the table. If no appointment is 
+     * selected, an alert is shown to the user.
+     * @param event the event created from the user pressing the Delete button
+     * @see POJOName
+     * @see noneSelectedAlert
+     * @see Appointment
+     * @return void
+     */
     private void deleteAppointment(ActionEvent event) {
         if (selectedAppointment != null) {
             model.deleteAppointment(selectedAppointment);
@@ -155,6 +226,14 @@ public class MainWindowController extends Controller<MainWindow> {
         }
     }
 
+    /**
+     * Check that there is an appointment selected and if so, create and show an instance of the EditAppointmentWindow
+     * and its controller. 
+     * @param event the event created from the user pressing the Edit button
+     * @see EditAppointmentWindow
+     * @see EditAppointmentWindowController
+     * @return void
+     */
     private void editAppointment(ActionEvent event) {
         if (selectedAppointment != null) {
             if (!selectedAppointment.getDate().isBefore(LocalDate.now())) {
@@ -180,6 +259,10 @@ public class MainWindowController extends Controller<MainWindow> {
         }
     }
 
+    /**
+     * Refresh the appointment table to reflect changes made to the data source in the view.
+     * @return void
+     */
     public void refreshTable() {
         view.getAppointmentTable().refresh();
     }

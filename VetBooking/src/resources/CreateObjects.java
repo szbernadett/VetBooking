@@ -1,5 +1,5 @@
 
-package model;
+package resources;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -7,14 +7,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+
+import model.Address;
+import model.Administrator;
+import model.Animal;
+import model.AnimalType;
+import model.Appointment;
+import model.Caretaker;
+import model.City;
+import model.DAO;
+import model.FarmAnimal;
+import model.Pet;
+import model.Postcode;
+import model.Record;
+import model.SerialisationDAO;
+import model.Vet;
+import model.ZooAnimal;
 import model.Address.LocationType;
 import model.Animal.DateOfBirth;
 import model.Animal.Gender;
 import model.AnimalType.SpecialistCategory;
 
 /**
- *
- * @author igbin
+ * CreateObjects class: A class whose main method creates objects of the classes in the model package and 
+ *                      saves them to files.
+ * 
  */
 public class CreateObjects {
 

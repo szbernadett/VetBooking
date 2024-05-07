@@ -44,6 +44,7 @@ public class AppointmentCalendar {
      *  Populates the bookedVetAppointmentsMap with the appointments in the list. 
      *  The map is organised first by vet, then by date and finally by time slot type.
      *  The time slot type key maps to a list of booked appointment times (time slot string values).
+     *  
      * 
      *  @param appointments List<Appointment> The list of appointments to populate the map with. 
      *  @return void                              
